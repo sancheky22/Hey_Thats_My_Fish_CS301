@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "Hey That's My Fish CS301"
