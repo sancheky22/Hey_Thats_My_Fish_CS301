@@ -11,19 +11,19 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/scoresTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Scores:" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/player1Score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Player 1:" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/player2Score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Player 2:" />
@@ -36,7 +36,7 @@
         android:orientation="vertical">
 
         <SurfaceView
-            android:id="@+id/surfaceView"
+            android:id="@+id/boardView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
@@ -58,7 +58,7 @@
                 android:layout_weight="1.1" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/pauseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -66,7 +66,7 @@
                 android:textSize="8sp" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/infoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -75,7 +75,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/player1PiecesLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -85,7 +85,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/player2PiecesLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
