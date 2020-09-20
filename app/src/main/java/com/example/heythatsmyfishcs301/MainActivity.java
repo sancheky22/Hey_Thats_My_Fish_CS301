@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    SurfaceView gameView = findViewById(R.id.boardView);
+    //SurfaceView gameView = findViewById(R.id.boardView);
 
 
 }

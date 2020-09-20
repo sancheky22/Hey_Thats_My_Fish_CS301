@@ -12,6 +12,7 @@ import java.text.AttributedCharacterIterator;
 public class hexagonPattern extends SurfaceView {
 
     private Rect test = null;
+    private HexagonDrawable hex;
 
     public hexagonPattern(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -21,9 +22,11 @@ public class hexagonPattern extends SurfaceView {
 
     @Override
     public void onDraw(Canvas canvas){
-        HexagonDrawable hex = new HexagonDrawable(Color.BLUE);
+        /*
+        hex = new HexagonDrawable(Color.BLUE);
         test = new Rect(10,10,100,100);
         hex.computeHex(test);
         hex.draw(canvas);
+         */
     }
 }
