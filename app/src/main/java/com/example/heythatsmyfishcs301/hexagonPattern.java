@@ -14,6 +14,8 @@ public class hexagonPattern extends SurfaceView {
 
     private Rect test = null;
     private Paint testPaint = new Paint();
+    private HexagonDrawable hex;
+
 
     public hexagonPattern(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -21,12 +23,12 @@ public class hexagonPattern extends SurfaceView {
         testPaint.setColor(Color.CYAN);
         testPaint.setStyle(Paint.Style.STROKE);
         testPaint.setStrokeWidth(5.0f);
-
+        setBackgroundColor(Color.WHITE);
     }
 
     @Override
     public void onDraw(Canvas canvas){
-        HexagonDrawable hex = new HexagonDrawable(Color.BLUE);
+        hex = new HexagonDrawable(Color.CYAN);
         test = new Rect(10,10,100,100);
         hex.computeHex(test);
         hex.draw(canvas);

@@ -35,8 +35,8 @@
         android:layout_weight="0.6"
         android:orientation="vertical">
 
-        <SurfaceView
-            android:id="@+id/boardView"
+        <com.example.heythatsmyfishcs301.hexagonPattern
+            android:id="@+id/hexagonPattern"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
