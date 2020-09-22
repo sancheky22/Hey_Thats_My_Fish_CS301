@@ -107,10 +107,6 @@ public class hexagonPattern extends SurfaceView {
         //This loop will draw the hexagonal array.
         for(int i=0;i<=8;i++) {
 
-
-
-
-
             //Draws even rows
             if (i%2==0) {
                 numRows = 8;
@@ -128,6 +124,17 @@ public class hexagonPattern extends SurfaceView {
             //This is where each hexagon is drawn. Each hexagon in this loop is drawn at the location of 'tile'.
             //Tile is a Rect object, so it has a left, top, right, and bottom and you can use those coordinates to draw whatever you want on a hexagon
             for (int j = 0; j < numRows; j++) {
+
+                //Missing Tiles Example
+                if((i==1 && j==4)||(i==3&&j==5)||(i==2&&j==2)||(i==5&&j==2)||(i==5&&j==5)) {
+                    tile.left += hexWidth;
+                    tile.right += hexWidth;
+                    bigTile.left += hexWidth;
+                    bigTile.right += hexWidth;
+                    continue;
+                }
+
+
                 bigHex.computeHex(bigTile);
                 bigHex.draw(c);
                 hex.computeHex(tile);
