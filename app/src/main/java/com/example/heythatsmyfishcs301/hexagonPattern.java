@@ -172,13 +172,7 @@ public class hexagonPattern extends SurfaceView {
                 }
                 else if(i == 1 && j == 6)
                 {
-
-                    testPaint.setColor(Color.GREEN);
-                    c.drawBitmap(this.resizedRedPenguin, 0.0f, 300.0f, null);
-                    //c.drawCircle((tile.left + tile.right) / 2, (tile.top + tile.bottom) / 2, hexWidth / 4, testPaint);
-
                     c.drawBitmap(this.resizedOrangePenguin, 0.1f*hexWidth+tile.left, tile.top, null);
-
                 }
 
                 //We will absolutely not do it this way, but for now we can index hexagons like this.
