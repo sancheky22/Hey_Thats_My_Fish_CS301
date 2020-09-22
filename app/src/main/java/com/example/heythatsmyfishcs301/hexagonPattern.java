@@ -37,7 +37,7 @@ public class hexagonPattern extends SurfaceView {
         SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
         ((SurfaceHolder) sfhTrackHolder).setFormat(PixelFormat.TRANSPARENT);
 
-        testPaint.setColor(Color.CYAN);
+        testPaint.setColor(Color.WHITE);
     }
 
 
@@ -63,10 +63,10 @@ public class hexagonPattern extends SurfaceView {
         tile = new Rect(0,0,hexWidth,hexHeight);
 
         //This loop will draw the hexagonal array.
-        for(int j=0;j<=8;j++) {
+        for(int i=0;i<=8;i++) {
 
             //Draws even rows
-            if (j%2==0) {
+            if (i%2==0) {
                 numRows = 8;
             }
             //Draws Odd rows
@@ -77,9 +77,37 @@ public class hexagonPattern extends SurfaceView {
             }
 
             //Loop through each column to draw a hexagon at that point.
-            for (int i = 0; i < numRows; i++) {
+            //This is where each hexagon is drawn. Each hexagon in this loop is drawn at the location of 'tile'.
+            //Tile is a Rect object, so it has a left, top, right, and bottom and you can use those coordinates to draw whatever you want on a hexagon
+            for (int j = 0; j < numRows; j++) {
                 hex.computeHex(tile);
                 hex.draw(c);
+
+
+
+                //TEMPORARY CODE FOR HW 1
+                //This is an example of drawing a small white circle on a specific hexagon:
+                if (i == 1 && j == 0) {
+                    testPaint.setColor(Color.WHITE);
+                    //you can access the location of the hexagons with tile.left, tile.right, etc.
+                    c.drawCircle((tile.left + tile.right) / 2, (tile.top + tile.bottom) / 2, hexWidth / 4, testPaint);
+                }
+
+                //If you wanted to access the top left corner of the hexagon, you would use: (tile.left, tile.top)
+
+                //If you want to draw it to multiple hexagons you could do something like this:
+                if ((i+j)%3 == 0)
+                {
+                    testPaint.setColor(Color.GREEN);
+                    c.drawCircle((tile.left + tile.right) / 2, (tile.top + tile.bottom) / 2, hexWidth / 4, testPaint);
+                }
+
+                //We will absolutely not do it this way, but for now we can index hexagons like this.
+                //I think in the future we will create a real Tile class which will contain instance variables like: numFish, isGone, and have methods like getNeighbors().
+                //I think this is sufficient for now, and just call me if there's anything you need, Ryan
+
+
+
                 tile.left += hexWidth;
                 tile.right += hexWidth;
             }
