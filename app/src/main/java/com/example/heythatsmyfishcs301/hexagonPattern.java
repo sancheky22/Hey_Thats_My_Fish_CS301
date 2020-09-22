@@ -23,7 +23,7 @@ public class hexagonPattern extends SurfaceView {
     private int hexWidth;
     private int hexHeight;
     private int hexMargin;
-    private HexagonDrawable hex = new HexagonDrawable(Color.CYAN);
+    private HexagonDrawable hex = new HexagonDrawable(0xFFC3F9FF);
     private Rect tile;
     Bitmap redPenguin = null;
     Bitmap resizedRedPenguin = null;
