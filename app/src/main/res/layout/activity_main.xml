@@ -18,22 +18,16 @@
             android:text="Scores:"
             android:textSize="35sp" />
 
-        <TextView
-            android:id="@+id/player1Score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Player 1:" />
-
-        <TextView
-            android:id="@+id/player2Score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Player 2:" />
-
         <com.example.heythatsmyfishcs301.scoresDrawings
             android:id="@+id/scoresDrawings"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/orangefish" />
 
     </LinearLayout>
 

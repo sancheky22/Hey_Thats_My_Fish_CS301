@@ -19,10 +19,16 @@ public class scoresDrawings extends SurfaceView {
     Bitmap resizedOrange = null;
     Bitmap resizedRed = null;
     Bitmap resizedBlue = null;
+    int numOrangeFish = 12;
+    int numRedFish = 23;
+    private Paint black = new Paint();
 
     public scoresDrawings(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
+
+        black.setColor(Color.BLACK);
+        black.setTextSize(50);
 
         /**
          *External Citation
@@ -59,11 +65,24 @@ public class scoresDrawings extends SurfaceView {
         resizedBlue = Bitmap.createScaledBitmap(blueFish, 300, 300, false);
 
 
+
     }
     @Override
     public void onDraw(Canvas canvas) {
         canvas.drawBitmap(this.resizedOrange, 1.0f, 1.0f, null);
         canvas.drawBitmap(this.resizedRed, 0.0f, 300.0f, null);
+
+        /**
+         *External Citation
+         * Date: 9/18/20
+         * Problem: Forgot how to turn an int into a string
+         * Resource: https://www.geeksforgeeks.org/different-ways-for-integer-to-string-conversions-in-java/
+         * Created by: Geeksforgeeks (12/08/2020)
+         *
+         * Solution: Used the Integer.toString method shown on the website
+         */
+        canvas.drawText(Integer.toString(numOrangeFish), (float)140.0, (float)160.0, black);
+        canvas.drawText(Integer.toString(numRedFish), (float)140.0, (float)465.0, black);
     }
 
 }

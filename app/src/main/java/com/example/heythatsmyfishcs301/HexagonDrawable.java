@@ -9,10 +9,6 @@ import android.graphics.drawable.Drawable;
 //import android.util.FloatMath;
 import java.lang.Math;
 
-
-
-
-
 /**
  * External Citation
  * Date:    9/20/20
