@@ -1,6 +1,8 @@
 package com.example.heythatsmyfishcs301;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -22,6 +24,8 @@ public class hexagonPattern extends SurfaceView {
     private int hexMargin;
     private HexagonDrawable hex = new HexagonDrawable(Color.CYAN);
     private Rect tile;
+    Bitmap redPenguin = null;
+    Bitmap resizedRedPenguin = null;
 
     private Paint testPaint = new Paint();
 
@@ -38,6 +42,9 @@ public class hexagonPattern extends SurfaceView {
         ((SurfaceHolder) sfhTrackHolder).setFormat(PixelFormat.TRANSPARENT);
 
         testPaint.setColor(Color.WHITE);
+        redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
+        resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, 150, 150, false);
+
     }
 
 
@@ -99,6 +106,7 @@ public class hexagonPattern extends SurfaceView {
                 if ((i+j)%3 == 0)
                 {
                     testPaint.setColor(Color.GREEN);
+                    c.drawBitmap(this.resizedRedPenguin, 0.0f, 300.0f, null);
                     c.drawCircle((tile.left + tile.right) / 2, (tile.top + tile.bottom) / 2, hexWidth / 4, testPaint);
                 }
 
