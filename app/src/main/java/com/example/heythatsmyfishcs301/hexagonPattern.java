@@ -46,8 +46,8 @@ public class hexagonPattern extends SurfaceView {
     public void drawHex(Canvas c){
         for (int i=0;i<=8;i++)
         {
-            test.left += hexMargin+hexWidth;
-            test.right += hexMargin+hexWidth;
+            test.left += hexWidth;
+            test.right += hexWidth;
             hex.computeHex(test);
             hex.draw(c);
         }
