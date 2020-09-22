@@ -137,13 +137,13 @@ public class hexagonPattern extends SurfaceView {
                 Random rand = new Random();
                 randTile = 1+rand.nextInt(3);
                 if(randTile == 1){
-                    c.drawBitmap(this.rOneFish, 0.1f*hexWidth+tile.left, tile.top, null);
+                    c.drawBitmap(this.rOneFish, 0.18f*hexWidth+tile.left, 0.10f*hexWidth+tile.top, null);
                 }
                 else if(randTile == 2){
-                    c.drawBitmap(this.rTwoFish, 0.1f*hexWidth+tile.left, tile.top, null);
+                    c.drawBitmap(this.rTwoFish, 0.18f*hexWidth+tile.left, 0.10f*hexWidth+tile.top, null);
                 }
                 else if(randTile == 3){
-                    c.drawBitmap(this.rThreeFish, 0.1f*hexWidth+tile.left, tile.top, null);
+                    c.drawBitmap(this.rThreeFish, 0.18f*hexWidth+tile.left, 0.10f*hexWidth+tile.top, null);
                 }
 
 
