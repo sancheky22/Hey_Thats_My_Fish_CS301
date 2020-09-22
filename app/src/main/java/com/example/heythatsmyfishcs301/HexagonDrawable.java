@@ -79,18 +79,22 @@ public class HexagonDrawable extends Drawable {
     }
 
     private Path createHexagon(int size, int centerX, int centerY) {
+        //Define an offset for the angle that the path is calculated on.
+        float offset = (float) Math.PI/2.0f;
         final float section = (float) ((2.0 * Math.PI)/ SIDES);
         int radius = size / 2;
         Path hex = temporal;
         hex.reset();
+        //Initial path point
         hex.moveTo(
-                (centerX + radius * (float) Math.cos(0)),
-                (centerY + radius * (float) Math.sin(0)));
+                (centerX + radius * (float) Math.cos(offset)),
+                (centerY + radius * (float) Math.sin(offset)));
 
         for (int i = 1; i < SIDES; i++) {
             hex.lineTo(
-                    (centerX + radius * (float) Math.cos(section * i)),
-                    (centerY + radius * (float) Math.sin(section * i)));
+                    //Add the offset angle at the end to find the next point
+                    (centerX + radius * (float) Math.cos((section * i)+offset)),
+                    (centerY + radius * (float) Math.sin((section * i)+offset)));
         }
 
         hex.close();
