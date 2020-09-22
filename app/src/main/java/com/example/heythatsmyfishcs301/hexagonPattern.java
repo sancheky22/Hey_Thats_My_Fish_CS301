@@ -23,7 +23,7 @@ public class hexagonPattern extends SurfaceView {
     private int hexWidth;
     private int hexHeight;
     private int hexMargin;
-    private HexagonDrawable hex = new HexagonDrawable(0xFFC3F9FF);
+    private HexagonDrawable hex = new HexagonDrawable(Color.CYAN);
     private Rect tile;
     Bitmap redPenguin = null;
     Bitmap resizedRedPenguin = null;
@@ -50,7 +50,16 @@ public class hexagonPattern extends SurfaceView {
         super(context, attrs);
         setWillNotDraw(false);
 
-        //add external citation here
+        /**
+         *External Citation
+         * Date: 9/18/20
+         * Problem: Wanted the background of the surfaceview to be transparent instead of black
+         * Resource: https://stackoverflow.com/questions/5391089/how-to-make-surfaceview-transparent
+         *
+         * Created by: Jens Jensen (4/14/2014)
+         *
+         * Solution: We copied these lines of code into our constructor to get rid of the black background
+         */
         SurfaceView sfvTrack = (SurfaceView)findViewById(R.id.hexagonPattern);
         sfvTrack.setZOrderOnTop(true);    // necessary
         SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
@@ -60,9 +69,9 @@ public class hexagonPattern extends SurfaceView {
         oneFish = BitmapFactory.decodeResource(getResources(), R.drawable.onefishtile);
         twoFish = BitmapFactory.decodeResource(getResources(), R.drawable.twofishtile);
         threeFish = BitmapFactory.decodeResource(getResources(), R.drawable.threefishtile);
-        rOneFish = Bitmap.createScaledBitmap(oneFish, 50, 50, false);
-        rTwoFish = Bitmap.createScaledBitmap(twoFish, 50, 50, false);
-        rThreeFish = Bitmap.createScaledBitmap(threeFish, 50, 50, false);
+        rOneFish = Bitmap.createScaledBitmap(oneFish, 90, 90, false);
+        rTwoFish = Bitmap.createScaledBitmap(twoFish, 90, 90, false);
+        rThreeFish = Bitmap.createScaledBitmap(threeFish, 90, 90, false);
 
         redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
         resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, 115, 115, false);
@@ -121,13 +130,13 @@ public class hexagonPattern extends SurfaceView {
                 Random rand = new Random();
                 randTile = 1+rand.nextInt(3);
                 if(randTile == 1){
-                    c.drawBitmap(this.rOneFish, (float)(tile.left + tile.right) / 2, (float)(tile.top + tile.bottom) / 2, null);
+                    c.drawBitmap(this.rOneFish, 0.1f*hexWidth+tile.left, tile.top, null);
                 }
                 else if(randTile == 2){
-                    c.drawBitmap(this.rTwoFish, (float)(tile.left + tile.right) / 2, (float)(tile.top + tile.bottom) / 2, null);
+                    c.drawBitmap(this.rTwoFish, 0.1f*hexWidth+tile.left, tile.top, null);
                 }
                 else if(randTile == 3){
-                    c.drawBitmap(this.rThreeFish, (float)(tile.left + tile.right) / 2, (float)(tile.top + tile.bottom) / 2, null);
+                    c.drawBitmap(this.rThreeFish, 0.1f*hexWidth+tile.left, tile.top, null);
                 }
 
 
