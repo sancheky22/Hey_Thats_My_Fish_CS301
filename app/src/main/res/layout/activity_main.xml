@@ -99,13 +99,6 @@
             android:textColorHighlight="#FFFFFF"
             android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/Game"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hey That's My Fish!"
-            android:textSize="30sp" />
-
     </LinearLayout>
 
 </LinearLayout>
