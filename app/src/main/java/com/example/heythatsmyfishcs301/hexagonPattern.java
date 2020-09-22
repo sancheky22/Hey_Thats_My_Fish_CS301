@@ -96,8 +96,7 @@ public class hexagonPattern extends SurfaceView {
         //This loop will draw the hexagonal array.
         for(int i=0;i<=8;i++) {
 
-            Random rand = new Random();
-            randTile = rand.nextInt(3);
+
 
 
 
@@ -119,14 +118,16 @@ public class hexagonPattern extends SurfaceView {
                 hex.computeHex(tile);
                 hex.draw(c);
 
+                Random rand = new Random();
+                randTile = 1+rand.nextInt(3);
                 if(randTile == 1){
-                    c.drawBitmap(this.rOneFish, (float)tile.left + tile.right / 2, (float)(tile.top + tile.bottom) / 2, null);
+                    c.drawBitmap(this.rOneFish, (float)(tile.left + tile.right) / 2, (float)(tile.top + tile.bottom) / 2, null);
                 }
                 else if(randTile == 2){
-                    c.drawBitmap(this.rTwoFish, (float)tile.left + tile.right / 2, (float)(tile.top + tile.bottom) / 2, null);
+                    c.drawBitmap(this.rTwoFish, (float)(tile.left + tile.right) / 2, (float)(tile.top + tile.bottom) / 2, null);
                 }
                 else if(randTile == 3){
-                    c.drawBitmap(this.rThreeFish, (float)tile.left + tile.right / 2, (float)(tile.top + tile.bottom) / 2, null);
+                    c.drawBitmap(this.rThreeFish, (float)(tile.left + tile.right) / 2, (float)(tile.top + tile.bottom) / 2, null);
                 }
 
 
