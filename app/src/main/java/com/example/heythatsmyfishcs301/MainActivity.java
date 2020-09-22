@@ -1,12 +1,7 @@
 package com.example.heythatsmyfishcs301;
 
-import android.app.Activity;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 
-import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
