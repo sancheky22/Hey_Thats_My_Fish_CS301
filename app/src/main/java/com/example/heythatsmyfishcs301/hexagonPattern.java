@@ -11,7 +11,7 @@ import android.view.SurfaceView;
 import android.graphics.Rect;
 
 import java.text.AttributedCharacterIterator;
-
+//Use this
 public class hexagonPattern extends SurfaceView {
 
     private int hexWidth = 200;
