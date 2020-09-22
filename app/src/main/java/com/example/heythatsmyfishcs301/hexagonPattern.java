@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.util.AttributeSet;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.graphics.Rect;
 
@@ -20,10 +22,16 @@ public class hexagonPattern extends SurfaceView {
     public hexagonPattern(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
+
+        //add external citation here
+        SurfaceView sfvTrack = (SurfaceView)findViewById(R.id.hexagonPattern);
+        sfvTrack.setZOrderOnTop(true);    // necessary
+        SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
+        ((SurfaceHolder) sfhTrackHolder).setFormat(PixelFormat.TRANSPARENT);
+
         testPaint.setColor(Color.CYAN);
         testPaint.setStyle(Paint.Style.STROKE);
         testPaint.setStrokeWidth(5.0f);
-        setBackgroundColor(Color.WHITE);
     }
 
     @Override

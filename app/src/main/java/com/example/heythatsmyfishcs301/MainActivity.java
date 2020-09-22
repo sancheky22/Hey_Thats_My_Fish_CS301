@@ -18,11 +18,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-        //SurfaceView sfvTrack = (SurfaceView)findViewById(R.id.boardView);
-        //sfvTrack.setZOrderOnTop(true);    // necessary
-        //SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
-        //sfhTrackHolder.setFormat(PixelFormat.TRANSPARENT);
+
     }
 
 
-}
+
