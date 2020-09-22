@@ -26,6 +26,8 @@ public class hexagonPattern extends SurfaceView {
     private Rect tile;
     Bitmap redPenguin = null;
     Bitmap resizedRedPenguin = null;
+    Bitmap orangePenguin = null;
+    Bitmap resizedOrangePenguin = null;
 
     private Paint testPaint = new Paint();
 
@@ -43,7 +45,9 @@ public class hexagonPattern extends SurfaceView {
 
         testPaint.setColor(Color.WHITE);
         redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
-        resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, 150, 150, false);
+        resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, 115, 115, false);
+        orangePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
+        resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, 115, 115, false);
 
     }
 
@@ -94,20 +98,46 @@ public class hexagonPattern extends SurfaceView {
 
                 //TEMPORARY CODE FOR HW 1
                 //This is an example of drawing a small white circle on a specific hexagon:
-                if (i == 1 && j == 0) {
-                    testPaint.setColor(Color.WHITE);
+               // if (i == 1 && j == 0) {
+                   // testPaint.setColor(Color.WHITE);
                     //you can access the location of the hexagons with tile.left, tile.right, etc.
-                    c.drawCircle((tile.left + tile.right) / 2, (tile.top + tile.bottom) / 2, hexWidth / 4, testPaint);
-                }
+                    //c.drawCircle((tile.left + tile.right) / 2, (tile.top + tile.bottom) / 2, hexWidth / 4, testPaint);
+               // }
 
                 //If you wanted to access the top left corner of the hexagon, you would use: (tile.left, tile.top)
 
                 //If you want to draw it to multiple hexagons you could do something like this:
-                if ((i+j)%3 == 0)
+                if ( i == 3 && j == 0)
                 {
-                    testPaint.setColor(Color.GREEN);
-                    c.drawBitmap(this.resizedRedPenguin, 0.0f, 300.0f, null);
-                    c.drawCircle((tile.left + tile.right) / 2, (tile.top + tile.bottom) / 2, hexWidth / 4, testPaint);
+                    c.drawBitmap(this.resizedRedPenguin, 0.1f*hexWidth+tile.left, tile.top, null);
+                }
+                else if(i == 2 && j == 0)
+                {
+                    c.drawBitmap(this.resizedOrangePenguin, 0.1f*hexWidth+tile.left, tile.top, null);
+                }
+                else if(i == 6 && j == 4)
+                {
+                    c.drawBitmap(this.resizedRedPenguin, 0.1f*hexWidth+tile.left, tile.top, null);
+                }
+                else if(i == 3 && j == 4)
+                {
+                    c.drawBitmap(this.resizedOrangePenguin, 0.1f*hexWidth+tile.left, tile.top, null);
+                }
+                else if(i == 5 && j == 1)
+                {
+                    c.drawBitmap(this.resizedRedPenguin, 0.1f*hexWidth+tile.left, tile.top, null);
+                }
+                else if(i == 7 && j == 2)
+                {
+                    c.drawBitmap(this.resizedOrangePenguin, 0.1f*hexWidth+tile.left, tile.top, null);
+                }
+                else if(i == 4 && j == 3)
+                {
+                    c.drawBitmap(this.resizedRedPenguin, 0.1f*hexWidth+tile.left, tile.top, null);
+                }
+                else if(i == 1 && j == 6)
+                {
+                    c.drawBitmap(this.resizedOrangePenguin, 0.1f*hexWidth+tile.left, tile.top, null);
                 }
 
                 //We will absolutely not do it this way, but for now we can index hexagons like this.
