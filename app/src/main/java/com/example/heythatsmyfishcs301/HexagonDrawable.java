@@ -39,7 +39,7 @@ public class HexagonDrawable extends Drawable {
 
     public HexagonDrawable(int color) {
         paint.setColor(color);
-        hexagon.setFillType(Path.FillType.EVEN_ODD);
+        //hexagon.setFillType(Path.FillType.EVEN_ODD);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class HexagonDrawable extends Drawable {
     }
 
     private Path createHexagon(int size, int centerX, int centerY) {
-        final float section = (float) (2.0 * Math.PI / SIDES);
+        final float section = (float) ((2.0 * Math.PI)/ SIDES);
         int radius = size / 2;
         Path hex = temporal;
         hex.reset();
