@@ -23,8 +23,10 @@ public class hexagonPattern extends SurfaceView {
     private int hexWidth;
     private int hexHeight;
     private int hexMargin;
-    private HexagonDrawable hex = new HexagonDrawable(Color.CYAN);
+    private HexagonDrawable hex = new HexagonDrawable(0xFFC3F9FF);
+    private HexagonDrawable bigHex = new HexagonDrawable(0xFF5685C5);
     private Rect tile;
+    private Rect bigTile;
     Bitmap redPenguin = null;
     Bitmap resizedRedPenguin = null;
 
@@ -101,7 +103,7 @@ public class hexagonPattern extends SurfaceView {
 
         //Size of each individual tile
         tile = new Rect(0,0,hexWidth,hexHeight);
-
+        bigTile = new Rect(0,0,cWidth/7,cHeight/7);
         //This loop will draw the hexagonal array.
         for(int i=0;i<=8;i++) {
 
@@ -116,6 +118,8 @@ public class hexagonPattern extends SurfaceView {
             //Draws Odd rows
             else{
                 numRows = 7;
+                bigTile.left+=hexWidth/2;
+                bigTile.right+=hexWidth/2;
                 tile.left += hexWidth/2;
                 tile.right += hexWidth/2;
             }
@@ -124,8 +128,11 @@ public class hexagonPattern extends SurfaceView {
             //This is where each hexagon is drawn. Each hexagon in this loop is drawn at the location of 'tile'.
             //Tile is a Rect object, so it has a left, top, right, and bottom and you can use those coordinates to draw whatever you want on a hexagon
             for (int j = 0; j < numRows; j++) {
+                bigHex.computeHex(bigTile);
+                bigHex.draw(c);
                 hex.computeHex(tile);
                 hex.draw(c);
+
 
                 Random rand = new Random();
                 randTile = 1+rand.nextInt(3);
@@ -194,6 +201,8 @@ public class hexagonPattern extends SurfaceView {
 
                 tile.left += hexWidth;
                 tile.right += hexWidth;
+                bigTile.left += hexWidth;
+                bigTile.right += hexWidth;
             }
 
             //Reset hexagon values after row is drawn.
@@ -201,6 +210,11 @@ public class hexagonPattern extends SurfaceView {
             tile.bottom += hexHeight;
             tile.left = 0;
             tile.right = hexWidth;
+
+            bigTile.top += hexHeight;
+            bigTile.bottom += hexHeight;
+            bigTile.left = 0;
+            bigTile.right = hexWidth;
 
         }
     }
