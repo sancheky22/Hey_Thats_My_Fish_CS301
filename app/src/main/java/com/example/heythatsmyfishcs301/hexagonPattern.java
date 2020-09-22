@@ -190,7 +190,6 @@ public class hexagonPattern extends SurfaceView {
 
                 tile.left += hexWidth;
                 tile.right += hexWidth;
-                //fdgg
             }
 
             //Reset hexagon values after row is drawn.
