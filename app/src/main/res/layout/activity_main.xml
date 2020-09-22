@@ -41,7 +41,7 @@
         <com.example.heythatsmyfishcs301.hexagonPattern
             android:id="@+id/hexagonPattern"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <LinearLayout
@@ -84,19 +84,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="30dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="60dp"
             android:text="Player 1 Pieces:"
-            android:textSize="12sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/player2PiecesLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="40dp"
             android:text="Player 2 Pieces:"
             android:textColorHighlight="#FFFFFF"
-            android:textSize="12sp" />
+            android:textSize="30sp" />
 
     </LinearLayout>
 
