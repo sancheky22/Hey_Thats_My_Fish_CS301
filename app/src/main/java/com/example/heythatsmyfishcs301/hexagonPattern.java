@@ -14,10 +14,12 @@ import java.text.AttributedCharacterIterator;
 
 public class hexagonPattern extends SurfaceView {
 
-    private Rect test = null;
+    private int hexWidth = 200;
+    private int hexHeight = 200;
+    private int hexMargin = 10;
     private Paint testPaint = new Paint();
-    private HexagonDrawable hex;
-
+    private HexagonDrawable hex = new HexagonDrawable(Color.CYAN);
+    private Rect test = new Rect(10,10,100,100);
 
     public hexagonPattern(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -30,17 +32,26 @@ public class hexagonPattern extends SurfaceView {
         ((SurfaceHolder) sfhTrackHolder).setFormat(PixelFormat.TRANSPARENT);
 
         testPaint.setColor(Color.CYAN);
-        testPaint.setStyle(Paint.Style.STROKE);
         testPaint.setStrokeWidth(5.0f);
     }
 
     @Override
     public void onDraw(Canvas canvas){
-        hex = new HexagonDrawable(Color.CYAN);
-        test = new Rect(10,10,100,100);
-        hex.computeHex(test);
-        hex.draw(canvas);
 
-        canvas.drawRect(100.0f,100.0f,500.0f,500.0f,testPaint);
+        //setBackgroundColor(Color.WHITE);
+        drawHex(canvas);
+
+    }
+
+    public void drawHex(Canvas c){
+        for (int i=0;i<=8;i++)
+        {
+            test.left += hexMargin+hexWidth;
+            test.right += hexMargin+hexWidth;
+            hex.computeHex(test);
+            hex.draw(c);
+        }
+
+
     }
 }

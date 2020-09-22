@@ -33,4 +33,3 @@ public class scoresDrawings extends SurfaceView {
         canvas.drawBitmap(this.orangeFish, 1.0f, 1.0f, null);
     }
 }
-
