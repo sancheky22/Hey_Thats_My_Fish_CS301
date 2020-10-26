@@ -20,7 +20,6 @@ import java.lang.Math;
  * This class was created in 2014 when the FloatMath library was faster than the Math library
  * Since then, the Math library was improved and FloatMath was left deprecated in API level 22
  * So we have slightly modified this class to make it compatible with our project.
- *
  */
 
 
