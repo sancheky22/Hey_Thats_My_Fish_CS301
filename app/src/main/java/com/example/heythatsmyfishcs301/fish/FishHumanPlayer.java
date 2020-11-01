@@ -1,6 +1,8 @@
 package com.example.heythatsmyfishcs301.fish;
 
+import android.app.Activity;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.heythatsmyfishcs301.R;
 import com.example.heythatsmyfishcs301.game.GameHumanPlayer;
