@@ -13,6 +13,9 @@ public class FishMainActivity extends GameMainActivity {
 
     // media player can go here for sounds
 
+    // the port number that this game will use when playing over the network
+    private static final int PORT_NUMBER = 2234;
+
     @Override
     public GameConfig createDefaultConfig() {
 
@@ -22,7 +25,7 @@ public class FishMainActivity extends GameMainActivity {
         // GUI
         playerTypes.add(new GamePlayerType("Local Human Player (human)") {
             public GamePlayer createPlayer(String name) {
-                return new FishHumanPlayer(name, R.layout.activity_main);
+                return new FishHumanPlayer(name);
             }
         });
 
@@ -42,13 +45,17 @@ public class FishMainActivity extends GameMainActivity {
         });*/
 
         // Create a game configuration class
-        GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "BattleShip", PORT_NUMBER);
+        GameConfig defaultConfig = new GameConfig(playerTypes, 2, 4, "Hey That's My Fish", PORT_NUMBER);
         // Add the default players
         defaultConfig.addPlayer("Human", 0); // GUI
         defaultConfig.addPlayer("Computer 1", 1); // dumb computer player
         defaultConfig.addPlayer("Computer 2",2); // smart computer player
-        // Set the initial information for the remote player
-        defaultConfig.setRemoteData("Remote Player", "", 1); // remote player GUI
+
+        // Set the default remote-player setup:
+        // - player name: "Remote Player"
+        // - IP code: (empty string)
+        // - default player type: human player
+        //defaultConfig.setRemoteData("Remote Player", "", 0); // remote player GUI
         //done!
         return defaultConfig;
     }
