@@ -19,7 +19,7 @@
             android:text="Scores:"
             android:textSize="35sp" />
 
-        <com.example.heythatsmyfishcs301.scoresDrawings
+        <com.example.heythatsmyfishcs301.fish.scoresDrawings
             android:id="@+id/scoresDrawings"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -38,7 +38,7 @@
         android:layout_weight="0.6"
         android:orientation="vertical">
 
-        <com.example.heythatsmyfishcs301.hexagonPattern
+        <com.example.heythatsmyfishcs301.fish.hexagonPattern
             android:id="@+id/hexagonPattern"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

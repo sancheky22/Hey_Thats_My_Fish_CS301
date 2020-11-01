@@ -1,4 +1,4 @@
-package com.example.heythatsmyfishcs301;
+package com.example.heythatsmyfishcs301.fish;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,7 +12,9 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.graphics.Rect;
 
-import java.text.AttributedCharacterIterator;
+import com.example.heythatsmyfishcs301.R;
+import com.example.heythatsmyfishcs301.fish.HexagonDrawable;
+
 import java.util.Random;
 
 public class hexagonPattern extends SurfaceView {

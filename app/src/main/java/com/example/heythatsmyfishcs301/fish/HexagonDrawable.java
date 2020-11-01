@@ -1,4 +1,4 @@
-package com.example.heythatsmyfishcs301;
+package com.example.heythatsmyfishcs301.fish;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;

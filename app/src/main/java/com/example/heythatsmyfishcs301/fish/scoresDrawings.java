@@ -1,4 +1,4 @@
-package com.example.heythatsmyfishcs301;
+package com.example.heythatsmyfishcs301.fish;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,6 +10,8 @@ import android.graphics.PixelFormat;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.example.heythatsmyfishcs301.R;
 
 public class scoresDrawings extends SurfaceView {
 
