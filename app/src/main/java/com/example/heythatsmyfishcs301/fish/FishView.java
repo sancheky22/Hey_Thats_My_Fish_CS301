@@ -21,6 +21,7 @@ public class FishView extends SurfaceView {
 
     //instance variables necessary to draw the initial board state
 
+    private FishGameState gameState = new FishGameState();
     private int cWidth;
     private int cHeight;
     private int hexWidth;
@@ -65,7 +66,7 @@ public class FishView extends SurfaceView {
          *
          * Solution: We copied these lines of code into our constructor to get rid of the black background
          */
-        SurfaceView sfvTrack = (SurfaceView)findViewById(R.id.hexagonPattern);
+        SurfaceView sfvTrack = (SurfaceView)findViewById(R.id.fishView);
         sfvTrack.setZOrderOnTop(true);    // necessary
         SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
         ((SurfaceHolder) sfhTrackHolder).setFormat(PixelFormat.TRANSPARENT);
@@ -93,7 +94,8 @@ public class FishView extends SurfaceView {
         cHeight = canvas.getHeight();
 
         //setBackgroundColor(Color.WHITE);
-        drawHex(canvas);
+        //drawHex(canvas);
+        drawBoard(canvas,gameState);
     }
 
 
@@ -107,6 +109,7 @@ public class FishView extends SurfaceView {
         int hexHeight = cHeight/8;
         int hexWidth = cWidth/8;
 
+
         //This Rect object is where we draw the hexagon. We will move it kind of like a stencil and then draw the hexagon
         Rect bound = new Rect(0,0, hexWidth, hexHeight);
 
@@ -114,8 +117,8 @@ public class FishView extends SurfaceView {
         //If it is a tile that exists, we draw it.
         //Increment the Rect bound object
         //At the end of the row, reset bound to the start.
-        for (int i=0; i<= board.length; i++){
-            for (int j=0; j<= board[i].length; j++){
+        for (int i=0; i < board.length; i++){
+            for (int j=0; j < board[i].length; j++){
                 if (board[i][j] == null){
                     continue;
                 }
@@ -155,7 +158,7 @@ public class FishView extends SurfaceView {
             //If the next line is even, set the left and right bounds to 0
             //If it's odd, offset it by a little bit.
             bound.left = ((i+1)%2)*hexWidth/2;
-            bound.right = ((i+1)%2)*3*hexWidth/2;
+            bound.right = ((i+1)%2)*hexWidth/2 + hexWidth;
             bound.bottom += hexHeight;
             bound.top += hexHeight;
         }
