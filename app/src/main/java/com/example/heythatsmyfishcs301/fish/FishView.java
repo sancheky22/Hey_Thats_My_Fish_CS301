@@ -13,14 +13,14 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.example.heythatsmyfishcs301.R;
+import com.example.heythatsmyfishcs301.game.LocalGame;
 
 import java.util.Random;
 
 public class FishView extends SurfaceView {
 
-
-
     //instance variables necessary to draw the initial board state
+
     private int cWidth;
     private int cHeight;
     private int hexWidth;
@@ -94,12 +94,85 @@ public class FishView extends SurfaceView {
 
         //setBackgroundColor(Color.WHITE);
         drawHex(canvas);
-
     }
 
 
     //This method uses the dimensions of the Canvas to draw a board of an appropriate size
+    //Each hexagon can fit into a Rect object as its bounds so we take a rect and draw a hexagon inside of it
+    //we also draw any other properties of the tile that need to be drawn (Fish and penguins).
+    //We repeat this process for all 8 rows and the end result is a complete board.
+    public void drawBoard(Canvas c, FishGameState g){
+        FishTile[][] board = g.getBoardState();
+        FishPenguin[][] penguins = g.getPieceArray();
+        int hexHeight = cHeight/8;
+        int hexWidth = cWidth/8;
+
+        //This Rect object is where we draw the hexagon. We will move it kind of like a stencil and then draw the hexagon
+        Rect bound = new Rect(0,0, hexWidth, hexHeight);
+
+        //Here we go through the array and if the tile is null, then it is a placeholder and we skip it.
+        //If it is a tile that exists, we draw it.
+        //Increment the Rect bound object
+        //At the end of the row, reset bound to the start.
+        for (int i=0; i<= board.length; i++){
+            for (int j=0; j<= board[i].length; j++){
+                if (board[i][j] == null){
+                    continue;
+                }
+                if (!board[i][j].doesExist()){
+                    bound.right += hexWidth;
+                    bound.left += hexWidth;
+                    continue;
+                }
+                else{
+                    //Draw order: hexagon, fish, penguin
+                    //Draws the hexagon
+                    hex.computeHex(bound);
+                    hex.draw(c);
+
+                    //draw the fish on the hexagon
+                    //TODO: Draw the fish images on the tiles.
+                    switch(board[i][j].getValue()){
+                        case 1:
+                            //Draw 1 fish
+                            break;
+                        case 2:
+                            //Draw 2 fish
+                            break;
+                        case 3:
+                            //Draw 3 fish
+                            break;
+                    }
+
+                    //increment the bounds
+                    bound.right += hexWidth;
+                    bound.left += hexWidth;
+                }
+
+            }
+
+            //Need to set the bound back to the start and up one more line.
+            //If the next line is even, set the left and right bounds to 0
+            //If it's odd, offset it by a little bit.
+            bound.left = ((i+1)%2)*hexWidth/2;
+            bound.right = ((i+1)%2)*3*hexWidth/2;
+            bound.bottom += hexHeight;
+            bound.top += hexHeight;
+        }
+
+        //After we have drawn all of the tiles, we draw the penguins on the board in this loop
+        for (int i = 0; i < penguins.length; i++){
+            for (int j = 0; j< penguins[i].length;j++){
+                //TODO: Draw the penguin at its location.
+                FishPenguin p = penguins[i][j];
+            }
+        }
+    }
+
+
+    //This method uses the dimensions of the Canvas to draw a board of an appropriate size. This will need access to the game state to draw it.
     public void drawHex(Canvas c){
+
         int numRows = 8;
         hexHeight = cHeight/8;
         hexWidth = cWidth/8;
@@ -128,93 +201,16 @@ public class FishView extends SurfaceView {
             //Tile is a Rect object, so it has a left, top, right, and bottom and you can use those coordinates to draw whatever you want on a hexagon
             for (int j = 0; j < numRows; j++) {
 
-                //Missing Tiles Example
-                if((i==1 && j==4)||(i==3&&j==5)||(i==2&&j==2)||(i==5&&j==2)||(i==5&&j==5)) {
-                    tile.left += hexWidth;
-                    tile.right += hexWidth;
-                    bigTile.left += hexWidth;
-                    bigTile.right += hexWidth;
-                    continue;
-                }
-
-
                 bigHex.computeHex(bigTile);
                 bigHex.draw(c);
                 hex.computeHex(tile);
                 hex.draw(c);
-
-
-                Random rand = new Random();
-                randTile = 1+rand.nextInt(3);
-                if(randTile == 1){
-                    c.drawBitmap(this.rOneFish, 0.18f*hexWidth+tile.left, 0.10f*hexWidth+tile.top, null);
-                }
-                else if(randTile == 2){
-                    c.drawBitmap(this.rTwoFish, 0.18f*hexWidth+tile.left, 0.10f*hexWidth+tile.top, null);
-                }
-                else if(randTile == 3){
-                    c.drawBitmap(this.rThreeFish, 0.18f*hexWidth+tile.left, 0.10f*hexWidth+tile.top, null);
-                }
-
-
-                //TEMPORARY CODE FOR HW 1
-                //This is an example of drawing a small white circle on a specific hexagon:
-                // if (i == 1 && j == 0) {
-                // testPaint.setColor(Color.WHITE);
-                //you can access the location of the hexagons with tile.left, tile.right, etc.
-                //c.drawCircle((tile.left + tile.right) / 2, (tile.top + tile.bottom) / 2, hexWidth / 4, testPaint);
-                // }
-
-                //If you wanted to access the top left corner of the hexagon, you would use: (tile.left, tile.top)
-
-
-                //If you want to draw it to multiple hexagons you could do something like this:
-                if ( i == 3 && j == 0)
-                {
-                    c.drawBitmap(this.resizedRedPenguin, 0.1f*hexWidth+tile.left, tile.top, null);
-                }
-                else if(i == 2 && j == 0)
-                {
-                    c.drawBitmap(this.resizedOrangePenguin, 0.1f*hexWidth+tile.left, tile.top, null);
-                }
-                else if(i == 6 && j == 4)
-                {
-                    c.drawBitmap(this.resizedRedPenguin, 0.1f*hexWidth+tile.left, tile.top, null);
-                }
-                else if(i == 3 && j == 4)
-                {
-                    c.drawBitmap(this.resizedOrangePenguin, 0.1f*hexWidth+tile.left, tile.top, null);
-                }
-                else if(i == 5 && j == 1)
-                {
-                    c.drawBitmap(this.resizedRedPenguin, 0.1f*hexWidth+tile.left, tile.top, null);
-                }
-                else if(i == 7 && j == 2)
-                {
-                    c.drawBitmap(this.resizedOrangePenguin, 0.1f*hexWidth+tile.left, tile.top, null);
-                }
-                else if(i == 4 && j == 3)
-                {
-                    c.drawBitmap(this.resizedRedPenguin, 0.1f*hexWidth+tile.left, tile.top, null);
-                }
-                else if(i == 1 && j == 6)
-                {
-                    c.drawBitmap(this.resizedOrangePenguin, 0.1f*hexWidth+tile.left, tile.top, null);
-                }
-
-                //We will absolutely not do it this way, but for now we can index hexagons like this.
-                //I think in the future we will create a real Tile class which will contain instance variables like: numFish, isGone, and have methods like getNeighbors().
-                //I think this is sufficient for now, and just call me if there's anything you need, Ryan
-
-
-
 
                 tile.left += hexWidth;
                 tile.right += hexWidth;
                 bigTile.left += hexWidth;
                 bigTile.right += hexWidth;
             }
-
             //Reset hexagon values after row is drawn.
             tile.top += hexHeight;
             tile.bottom += hexHeight;
