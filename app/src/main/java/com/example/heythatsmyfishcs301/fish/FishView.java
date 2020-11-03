@@ -106,12 +106,15 @@ public class FishView extends SurfaceView {
     public void drawBoard(Canvas c, FishGameState g){
         FishTile[][] board = g.getBoardState();
         FishPenguin[][] penguins = g.getPieceArray();
+
         int hexHeight = cHeight/8;
         int hexWidth = cWidth/8;
+        int margin = 15;
 
 
         //This Rect object is where we draw the hexagon. We will move it kind of like a stencil and then draw the hexagon
         Rect bound = new Rect(0,0, hexWidth, hexHeight);
+
 
         //Here we go through the array and if the tile is null, then it is a placeholder and we skip it.
         //If it is a tile that exists, we draw it.
@@ -130,8 +133,18 @@ public class FishView extends SurfaceView {
                 else{
                     //Draw order: hexagon, fish, penguin
                     //Draws the hexagon
-                    hex.computeHex(bound);
+                    bigHex.computeHex(bound);
+                    bigHex.draw(c);
+                    Rect s = new Rect(bound);
+
+
+                    s.top += margin;
+                    s.bottom -= margin;
+                    s.right -= margin;
+                    s.left += margin;
+                    hex.computeHex(s);
                     hex.draw(c);
+
 
                     //draw the fish on the hexagon
                     //TODO: Draw the fish images on the tiles.
