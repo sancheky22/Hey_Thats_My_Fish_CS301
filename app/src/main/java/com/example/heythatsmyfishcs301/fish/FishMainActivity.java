@@ -37,12 +37,11 @@ public class FishMainActivity extends GameMainActivity {
         });
 
         // smart computer player
-        /*
-        playerTypes.add(new GamePlayerType("Computer Player (smart)") {
-            public GamePlayer createPlayer(String name) {
-                return new BSComputerPlayer2(name);
-            }
-        });*/
+
+//        playerTypes.add(new GamePlayerType("Computer Player (smart)") {
+//            public GamePlayer createPlayer(String name) {return new FishComputerPlayer2(name);
+//            }
+//        });
 
         // Create a game configuration class
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 4, "Hey That's My Fish", PORT_NUMBER);

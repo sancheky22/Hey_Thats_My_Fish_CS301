@@ -39,8 +39,8 @@
         android:layout_weight="0.6"
         android:orientation="vertical">
 
-        <com.example.heythatsmyfishcs301.fish.hexagonPattern
-            android:id="@+id/hexagonPattern"
+        <com.example.heythatsmyfishcs301.fish.FishView
+            android:id="@+id/fishView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

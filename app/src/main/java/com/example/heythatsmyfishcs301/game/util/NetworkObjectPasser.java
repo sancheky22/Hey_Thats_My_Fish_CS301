@@ -133,7 +133,7 @@ public abstract class NetworkObjectPasser {
 					
 					// wait for a client to connect to us
 					Log.i("NetworkObjectPasser", "server attempt at port "+port);
-					socket = ss.accept();
+//					socket = ss.accept();
 					
 					// register that we are finished with the server socket
 					ServerSocketMap.release(port);
@@ -166,45 +166,45 @@ public abstract class NetworkObjectPasser {
 			// create the input and output streams; also send already queued objects
 			synchronized (this) {
 				
-				try {
+//				try {
 					// create the input and output streams, and flush the output stream
-					InputStream inBasic = socket.getInputStream();
-					OutputStream outBasic = socket.getOutputStream();
-					out = new ObjectOutputStream(outBasic);
-					in = new ObjectInputStream(inBasic);
-					out.flush();
-				}
-				catch (IOException e) {
+//					InputStream inBasic = socket.getInputStream();
+//					OutputStream outBasic = socket.getOutputStream();
+//					out = new ObjectOutputStream(outBasic);
+//					in = new ObjectInputStream(inBasic);
+//					out.flush();
+//				}
+//				catch (IOException e) {
 					// if exception, return
 					status = RunnerStatus.FAILED;
 					return;
-				}
+	//			}
 				
 				// send out all queued-up objects
-				while (!objQueue.isEmpty()) {
-					Object obj = objQueue.remove();
-					try {
-						out.writeObject(obj);
-						out.flush();
-					} catch (IOException e) {
-						Log.e("NetworkObjectPasser", "could not write object");
-					}
-				}
+//				while (!objQueue.isEmpty()) {
+////					Object obj = objQueue.remove();
+////					try {
+////						out.writeObject(obj);
+////						out.flush();
+////					} catch (IOException e) {
+//						Log.e("NetworkObjectPasser", "could not write object");
+////					}
+//				}
 			}
 			
 			// go into our read-object loop, passing the object to our user by
 			// invoking the user's 'onReceiveObject' method on each object
-			for (;;) {
-				try {
-					Log.i("NetworkObjectPasser", "ready to read object");
-					Object obj = in.readObject();
-					Log.i("NetworkObjectPasser", "object read ("+obj.getClass()+")");
-					onReceiveObject(obj);
-				}
-				catch (Exception x) {
-					break;
-				}
-			}
+//			for (;;) {
+//				try {
+//					Log.i("NetworkObjectPasser", "ready to read object");
+//					Object obj = in.readObject();
+//					Log.i("NetworkObjectPasser", "object read ("+obj.getClass()+")");
+//					onReceiveObject(obj);
+//				}
+//				catch (Exception x) {
+//					break;
+//				}
+//			}
 		}
 	}
 	
