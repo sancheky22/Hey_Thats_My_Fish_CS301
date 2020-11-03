@@ -64,7 +64,7 @@ public class hexagonPattern extends SurfaceView {
          *
          * Solution: We copied these lines of code into our constructor to get rid of the black background
          */
-        SurfaceView sfvTrack = (SurfaceView)findViewById(R.id.hexagonPattern);
+        SurfaceView sfvTrack = (SurfaceView)findViewById(R.id.fishView);
         sfvTrack.setZOrderOnTop(true);    // necessary
         SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
         ((SurfaceHolder) sfhTrackHolder).setFormat(PixelFormat.TRANSPARENT);
