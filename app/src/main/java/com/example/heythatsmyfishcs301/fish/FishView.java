@@ -24,9 +24,6 @@ public class FishView extends SurfaceView {
     private FishGameState gameState = new FishGameState();
     private int cWidth;
     private int cHeight;
-    private int hexWidth;
-    private int hexHeight;
-    private int hexMargin;
     private HexagonDrawable hex = new HexagonDrawable(0xFFC3F9FF);
     private HexagonDrawable bigHex = new HexagonDrawable(0xFF5685C5);
     private Rect tile;
@@ -111,8 +108,7 @@ public class FishView extends SurfaceView {
         int hexWidth = cWidth/8;
         int margin = 15;
 
-
-        //This Rect object is where we draw the hexagon. We will move it kind of like a stencil and then draw the hexagon
+        //This Rect object is where we draw the hexagon. We will move it kind of like a stencil and then draw the hexagon inside it
         Rect bound = new Rect(0,0, hexWidth, hexHeight);
 
 
@@ -122,29 +118,33 @@ public class FishView extends SurfaceView {
         //At the end of the row, reset bound to the start.
         for (int i=0; i < board.length; i++){
             for (int j=0; j < board[i].length; j++){
+                //If it is a placeholder cell, then do not move the bounds.
                 if (board[i][j] == null){
                     continue;
                 }
-                if (!board[i][j].doesExist()){
-                    bound.right += hexWidth;
-                    bound.left += hexWidth;
-                    continue;
-                }
-                else{
+                if (board[i][j].doesExist()){
                     //Draw order: hexagon, fish, penguin
                     //Draws the hexagon
                     bigHex.computeHex(bound);
                     bigHex.draw(c);
                     Rect s = new Rect(bound);
+                    Paint p = new Paint();
 
 
                     s.top += margin;
                     s.bottom -= margin;
                     s.right -= margin;
                     s.left += margin;
+
+                    /**
+                     * draw bounding box for hexagons.
+                    p.setStyle(Paint.Style.STROKE);
+                    p.setStrokeWidth(10.0f);
+                    p.setColor(0xFF000000);
+                    c.drawRect(s,p);
+                    */
                     hex.computeHex(s);
                     hex.draw(c);
-
 
                     //draw the fish on the hexagon
                     //TODO: Draw the fish images on the tiles.
@@ -159,21 +159,23 @@ public class FishView extends SurfaceView {
                             //Draw 3 fish
                             break;
                     }
-
-                    //increment the bounds
-                    bound.right += hexWidth;
-                    bound.left += hexWidth;
                 }
+
+                //increment the bounds
+                bound.right += hexWidth;
+                bound.left += hexWidth;
 
             }
 
             //Need to set the bound back to the start and up one more line.
             //If the next line is even, set the left and right bounds to 0
             //If it's odd, offset it by a little bit.
+            float spacing = 0.75f;
+
             bound.left = ((i+1)%2)*hexWidth/2;
             bound.right = ((i+1)%2)*hexWidth/2 + hexWidth;
-            bound.bottom += hexHeight;
-            bound.top += hexHeight;
+            bound.bottom += hexHeight*spacing;
+            bound.top += hexHeight*spacing;
         }
 
         //After we have drawn all of the tiles, we draw the penguins on the board in this loop
@@ -184,62 +186,4 @@ public class FishView extends SurfaceView {
             }
         }
     }
-
-
-    //This method uses the dimensions of the Canvas to draw a board of an appropriate size. This will need access to the game state to draw it.
-    public void drawHex(Canvas c){
-
-        int numRows = 8;
-        hexHeight = cHeight/8;
-        hexWidth = cWidth/8;
-
-        //Size of each individual tile
-        tile = new Rect(0,0,hexWidth,hexHeight);
-        bigTile = new Rect(0,0,cWidth/7,cHeight/7);
-        //This loop will draw the hexagonal array.
-        for(int i=0;i<=8;i++) {
-
-            //Draws even rows
-            if (i%2==0) {
-                numRows = 8;
-            }
-            //Draws Odd rows
-            else{
-                numRows = 7;
-                bigTile.left+=hexWidth/2;
-                bigTile.right+=hexWidth/2;
-                tile.left += hexWidth/2;
-                tile.right += hexWidth/2;
-            }
-
-            //Loop through each column to draw a hexagon at that point.
-            //This is where each hexagon is drawn. Each hexagon in this loop is drawn at the location of 'tile'.
-            //Tile is a Rect object, so it has a left, top, right, and bottom and you can use those coordinates to draw whatever you want on a hexagon
-            for (int j = 0; j < numRows; j++) {
-
-                bigHex.computeHex(bigTile);
-                bigHex.draw(c);
-                hex.computeHex(tile);
-                hex.draw(c);
-
-                tile.left += hexWidth;
-                tile.right += hexWidth;
-                bigTile.left += hexWidth;
-                bigTile.right += hexWidth;
-            }
-            //Reset hexagon values after row is drawn.
-            tile.top += hexHeight;
-            tile.bottom += hexHeight;
-            tile.left = 0;
-            tile.right = hexWidth;
-
-            bigTile.top += hexHeight;
-            bigTile.bottom += hexHeight;
-            bigTile.left = 0;
-            bigTile.right = hexWidth;
-
-        }
-    }
-
-
 }
