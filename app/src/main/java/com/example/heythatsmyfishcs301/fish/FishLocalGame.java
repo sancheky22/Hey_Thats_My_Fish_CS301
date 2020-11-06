@@ -6,7 +6,7 @@ import com.example.heythatsmyfishcs301.game.actionMsg.GameAction;
 
 public class FishLocalGame extends LocalGame {
     //This is called after each turn and it sends a copy of the game state to the next player
-    private FishGameState fState;
+    private FishGameState fState = new FishGameState();
 
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {

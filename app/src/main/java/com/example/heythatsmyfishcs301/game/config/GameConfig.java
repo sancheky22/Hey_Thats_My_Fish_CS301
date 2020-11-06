@@ -139,7 +139,7 @@ public class GameConfig {
 		// add the player types passed in to the constructor
 		availTypes.toArray(availArray);
 		
-		// add the network player
+		 //add the network player
 		availArray[arrayLength-1] = new GamePlayerType("Network Player") {
 			public GamePlayer createPlayer(String name) {
 				int portNum = getPortNum();
