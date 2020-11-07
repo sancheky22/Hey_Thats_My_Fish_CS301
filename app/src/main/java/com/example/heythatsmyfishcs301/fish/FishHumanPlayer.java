@@ -2,6 +2,10 @@ package com.example.heythatsmyfishcs301.fish;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,18 +16,20 @@ import com.example.heythatsmyfishcs301.game.infoMsg.GameInfo;
 
 import java.util.logging.Logger;
 
-public class FishHumanPlayer extends GameHumanPlayer {
+public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchListener {
     //Tag for logging
     private static final String TAG = "FishHumanPlayer";
 
     // the most recent game state, given to us by the FishLocalGame
-    private FishGameState state;
+    private FishGameState gameState;
 
     // the android activity that we are running
     private GameMainActivity myActivity;
 
     // the surface view
     private FishView surfaceView;
+
+    private FishPenguin selectedPenguin;
 
     /**
      * constructor
@@ -52,7 +58,8 @@ public class FishHumanPlayer extends GameHumanPlayer {
             return;
         } else {
             // update the state
-            state = (FishGameState)info;
+            selectedPenguin = null;
+            gameState = (FishGameState)info;
             //surfaceView.setState(state);
             //surfaceView.invalidate();
             //Logger.log(TAG, "receiving");
@@ -74,8 +81,51 @@ public class FishHumanPlayer extends GameHumanPlayer {
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated
-        if (state != null) {
-            receiveInfo(state);
+        if (gameState != null) {
+            receiveInfo(gameState);
         }
+    }
+
+
+    //This method controls all the touch events for the screen.
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+
+        FishTile[][] b = gameState.getBoardState();
+
+        //Local variables for the location of the touch.
+        int x = (int) motionEvent.getX();
+        int y = (int) motionEvent.getY();
+
+        //Iterate through the tiles in the 2d board array until you find the one that contains the place where it was touched.
+        //There has to be a better way to do this :(
+        for(int i = 0; i < b.length; i++){
+            for (int j = 0; j < b[i].length; j++){
+
+                if(b[i][j].getBoundingBox().contains(x,y)){
+                    //the player has clicked this bounding box.
+                    if (selectedPenguin == null) {
+                        if (b[i][j].getPenguin().getPlayer() == gameState.getPlayerTurn()) {
+                            //The player has selected this penguin to move
+                            selectedPenguin = b[i][j].getPenguin();
+                            Log.d("From Human Player", "Selected a valid penguin");
+                        }
+                        else{
+                            //The player did not touch their own penguin
+                            //Maybe throw toast
+                            Log.d("From Human Player", "Player expected to touch a penguin, but did not");
+                        }
+                    }
+                    else{
+                        FishMoveAction m = new FishMoveAction(this,gameState, selectedPenguin,b[i][j]);
+                        game.sendAction(m);
+
+                        Log.d("From Human Player","Sent action to Local Game");
+                    }
+                }
+            }
+        }
+        
+        return false;
     }
 }

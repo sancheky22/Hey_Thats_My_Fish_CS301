@@ -1,12 +1,10 @@
 package com.example.heythatsmyfishcs301.fish;
 
-import android.util.Log;
 
 import com.example.heythatsmyfishcs301.game.infoMsg.GameState;
 
 import java.lang.Integer;
 import static java.lang.Math.*;
-import java.lang.*;
 
 /**
  * @author Kyle Sanchez
@@ -220,7 +218,7 @@ public class FishGameState extends GameState {
 
     //Helper method that is called whenever a player's score needs to be incremented
     //p = player's turn, s = score to be added
-    private void addScore(int pT, int s){
+    public void addScore(int pT, int s){
         switch(pT){
             case 0:
                 setPlayer1Score(getPlayer1Score()+s);
@@ -284,13 +282,13 @@ public class FishGameState extends GameState {
         FishTile[][] f = new FishTile[BOARD_HEIGHT][BOARD_LENGTH];
 
         //Loop through a 2d array and initialize each hexagon
-        for (int i = 0; i <= BOARD_HEIGHT-1;i++)
+        for (int i = 0; i < BOARD_HEIGHT;i++)
         {
             //Basically this value of n is based on i and it tells you how many null cells you need at the start of the row.
             //(i,n): (1,3), (2,3), (3,2), (4,2), (5,1)....
             n = 4-((i+1)+(i+1)%2)/2;
             c = 0;
-            for (int j = 0; j <= BOARD_LENGTH-1;j++)
+            for (int j = 0; j < BOARD_LENGTH;j++)
             {
                 //if n is not 0, then there are still null cells that must be placed into the array.
                 //if i is even then c will hit 8 and then will start inputting null cells to finalize the array.
@@ -308,6 +306,8 @@ public class FishGameState extends GameState {
         }
         return f;
     }
+
+
 
     /**
      Helper method to initialize the array of penguin pieces that belong to each player. The first coordinate represents

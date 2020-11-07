@@ -27,8 +27,6 @@ public class FishView extends SurfaceView {
     private int cHeight;
     private HexagonDrawable hex = new HexagonDrawable(0xFFC3F9FF);
     private HexagonDrawable bigHex = new HexagonDrawable(0xFF5685C5);
-    private Rect tile;
-    private Rect bigTile;
     Bitmap redPenguin = null;
     Bitmap resizedRedPenguin = null;
 
@@ -130,21 +128,25 @@ public class FishView extends SurfaceView {
                     bigHex.computeHex(bound);
                     bigHex.draw(c);
                     Rect s = new Rect(bound);
-                    Paint p = new Paint();
-
 
                     s.top += margin;
                     s.bottom -= margin;
                     s.right -= margin;
                     s.left += margin;
 
+                    //We set the hitbox for the Tile at this point.
+                    //I think there is a better way to do this, but i dont know :(
+                    board[i][j].setBoundingBox(s);
+
                     /**
                      * draw bounding box for hexagons.
-                    p.setStyle(Paint.Style.STROKE);
-                    p.setStrokeWidth(10.0f);
-                    p.setColor(0xFF000000);
-                    c.drawRect(s,p);
-                    */
+                     * Paint p = new Paint();
+                     * p.setStyle(Paint.Style.STROKE);
+                     * p.setStrokeWidth(10.0f);
+                     * p.setColor(0xFF000000);
+                     * c.drawRect(s,p);
+                     */
+
                     hex.computeHex(s);
                     hex.draw(c);
 

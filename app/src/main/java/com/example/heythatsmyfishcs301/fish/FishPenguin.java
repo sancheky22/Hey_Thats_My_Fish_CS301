@@ -27,6 +27,15 @@ public class FishPenguin {
         this.legalMoves = true;
     }
 
+    public FishPenguin(FishPenguin p){
+        this.player = p.getPlayer();
+        this.onBoard = p.isOnBoard();
+        this.legalMoves = p.hasLegalMoves();
+        this.xPos = p.getX();
+        this.yPos = p.getY();
+    }
+
+
     public int getX(){
         return this.xPos;
     }
