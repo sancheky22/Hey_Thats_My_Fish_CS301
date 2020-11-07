@@ -18,6 +18,9 @@ public class FishMoveAction extends GameAction {
      * constructor for GameAction
      *
      * @param player the player who created the action
+     * @param gameState the current gamestate that the player sees
+     * @param penguin the penguin that is going to be moved
+     * @param tile the final destination for the penguin
      */
     public FishMoveAction(GamePlayer player, FishGameState gameState, FishPenguin penguin, FishTile tile) {
         super(player);
