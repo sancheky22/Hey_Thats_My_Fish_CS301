@@ -20,14 +20,31 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
         if (copy.getPlayerTurn() != this.playerNum){
             return;
         }
-        //If the game phase is mid-game
+        //If the game phase is mid-game (Moving penguins)
         else if (copy.getGamePhase() == 1){
+            //total penguins
+            //0  to length of array-1 = row
+            //0 to height of array-1 = column
+
+            // FishPenguin random locations
+            int penguinRandRow = (int) (copy.getPieceArray().length-1 * Math.random());
+            int penguinRandCol = (int) (copy.getPieceArray().length-1 * Math.random());
+
+            // FishTile random locations
+            int tileRandRow = (int) (copy.getBoardState().length-1 * Math.random());
+            int tileRandCol = (int) (copy.getBoardState().length-1 * Math.random());
 
 
+            //TODO: Make a check so the computer player only randomly selects from it's Penguin pieces and a valid Tile
+
+
+            //FishMoveAction moveAction = new FishMoveAction(this,copy,);
+            //game.sendAction(moveAction);
         }
-        //If the game phase is set up
+        //If the game phase is set up (Placing Penguins)
         else{
-
+            FishPlaceAction placeAction = new FishPlaceAction(this);
+            this.game.sendAction(placeAction);
         }
     }
 }
