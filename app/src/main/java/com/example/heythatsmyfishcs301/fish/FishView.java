@@ -49,6 +49,8 @@ public class FishView extends SurfaceView {
 
     private Paint testPaint = new Paint();
 
+    ArrayList<Integer> fishArray = new ArrayList<>(60);
+
 
 
 
@@ -113,6 +115,8 @@ public class FishView extends SurfaceView {
 
         //This Rect object is where we draw the hexagon. We will move it kind of like a stencil and then draw the hexagon inside it
         Rect bound = new Rect(0,0, hexWidth, hexHeight);
+
+        int counter = 0;
 
 
         //Here we go through the array and if the tile is null, then it is a placeholder and we skip it.
@@ -191,52 +195,54 @@ public class FishView extends SurfaceView {
                 FishPenguin p = penguins[i][j];
             }
         }
-        this.initFish(g);
-        for (int i=0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                switch(board[i][j].getNumFish()){
-                   case 1:
-                        //Draw 1 fish
-                       c.drawBitmap(rOneFish, hexWidth, hexHeight, null);
-                       break;
-                   case 2:
-                      //Draw 2 fish
-                       c.drawBitmap(rTwoFish, hexWidth, hexHeight, null);
-                        break;
-                    case 3:
-                        //Draw 3 fish
-                        c.drawBitmap(rThreeFish, hexWidth, hexHeight, null);
-                        break;
-                }
-            }
-        }
+
+//        this.initFish(g);
+//        for (int i=0; i < board.length; i++) {
+//            for (int j = 0; j < board[i].length; j++) {
+//                switch(board[i][j].getNumFish()){
+//                   case 1:
+//                        //Draw 1 fish
+//                       c.drawBitmap(rOneFish, hexWidth, hexHeight, null);
+//                       break;
+//                   case 2:
+//                      //Draw 2 fish
+//                       c.drawBitmap(rTwoFish, hexWidth, hexHeight, null);
+//                        break;
+//                    case 3:
+//                        //Draw 3 fish
+//                        c.drawBitmap(rThreeFish, hexWidth, hexHeight, null);
+//                        break;
+//                }
+//            }
+//        }
     }
 
-    public void initFish(FishGameState g) {
-        FishTile[][] fishBoard = g.getBoardState();
-        ArrayList<Integer> fishArray = new ArrayList<>(60);
+//    public void initFish(FishGameState g) {
+//        FishTile[][] fishBoard = g.getBoardState();
+//        //ArrayList<Integer> fishArray = new ArrayList<>(60);
+//
+//
+//        for(int i = 0; i < 30; i ++){
+//            fishArray.add(1);
+//        }
+//
+//        for(int i = 0; i < 20; i ++){
+//            fishArray.add(2);
+//        }
+//
+//        for(int i = 0; i < 10; i ++){
+//            fishArray.add(3);
+//        }
+//
+//        Collections.shuffle(fishArray);
+//        int counter = 0;
 
-        for(int i = 0; i < 30; i ++){
-            fishArray.add(1);
-        }
-
-        for(int i = 0; i < 20; i ++){
-            fishArray.add(2);
-        }
-
-        for(int i = 0; i < 10; i ++){
-            fishArray.add(3);
-        }
-
-        Collections.shuffle(fishArray);
-        int counter = 0;
-
-        for (int i = 0; i < fishBoard.length; i++) {
-            for (int j = 0; j < fishBoard[i].length; j++) {
-                fishBoard[i][j].setNumFish(fishArray.get(counter));
-                counter++;
-            }
-        }
+//        for (int i = 0; i < fishBoard.length; i++) {
+//            for (int j = 0; j < fishBoard[i].length; j++) {
+//                fishBoard[i][j].setNumFish(fishArray.get(counter));
+//                counter++;
+//            }
+//        }
 
 //        int x;
 //        int y;
@@ -278,7 +284,7 @@ public class FishView extends SurfaceView {
 //            fishArray.remove(threeFish);
 //        }
 
-    }
+//    }
 
     public int getXIndex(int whichTile, FishGameState g) {
         FishTile[][] board = g.getBoardState();

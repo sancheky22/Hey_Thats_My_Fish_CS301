@@ -7,6 +7,8 @@ import com.example.heythatsmyfishcs301.game.infoMsg.GameState;
 import java.lang.Integer;
 import static java.lang.Math.*;
 import java.lang.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * @author Kyle Sanchez
@@ -45,6 +47,8 @@ public class FishGameState extends GameState {
     private FishTile[][] boardState;
     //FishPenguin[][] is a 2d array to store all the penguins.
     private FishPenguin[][] pieceArray;
+
+    ArrayList<Integer> fishArray = new ArrayList<>(60);
 
 
 
@@ -283,6 +287,9 @@ public class FishGameState extends GameState {
         FishTile t;
         FishTile[][] f = new FishTile[BOARD_HEIGHT][BOARD_LENGTH];
 
+        int counter = 0;
+
+        initFish();
         //Loop through a 2d array and initialize each hexagon
         for (int i = 0; i <= BOARD_HEIGHT-1;i++)
         {
@@ -301,12 +308,34 @@ public class FishGameState extends GameState {
                 }
                 else {
                     t = new FishTile(i, j);
+                    t.setNumFish(fishArray.get(counter));
+                    counter++;
                     c++;
                 }
                 f[i][j] = t;
             }
         }
         return f;
+    }
+
+    public void initFish() {
+        //FishTile[][] fishBoard = g.getBoardState();
+        //ArrayList<Integer> fishArray = new ArrayList<>(60);
+
+
+        for (int i = 0; i < 30; i++) {
+            fishArray.add(1);
+        }
+
+        for (int i = 0; i < 20; i++) {
+            fishArray.add(2);
+        }
+
+        for (int i = 0; i < 10; i++) {
+            fishArray.add(3);
+        }
+
+        Collections.shuffle(fishArray);
     }
 
     /**
