@@ -52,7 +52,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
         if (surfaceView == null) return;
 
-
         // ignore the message if it's not a FishGameState message
         if (!(info instanceof FishGameState)){
             return;
@@ -60,10 +59,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             // update the state
             selectedPenguin = null;
             gameState = (FishGameState)info;
+            surfaceView.invalidate();
             //surfaceView.setState(state);
             //surfaceView.invalidate();
             //Logger.log(TAG, "receiving");
-
         }
 
     }
@@ -74,23 +73,22 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     public void setAsGui(GameMainActivity activity) {
         // remember the activity
         myActivity = activity;
-
-
         activity.setContentView(R.layout.activity_main);
-
+        surfaceView = activity.findViewById(R.id.fishView);
+        surfaceView.setOnTouchListener(this);
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated
-        if (gameState != null) {
-            receiveInfo(gameState);
-        }
+//        if (gameState != null) {
+//            receiveInfo(gameState);
+//        }
     }
 
 
     //This method controls all the touch events for the screen.
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-
+        Log.d("From FishView", "Touched the Fish View");
         FishTile[][] b = gameState.getBoardState();
 
         //Local variables for the location of the touch.
@@ -117,7 +115,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                         }
                     }
                     else{
-                        FishMoveAction m = new FishMoveAction(this,gameState, selectedPenguin,b[i][j]);
+                        FishMoveAction m = new FishMoveAction(this, selectedPenguin,b[i][j]);
                         game.sendAction(m);
 
                         Log.d("From Human Player","Sent action to Local Game");
