@@ -367,7 +367,16 @@ public class FishGameState extends GameState {
     }
 
     public FishTile[][] getBoardState(){
-        return this.boardState;
+
+        FishTile[][] tiles = null;
+        tiles = new FishTile[BOARD_HEIGHT][BOARD_LENGTH];
+        for (int i=0;i<tiles.length;i++){
+            for(int j=0;j<tiles[0].length;j++){
+                tiles[i][j] = this.getBoardState()[i][j];
+            }
+        }
+        return tiles;
+        //return this.boardState;
     }
 
     public FishPenguin[][] getPieceArray(){

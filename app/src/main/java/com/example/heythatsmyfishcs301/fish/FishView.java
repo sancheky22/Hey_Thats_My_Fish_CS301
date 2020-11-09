@@ -148,21 +148,24 @@ public class FishView extends SurfaceView {
                     hex.computeHex(s);
                     hex.draw(c);
 
+                    this.initFish(g);
 
                     //draw the fish on the hexagon
                     //TODO: Draw the fish images on the tiles.
-                    switch(board[i][j].getNumFish()){
-                        case 1:
-                            //Draw 1 fish
-                            c.drawBitmap(rOneFish, hexWidth, hexHeight, null);
-                            break;
-                        case 2:
-                            //Draw 2 fish
-                            break;
-                        case 3:
-                            //Draw 3 fish
-                            break;
-                    }
+//                    switch(board[i][j].getNumFish()){
+//                        case 1:
+//                            //Draw 1 fish
+//                            c.drawBitmap(rOneFish, hexWidth, hexHeight, null);
+//                            break;
+//                        case 2:
+//                            //Draw 2 fish
+//                            c.drawBitmap(rTwoFish, hexWidth, hexHeight, null);
+//                            break;
+//                        case 3:
+//                            //Draw 3 fish
+//                            c.drawBitmap(rThreeFish, hexWidth, hexHeight, null);
+//                            break;
+//                    }
                 }
 
                 //increment the bounds
@@ -187,6 +190,25 @@ public class FishView extends SurfaceView {
             for (int j = 0; j< penguins[i].length;j++){
                 //TODO: Draw the penguin at its location.
                 FishPenguin p = penguins[i][j];
+            }
+        }
+        this.initFish(g);
+        for (int i=0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                switch(board[i][j].getNumFish()){
+                    case 1:
+                        //Draw 1 fish
+                        c.drawBitmap(rOneFish, hexWidth, hexHeight, null);
+                        break;
+                    case 2:
+                        //Draw 2 fish
+                        c.drawBitmap(rTwoFish, hexWidth, hexHeight, null);
+                        break;
+                    case 3:
+                        //Draw 3 fish
+                        c.drawBitmap(rThreeFish, hexWidth, hexHeight, null);
+                        break;
+                }
             }
         }
     }
