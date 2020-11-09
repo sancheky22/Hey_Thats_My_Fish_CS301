@@ -16,6 +16,8 @@ public class FishTile {
     private int x;
     private int y;
 
+    private int numFish;
+
     public FishTile(int x, int y){
         this.x = x;
         this.y = y;
@@ -63,6 +65,14 @@ public class FishTile {
 
     public void setValue(int i){
         this.value = i;
+    }
+
+    public void setNumFish(int i){
+        this.numFish = i;
+    }
+
+    public int getNumFish(){
+        return this.numFish;
     }
 
 }

@@ -15,6 +15,7 @@ import android.view.SurfaceView;
 import com.example.heythatsmyfishcs301.R;
 import com.example.heythatsmyfishcs301.game.LocalGame;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class FishView extends SurfaceView {
@@ -46,6 +47,7 @@ public class FishView extends SurfaceView {
 
 
     private Paint testPaint = new Paint();
+
 
 
 
@@ -146,11 +148,13 @@ public class FishView extends SurfaceView {
                     hex.computeHex(s);
                     hex.draw(c);
 
+
                     //draw the fish on the hexagon
                     //TODO: Draw the fish images on the tiles.
-                    switch(board[i][j].getValue()){
+                    switch(board[i][j].getNumFish()){
                         case 1:
                             //Draw 1 fish
+                            c.drawBitmap(rOneFish, hexWidth, hexHeight, null);
                             break;
                         case 2:
                             //Draw 2 fish
@@ -186,4 +190,78 @@ public class FishView extends SurfaceView {
             }
         }
     }
+
+    public void initFish(FishGameState g){
+        FishTile[][] fishBoard = g.getBoardState();
+        ArrayList<Integer> fishArray = new ArrayList<>(60);
+        int x;
+        int y;
+
+        for(int u = 1; u < 60; u++){
+            fishArray.add(u);
+        }
+
+        for(int u = 0; u < 30; u++){
+            Random rand = new Random();
+            int oneFish = (rand.nextInt(60)+1);
+            x = this.getXIndex(oneFish, g);
+            y = this.getYIndex(oneFish, g) ;
+            fishBoard[x][y].setNumFish(1);
+            fishArray.remove(oneFish);
+        }
+
+        for(int u = 0; u < 20; u++){
+            Random rand = new Random();
+            int twoFish = (rand.nextInt(60)+1);
+            x = this.getXIndex(twoFish, g);
+            y = this.getYIndex(twoFish, g) ;
+            fishBoard[x][y].setNumFish(2);
+            fishArray.remove(twoFish);
+        }
+
+        for(int u = 0; u < 10; u++){
+            Random rand = new Random();
+            int threeFish = (rand.nextInt(60)+1);
+            x = this.getXIndex(threeFish, g);
+            y = this.getYIndex(threeFish, g) ;
+            fishBoard[x][y].setNumFish(3);
+            fishArray.remove(threeFish);
+        }
+
+    }
+
+    public int getXIndex(int whichTile, FishGameState g){
+        FishTile[][] board = g.getBoardState();
+        int x = 0;
+        int limit = 1;
+
+        for (int i=0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if(limit != whichTile) {
+                    x = i;
+                }
+                limit++;
+            }
+        }
+
+        return x;
+    }
+
+    public int getYIndex(int whichTile, FishGameState g){
+        FishTile[][] board = g.getBoardState();
+        int y = 0;
+        int limit = 1;
+
+        for (int i=0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if(limit != whichTile) {
+                    y = i;
+                }
+                limit++;
+            }
+        }
+
+        return y;
+    }
+
 }
