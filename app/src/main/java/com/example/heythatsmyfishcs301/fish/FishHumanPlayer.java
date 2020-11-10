@@ -79,9 +79,9 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated
-//        if (gameState != null) {
-//            receiveInfo(gameState);
-//        }
+        if (gameState != null) {
+            receiveInfo(gameState);
+        }
     }
 
 

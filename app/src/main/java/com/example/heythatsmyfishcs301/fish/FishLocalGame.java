@@ -17,7 +17,7 @@ public class FishLocalGame extends LocalGame {
 
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
-        FishGameState copy = new FishGameState();
+        FishGameState copy = new FishGameState(fState);
         p.sendInfo(copy);
     }
 
