@@ -1,10 +1,14 @@
 package com.example.heythatsmyfishcs301.fish;
 
+import android.util.Log;
 
 import com.example.heythatsmyfishcs301.game.infoMsg.GameState;
 
 import java.lang.Integer;
 import static java.lang.Math.*;
+import java.lang.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * @author Kyle Sanchez
@@ -43,6 +47,8 @@ public class FishGameState extends GameState {
     private FishTile[][] boardState;
     //FishPenguin[][] is a 2d array to store all the penguins.
     private FishPenguin[][] pieceArray;
+
+    ArrayList<Integer> fishArray = new ArrayList<>(60);
 
 
 
@@ -221,7 +227,7 @@ public class FishGameState extends GameState {
 
     //Helper method that is called whenever a player's score needs to be incremented
     //p = player's turn, s = score to be added
-    public void addScore(int pT, int s){
+    private void addScore(int pT, int s){
         switch(pT){
             case 0:
                 setPlayer1Score(getPlayer1Score()+s);
@@ -284,6 +290,9 @@ public class FishGameState extends GameState {
         FishTile t;
         FishTile[][] f = new FishTile[BOARD_HEIGHT][BOARD_LENGTH];
 
+        int counter = 0;
+
+        initFish();
         //Loop through a 2d array and initialize each hexagon
         for (int i = 0; i < BOARD_HEIGHT;i++)
         {
@@ -302,6 +311,8 @@ public class FishGameState extends GameState {
                 }
                 else {
                     t = new FishTile(i, j);
+                    t.setNumFish(fishArray.get(counter));
+                    counter++;
                     c++;
                 }
                 f[i][j] = t;
@@ -310,7 +321,25 @@ public class FishGameState extends GameState {
         return f;
     }
 
+    public void initFish() {
+        //FishTile[][] fishBoard = g.getBoardState();
+        //ArrayList<Integer> fishArray = new ArrayList<>(60);
 
+
+        for (int i = 0; i < 30; i++) {
+            fishArray.add(1);
+        }
+
+        for (int i = 0; i < 20; i++) {
+            fishArray.add(2);
+        }
+
+        for (int i = 0; i < 10; i++) {
+            fishArray.add(3);
+        }
+
+        Collections.shuffle(fishArray);
+    }
 
     /**
      Helper method to initialize the array of penguin pieces that belong to each player. The first coordinate represents
@@ -371,15 +400,15 @@ public class FishGameState extends GameState {
 
     public FishTile[][] getBoardState(){
 
-        FishTile[][] tiles = null;
-        tiles = new FishTile[BOARD_HEIGHT][BOARD_LENGTH];
-        for (int i=0;i<tiles.length;i++){
-            for(int j=0;j<tiles[0].length;j++){
-                tiles[i][j] = this.getBoardState()[i][j];
-            }
-        }
-        return tiles;
-        //return this.boardState;
+//        FishTile[][] tiles = null;
+//        tiles = new FishTile[BOARD_HEIGHT][BOARD_LENGTH];
+//        for (int i=0;i<tiles.length;i++){
+//            for(int j=0;j<tiles[0].length;j++){
+//                tiles[i][j] = this.getBoardState()[i][j];
+//            }
+//        }
+//        return tiles;
+        return this.boardState;
     }
 
     public FishPenguin[][] getPieceArray(){
