@@ -64,9 +64,15 @@ public class FishGameState extends GameState {
         this.player4Score = 0;
         this.gamePhase = 0;
         this.validMoves = true;
-        this.boardState = initializeBoard();
-        //this.pieceArray = initializePieces(this.numPlayers);
         this.pieceArray = alphaInitializePieces();
+        this.boardState = initializeBoard();
+        for (int i = 0; i<pieceArray.length;i++){
+            for (int j = 0; j<pieceArray[i].length;j++){
+                boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setPenguin(pieceArray[i][j]);
+            }
+        }
+        //this.pieceArray = initializePieces(this.numPlayers);
+
     }
 
     // copy constructor. Copies values from o to a new instance of the game state
@@ -219,10 +225,12 @@ public class FishGameState extends GameState {
 
         //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
 
-        p.setXPos(x);
-        p.setYPos(y);
+
         addScore(playerTurn,this.boardState[p.getX()][p.getY()].getNumFish());
         this.boardState[p.getX()][p.getY()].setExists(false);
+        p.setXPos(x);
+        p.setYPos(y);
+        this.boardState[x][y].setPenguin(p);
         this.playerTurn = (this.playerTurn+1)%this.numPlayers;
         return true;
     }
@@ -381,11 +389,11 @@ public class FishGameState extends GameState {
         p[0][0] = new FishPenguin(0);
         p[1][0] = new FishPenguin(1);
 
-        p[0][0].setXPos(4);
-        p[0][0].setYPos(3);
+        p[0][0].setXPos(5);
+        p[0][0].setYPos(5);
 
-        p[1][0].setXPos(5);
-        p[1][0].setYPos(3);
+        p[1][0].setXPos(6);
+        p[1][0].setYPos(6);
 
         p[0][0].setOnBoard(true);
         p[1][0].setOnBoard(true);

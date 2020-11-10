@@ -99,7 +99,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     //This method controls all the touch events for the screen.
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        Log.d("From FishView", "Touched the Fish View");
+
         FishTile[][] b = surfaceView.getGameState().getBoardState();
 
         //Local variables for the location of the touch.
@@ -114,6 +114,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
                 if(b[i][j] != null && b[i][j].getBoundingBox().contains(x,y)){
                     //the player has clicked this bounding box.
+
+                    Log.d("From FishView", "Touched the Fish View at: "+i+", "+j);
                     if (selectedPenguin == null) {
                         if (b[i][j].getPenguin() == null){
                             return false;
