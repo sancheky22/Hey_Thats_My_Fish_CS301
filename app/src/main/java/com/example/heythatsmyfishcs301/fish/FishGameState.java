@@ -56,7 +56,7 @@ public class FishGameState extends GameState {
     // Default constructor
     public FishGameState(){
         this.playerTurn = 0;
-        //numPlayers is set to 2 for the purpose of this assignment, but in the final project it can be set from 2-4
+        //numPlayers is set to 2 for the alpha
         this.numPlayers = 2;
         this.player1Score = 0;
         this.player2Score = 0;
@@ -65,7 +65,8 @@ public class FishGameState extends GameState {
         this.gamePhase = 0;
         this.validMoves = true;
         this.boardState = initializeBoard();
-        this.pieceArray = initializePieces(this.numPlayers);
+        //this.pieceArray = initializePieces(this.numPlayers);
+        this.pieceArray = alphaInitializePieces();
     }
 
     // copy constructor. Copies values from o to a new instance of the game state
@@ -86,7 +87,8 @@ public class FishGameState extends GameState {
                 this.boardState[i][j] = o.getBoardState()[i][j];
             }
         }
-        this.pieceArray = new FishPenguin[o.numPlayers][6-o.numPlayers];
+        //this.pieceArray = new FishPenguin[o.numPlayers][6-o.numPlayers];
+        this.pieceArray = new FishPenguin[2][1];
         for (int i=0;i<this.pieceArray.length;i++){
             for(int j=0;j<this.pieceArray[0].length;j++){
                 this.pieceArray[i][j] = o.getPieceArray()[i][j];
@@ -367,6 +369,27 @@ public class FishGameState extends GameState {
                 p[i][j] = tempguin;
             }
         }
+        return p;
+    }
+
+
+    //This method will initialize the penguin array for the alpha version of the game.
+    //This method will be deleted later on when we implement that starting phase of the game.
+    private FishPenguin[][] alphaInitializePieces(){
+        FishPenguin[][] p = new FishPenguin[2][1];
+
+        p[0][0] = new FishPenguin(0);
+        p[1][0] = new FishPenguin(1);
+
+        p[0][0].setXPos(4);
+        p[0][0].setYPos(3);
+
+        p[1][0].setXPos(5);
+        p[1][0].setYPos(3);
+
+        p[0][0].setOnBoard(true);
+        p[1][0].setOnBoard(true);
+
         return p;
     }
 

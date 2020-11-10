@@ -67,6 +67,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             scores.setP1Scores(p1Score);
             scores.setP2Score(p2Score);
 
+            surfaceView.setGameState(new FishGameState((FishGameState)info));
             surfaceView.invalidate();
 
             //surfaceView.setState(state);
@@ -99,7 +100,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         Log.d("From FishView", "Touched the Fish View");
-        FishTile[][] b = gameState.getBoardState();
+        FishTile[][] b = surfaceView.getGameState().getBoardState();
 
         //Local variables for the location of the touch.
         int x = (int) motionEvent.getX();
@@ -110,10 +111,14 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         for(int i = 0; i < b.length; i++){
             for (int j = 0; j < b[i].length; j++){
 
-                if(b[i][j].getBoundingBox().contains(x,y)){
+
+                if(b[i][j] != null && b[i][j].getBoundingBox().contains(x,y)){
                     //the player has clicked this bounding box.
                     if (selectedPenguin == null) {
-                        if (b[i][j].getPenguin().getPlayer() == gameState.getPlayerTurn()) {
+                        if (b[i][j].getPenguin() == null){
+                            return false;
+                        }
+                        else if (b[i][j].getPenguin().getPlayer() == gameState.getPlayerTurn()) {
                             //The player has selected this penguin to move
                             selectedPenguin = b[i][j].getPenguin();
                             Log.d("From Human Player", "Selected a valid penguin");
