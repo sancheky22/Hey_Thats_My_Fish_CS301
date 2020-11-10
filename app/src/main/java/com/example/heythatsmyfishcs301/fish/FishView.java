@@ -200,7 +200,7 @@ public class FishView extends SurfaceView {
                 switch(board[i][j].getNumFish()){
                     case 1:
                         //Draw 1 fish
-                        c.drawBitmap(rOneFish, hexWidth, hexHeight, null);
+                        c.drawBitmap(rOneFish, board[i][j].getBoundingBox().left, board[i][j].getBoundingBox().top, null);
                         break;
                     case 2:
                         //Draw 2 fish
