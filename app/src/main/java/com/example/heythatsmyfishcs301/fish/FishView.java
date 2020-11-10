@@ -52,9 +52,7 @@ public class FishView extends SurfaceView {
     ArrayList<Integer> fishArray = new ArrayList<>(60);
 
 
-
-
-    public FishView(Context context, AttributeSet attrs){
+    public FishView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
 
@@ -68,7 +66,7 @@ public class FishView extends SurfaceView {
          *
          * Solution: We copied these lines of code into our constructor to get rid of the black background
          */
-        SurfaceView sfvTrack = (SurfaceView)findViewById(R.id.fishView);
+        SurfaceView sfvTrack = (SurfaceView) findViewById(R.id.fishView);
         sfvTrack.setZOrderOnTop(true);    // necessary
         SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
         ((SurfaceHolder) sfhTrackHolder).setFormat(PixelFormat.TRANSPARENT);
@@ -91,13 +89,13 @@ public class FishView extends SurfaceView {
 
     //This method is called by something idk what yet but it draws stuff to the screen
     @Override
-    public void onDraw(Canvas canvas){
+    public void onDraw(Canvas canvas) {
         cWidth = canvas.getWidth();
         cHeight = canvas.getHeight();
 
         //setBackgroundColor(Color.WHITE);
         //drawHex(canvas);
-        drawBoard(canvas,gameState);
+        drawBoard(canvas, gameState);
     }
 
 
@@ -105,16 +103,16 @@ public class FishView extends SurfaceView {
     //Each hexagon can fit into a Rect object as its bounds so we take a rect and draw a hexagon inside of it
     //we also draw any other properties of the tile that need to be drawn (Fish and penguins).
     //We repeat this process for all 8 rows and the end result is a complete board.
-    public void drawBoard(Canvas c, FishGameState g){
+    public void drawBoard(Canvas c, FishGameState g) {
         FishTile[][] board = g.getBoardState();
         FishPenguin[][] penguins = g.getPieceArray();
 
-        int hexHeight = cHeight/8;
-        int hexWidth = cWidth/8;
+        int hexHeight = cHeight / 8;
+        int hexWidth = cWidth / 8;
         int margin = 15;
 
         //This Rect object is where we draw the hexagon. We will move it kind of like a stencil and then draw the hexagon inside it
-        Rect bound = new Rect(0,0, hexWidth, hexHeight);
+        Rect bound = new Rect(0, 0, hexWidth, hexHeight);
 
         int counter = 0;
 
@@ -123,13 +121,13 @@ public class FishView extends SurfaceView {
         //If it is a tile that exists, we draw it.
         //Increment the Rect bound object
         //At the end of the row, reset bound to the start.
-        for (int i=0; i < board.length; i++){
-            for (int j=0; j < board[i].length; j++){
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
                 //If it is a placeholder cell, then do not move the bounds.
-                if (board[i][j] == null){
+                if (board[i][j] == null) {
                     continue;
                 }
-                if (board[i][j].doesExist()){
+                if (board[i][j].doesExist()) {
                     //Draw order: hexagon, fish, penguin
                     //Draws the hexagon
                     bigHex.computeHex(bound);
@@ -160,21 +158,20 @@ public class FishView extends SurfaceView {
                     hex.draw(c);
 
 
-
                     //draw the fish on the hexagon
                     //TODO: Draw the fish images on the tiles.
-                    switch(board[i][j].getNumFish()){
+                    switch (board[i][j].getNumFish()) {
                         case 1:
                             //Draw 1 fish
-                            c.drawBitmap(rOneFish, board[i][j].getX(), board[i][j].getY(), null);
+                            c.drawBitmap(rOneFish, board[i][j].getBoundingBox().left + 10, board[i][j].getBoundingBox().top + 20, null);
                             break;
                         case 2:
                             //Draw 2 fish
-                            //c.drawBitmap(rTwoFish, board[i][j].getX(), board[i][j].getY(), null);
+                            c.drawBitmap(rTwoFish, board[i][j].getBoundingBox().left + 15, board[i][j].getBoundingBox().top + 20, null);
                             break;
                         case 3:
                             //Draw 3 fish
-                            //c.drawBitmap(rThreeFish, board[i][j].getX(), board[i][j].getY(), null);
+                            c.drawBitmap(rThreeFish, board[i][j].getBoundingBox().left + 15, board[i][j].getBoundingBox().top + 20, null);
                             break;
                     }
                 }
@@ -190,161 +187,20 @@ public class FishView extends SurfaceView {
             //If it's odd, offset it by a little bit.
             float spacing = 0.75f;
 
-            bound.left = ((i+1)%2)*hexWidth/2;
-            bound.right = ((i+1)%2)*hexWidth/2 + hexWidth;
-            bound.bottom += hexHeight*spacing;
-            bound.top += hexHeight*spacing;
+            bound.left = ((i + 1) % 2) * hexWidth / 2;
+            bound.right = ((i + 1) % 2) * hexWidth / 2 + hexWidth;
+            bound.bottom += hexHeight * spacing;
+            bound.top += hexHeight * spacing;
         }
 
         //After we have drawn all of the tiles, we draw the penguins on the board in this loop
-        for (int i = 0; i < penguins.length; i++){
-            for (int j = 0; j< penguins[i].length;j++){
+        for (int i = 0; i < penguins.length; i++) {
+            for (int j = 0; j < penguins[i].length; j++) {
                 //TODO: Draw the penguin at its location.
                 FishPenguin p = penguins[i][j];
             }
         }
-        for (int i=0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                switch(board[i][j].getNumFish()){
-                    case 1:
-                        //Draw 1 fish
-                        c.drawBitmap(rOneFish, board[i][j].getBoundingBox().left, board[i][j].getBoundingBox().top, null);
-                        break;
-                    case 2:
-                        //Draw 2 fish
-                        c.drawBitmap(rTwoFish, hexWidth, hexHeight, null);
-                        break;
-                    case 3:
-                        //Draw 3 fish
-                        c.drawBitmap(rThreeFish, hexWidth, hexHeight, null);
-                        break;
-                }
-            }
-        }
+
+
     }
-
-//        this.initFish(g);
-//        for (int i=0; i < board.length; i++) {
-//            for (int j = 0; j < board[i].length; j++) {
-//                switch(board[i][j].getNumFish()){
-//                   case 1:
-//                        //Draw 1 fish
-//                       c.drawBitmap(rOneFish, hexWidth, hexHeight, null);
-//                       break;
-//                   case 2:
-//                      //Draw 2 fish
-//                       c.drawBitmap(rTwoFish, hexWidth, hexHeight, null);
-//                        break;
-//                    case 3:
-//                        //Draw 3 fish
-//                        c.drawBitmap(rThreeFish, hexWidth, hexHeight, null);
-//                        break;
-//                }
-//            }
-//        }
- //   }
-
-//    public void initFish(FishGameState g) {
-//        FishTile[][] fishBoard = g.getBoardState();
-//        //ArrayList<Integer> fishArray = new ArrayList<>(60);
-//
-//
-//        for(int i = 0; i < 30; i ++){
-//            fishArray.add(1);
-//        }
-//
-//        for(int i = 0; i < 20; i ++){
-//            fishArray.add(2);
-//        }
-//
-//        for(int i = 0; i < 10; i ++){
-//            fishArray.add(3);
-//        }
-//
-//        Collections.shuffle(fishArray);
-//        int counter = 0;
-
-//        for (int i = 0; i < fishBoard.length; i++) {
-//            for (int j = 0; j < fishBoard[i].length; j++) {
-//                fishBoard[i][j].setNumFish(fishArray.get(counter));
-//                counter++;
-//            }
-//        }
-
-//        int x;
-//        int y;
-//
-//        for (int u = 1; u <= 60; u++) {
-//            fishArray.add(u);
-//        }
-//
-//        for (int u = 0; u < 30; u++) {
-//            Random rand = new Random();
-//            int oneFish = fishArray.get(rand.nextInt(fishArray.size()));
-//            x = this.getXIndex(oneFish, g);
-//            y = this.getYIndex(oneFish, g);
-//            if (fishBoard[x][y] != null) {
-//                fishBoard[x][y].setNumFish(1);
-//            }
-//            fishArray.remove(oneFish);
-//        }
-//
-//        for (int u = 0; u < 20; u++) {
-//            Random rand = new Random();
-//            int twoFish = fishArray.get(rand.nextInt(fishArray.size()));
-//            x = this.getXIndex(twoFish, g);
-//            y = this.getYIndex(twoFish, g);
-//            if (fishBoard[x][y] != null) {
-//                fishBoard[x][y].setNumFish(2);
-//            }
-//            fishArray.remove(twoFish);
-//        }
-//
-//        for (int u = 0; u < 10; u++) {
-//            Random rand = new Random();
-//            int threeFish = fishArray.get(rand.nextInt(fishArray.size()));
-//            x = this.getXIndex(threeFish, g);
-//            y = this.getYIndex(threeFish, g);
-//            if (fishBoard[x][y] != null) {
-//                fishBoard[x][y].setNumFish(3);
-//            }
-//            fishArray.remove(threeFish);
-//        }
-
-//    }
-
-    public int getXIndex(int whichTile, FishGameState g){
-        FishTile[][] board = g.getBoardState();
-        int x = 0;
-        int limit = 1;
-
-        for (int i=0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if(limit != whichTile) {
-                    x = i;
-                }
-                limit++;
-            }
-        }
-
-        return x;
-    }
-
-    public int getYIndex(int whichTile, FishGameState g){
-        FishTile[][] board = g.getBoardState();
-        int y = 0;
-        int limit = 1;
-
-        for (int i=0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if(limit != whichTile) {
-                    y = i;
-                }
-                limit++;
-            }
-        }
-
-        return y;
-    }
-
 }

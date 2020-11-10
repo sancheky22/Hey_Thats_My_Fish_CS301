@@ -48,6 +48,7 @@ public class FishGameState extends GameState {
     //FishPenguin[][] is a 2d array to store all the penguins.
     private FishPenguin[][] pieceArray;
 
+    //Arraylist of integers that will hold 1s, 2s, or 3s. Will be used to randomly assign each tile a number of fish
     ArrayList<Integer> fishArray = new ArrayList<>(60);
 
 
@@ -321,11 +322,19 @@ public class FishGameState extends GameState {
         return f;
     }
 
+    /**
+     *  External Citation
+     * Date: November 9, 2020
+     * Problem: need to shuffle the array so that it's random and not just groups of 1s, 2s and 3s
+     * Resource: https://www.geeksforgeeks.org/shuffle-or-randomize-a-list-in-java/
+     *
+     * Solution: Used the Collections.shuffle() to randomize the array
+     *
+     * This method starts by adding thirty 1's into the fishArray arraylist, then it adds twenty 2's, and finally ten 3's
+     * It then shuffles the arraylist so that when we go through the 2d array of fishTiles to assign each tile a numFish,
+     * it will be random
+     */
     public void initFish() {
-        //FishTile[][] fishBoard = g.getBoardState();
-        //ArrayList<Integer> fishArray = new ArrayList<>(60);
-
-
         for (int i = 0; i < 30; i++) {
             fishArray.add(1);
         }
