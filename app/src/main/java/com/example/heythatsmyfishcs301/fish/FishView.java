@@ -23,7 +23,7 @@ public class FishView extends SurfaceView {
 
     //instance variables necessary to draw the initial board state
 
-    private FishGameState gameState = new FishGameState();
+    private FishGameState gameState;
     private int cWidth;
     private int cHeight;
     private HexagonDrawable hex = new HexagonDrawable(0xFFC3F9FF);
@@ -55,6 +55,8 @@ public class FishView extends SurfaceView {
     public FishView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
+
+        gameState = new FishGameState();
 
         /**
          *External Citation
@@ -157,7 +159,6 @@ public class FishView extends SurfaceView {
                     hex.computeHex(s);
                     hex.draw(c);
 
-
                     //draw the fish on the hexagon
                     //TODO: Draw the fish images on the tiles.
                     switch (board[i][j].getNumFish()) {
@@ -198,9 +199,18 @@ public class FishView extends SurfaceView {
             for (int j = 0; j < penguins[i].length; j++) {
                 //TODO: Draw the penguin at its location.
                 FishPenguin p = penguins[i][j];
+                if (p != null) {
+                    Rect box = board[p.getX()][p.getY()].getBoundingBox();
+                }
             }
         }
+    }
 
+    public FishGameState getGameState() {
+        return this.gameState;
+    }
 
+    public void setGameState(FishGameState f) {
+        this.gameState = new FishGameState(f);
     }
 }
