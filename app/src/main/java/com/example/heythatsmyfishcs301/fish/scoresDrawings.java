@@ -21,9 +21,10 @@ public class scoresDrawings extends SurfaceView {
     Bitmap resizedOrange = null;
     Bitmap resizedRed = null;
     Bitmap resizedBlue = null;
-    int numOrangeFish = 12;
-    int numRedFish = 23;
     private Paint black = new Paint();
+
+    int p1Score;
+    int p2Score;
 
     public scoresDrawings(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -69,10 +70,14 @@ public class scoresDrawings extends SurfaceView {
 
 
     }
+
+
     @Override
     public void onDraw(Canvas canvas) {
         canvas.drawBitmap(this.resizedOrange, 1.0f, 1.0f, null);
         canvas.drawBitmap(this.resizedRed, 0.0f, 300.0f, null);
+
+
 
         /**
          *External Citation
@@ -83,8 +88,15 @@ public class scoresDrawings extends SurfaceView {
          *
          * Solution: Used the Integer.toString method shown on the website
          */
-        canvas.drawText(Integer.toString(numOrangeFish), (float)140.0, (float)160.0, black);
-        canvas.drawText(Integer.toString(numRedFish), (float)140.0, (float)465.0, black);
+        canvas.drawText(Integer.toString(p1Score), (float)140.0, (float)160.0, black);
+        canvas.drawText(Integer.toString(p2Score), (float)140.0, (float)465.0, black);
     }
 
+    public void setP1Scores(int i){
+        this.p1Score = i;
+    }
+
+    public void setP2Score(int i){
+        this.p2Score = i;
+    }
 }

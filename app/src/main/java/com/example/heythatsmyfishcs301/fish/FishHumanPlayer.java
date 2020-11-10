@@ -28,6 +28,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     // the surface view
     private FishView surfaceView;
+    private scoresDrawings scores;
 
     private FishPenguin selectedPenguin;
 
@@ -59,7 +60,15 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             // update the state
             selectedPenguin = null;
             gameState = (FishGameState)info;
+
+            int p1Score = 0;
+            int p2Score = 0;
+
+            scores.setP1Scores(p1Score);
+            scores.setP2Score(p2Score);
+
             surfaceView.invalidate();
+
             //surfaceView.setState(state);
             //surfaceView.invalidate();
             //Logger.log(TAG, "receiving");
@@ -75,6 +84,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         myActivity = activity;
         activity.setContentView(R.layout.activity_main);
         surfaceView = activity.findViewById(R.id.fishView);
+        scores = activity.findViewById(R.id.scoresDrawings);
         surfaceView.setOnTouchListener(this);
 
         // if we have a game state, "simulate" that we have just received

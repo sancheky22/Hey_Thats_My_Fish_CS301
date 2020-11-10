@@ -219,7 +219,7 @@ public class FishGameState extends GameState {
 
         p.setXPos(x);
         p.setYPos(y);
-        addScore(playerTurn,this.boardState[p.getX()][p.getY()].getValue());
+        addScore(playerTurn,this.boardState[p.getX()][p.getY()].getNumFish());
         this.boardState[p.getX()][p.getY()].setExists(false);
         this.playerTurn = (this.playerTurn+1)%this.numPlayers;
         return true;
