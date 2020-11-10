@@ -159,7 +159,7 @@ public class FishView extends SurfaceView {
                     hex.computeHex(s);
                     hex.draw(c);
 
-                    this.initFish(g);
+
 
                     //draw the fish on the hexagon
                     //TODO: Draw the fish images on the tiles.
@@ -203,7 +203,6 @@ public class FishView extends SurfaceView {
                 FishPenguin p = penguins[i][j];
             }
         }
-        this.initFish(g);
         for (int i=0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 switch(board[i][j].getNumFish()){
@@ -243,7 +242,7 @@ public class FishView extends SurfaceView {
 //                }
 //            }
 //        }
-    }
+ //   }
 
 //    public void initFish(FishGameState g) {
 //        FishTile[][] fishBoard = g.getBoardState();
