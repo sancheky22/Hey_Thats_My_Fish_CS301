@@ -92,6 +92,7 @@ public class scoresDrawings extends SurfaceView {
         canvas.drawText(Integer.toString(p2Score), (float)140.0, (float)465.0, black);
     }
 
+    //setter methods to be used in FishHumanPlayer
     public void setP1Scores(int i){
         this.p1Score = i;
     }
