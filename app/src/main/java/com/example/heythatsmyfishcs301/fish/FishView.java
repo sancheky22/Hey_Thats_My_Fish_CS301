@@ -201,6 +201,15 @@ public class FishView extends SurfaceView {
                 FishPenguin p = penguins[i][j];
                 if (p != null) {
                     Rect box = board[p.getX()][p.getY()].getBoundingBox();
+
+
+                    if(i == 0){
+                        c.drawBitmap(resizedOrangePenguin, box.left, box.top, null);
+                    }
+                    else if(i == 1){
+                        c.drawBitmap(resizedRedPenguin, box.left, box.top, null);
+                    }
+
                 }
             }
         }
