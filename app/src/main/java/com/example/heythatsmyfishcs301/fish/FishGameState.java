@@ -52,13 +52,12 @@ public class FishGameState extends GameState {
     ArrayList<Integer> fishArray = new ArrayList<>(60);
 
 
-
     // Default constructor
     public FishGameState(){
         this.playerTurn = 0;
         //numPlayers is set to 2 for the alpha
         this.numPlayers = 2;
-        this.player1Score = 0;
+        this.player1Score = 5;
         this.player2Score = 0;
         this.player3Score = 0;
         this.player4Score = 0;
@@ -231,7 +230,8 @@ public class FishGameState extends GameState {
         p.setXPos(x);
         p.setYPos(y);
         this.boardState[x][y].setPenguin(p);
-        this.playerTurn = (this.playerTurn+1)%this.numPlayers;
+        //this.playerTurn = (this.playerTurn+1)%this.numPlayers;
+        this.playerTurn = 0;
         return true;
     }
 

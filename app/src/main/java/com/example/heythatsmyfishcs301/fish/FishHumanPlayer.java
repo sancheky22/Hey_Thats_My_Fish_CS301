@@ -32,12 +32,18 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     private FishPenguin selectedPenguin;
 
+    int p1Score = 15;
+    int p2Score = 0;
+
     /**
      * constructor
      *
      * @param name the name of the player
      */
     public FishHumanPlayer(String name) {
+
+
+
         super(name);
     }
 
@@ -61,11 +67,12 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             selectedPenguin = null;
             gameState = (FishGameState)info;
 
-            int p1Score = 0;
-            int p2Score = 0;
-
-            scores.setP1Scores(p1Score);
-            scores.setP2Score(p2Score);
+//            p1Score = gameState.getPlayer1Score();
+//            p2Score = gameState.getPlayer2Score();
+//
+//
+//            scores.setP1Scores(p1Score);
+//            scores.setP2Score(p2Score);
 
             surfaceView.setGameState(new FishGameState((FishGameState)info));
             surfaceView.invalidate();
@@ -134,6 +141,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                     else{
                         FishMoveAction m = new FishMoveAction(this, selectedPenguin,b[i][j]);
                         game.sendAction(m);
+                        surfaceView.invalidate();
 
                         Log.d("From Human Player","Sent action to Local Game");
                     }

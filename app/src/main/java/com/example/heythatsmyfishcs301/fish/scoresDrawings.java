@@ -12,6 +12,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.example.heythatsmyfishcs301.R;
+import com.example.heythatsmyfishcs301.game.infoMsg.GameInfo;
+import com.example.heythatsmyfishcs301.game.infoMsg.GameOverInfo;
 
 public class scoresDrawings extends SurfaceView {
 
@@ -66,7 +68,6 @@ public class scoresDrawings extends SurfaceView {
 
         blueFish = BitmapFactory.decodeResource(getResources(), R.drawable.bluefish);
         resizedBlue = Bitmap.createScaledBitmap(blueFish, 300, 300, false);
-
 
 
     }
