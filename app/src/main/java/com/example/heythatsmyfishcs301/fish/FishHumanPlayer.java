@@ -31,6 +31,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     private scoresDrawings scores;
 
     private FishPenguin selectedPenguin;
+    private FishPenguin[][] pieces;
 
     int p1Score = 15;
     int p2Score = 0;
@@ -66,6 +67,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             // update the state
             selectedPenguin = null;
             gameState = (FishGameState)info;
+
+            pieces = gameState.getPieceArray();
 
 //            p1Score = gameState.getPlayer1Score();
 //            p2Score = gameState.getPlayer2Score();

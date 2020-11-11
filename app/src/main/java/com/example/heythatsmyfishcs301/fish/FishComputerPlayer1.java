@@ -74,13 +74,12 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
     }
 
     public boolean computerMovePenguin(FishPenguin p) {
-//
+
         int direction = 0;
         FishTile[][] pieceBoard = copy.getBoardState();
-//
+
 
         //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
-
         if (copy.getPlayerTurn() == 1) {
         //try to move horizontally to the right
         if (!(pieceBoard[p.getX()][p.getY() + 1].hasPenguin()) && (pieceBoard[p.getX()][p.getY() + 1].doesExist())) {
@@ -154,7 +153,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
             return true;
         }
     }
-
+        copy.setPlayerTurn(0);
         return false;
     }
 

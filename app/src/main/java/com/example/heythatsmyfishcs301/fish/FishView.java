@@ -179,9 +179,14 @@ public class FishView extends SurfaceView {
                     //TODO: Replace the white rectangle for penguin sprites
                     //draw the penguin here as well.
                     if (board[i][j].getPenguin() != null){
-                        c.drawRect(board[i][j].getBoundingBox(),testPaint);
+                        //c.drawRect(board[i][j].getBoundingBox(),testPaint);
+                        if (board[i][j].getPenguin().getPlayer() == 0){
+                            c.drawBitmap(resizedOrangePenguin, board[i][j].getBoundingBox().left, board[i][j].getBoundingBox().top, null);
+                        }
+                        else if(board[i][j].getPenguin().getPlayer() == 1){
+                            c.drawBitmap(resizedRedPenguin, board[i][j].getBoundingBox().left, board[i][j].getBoundingBox().top, null);
+                        }
                     }
-
                 }
 
                 //increment the bounds
@@ -220,7 +225,7 @@ public class FishView extends SurfaceView {
                 }
             }
         }
-         */
+*/
     }
 
     public FishGameState getGameState() {
