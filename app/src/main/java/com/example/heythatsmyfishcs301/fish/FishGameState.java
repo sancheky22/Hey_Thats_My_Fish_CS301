@@ -206,7 +206,7 @@ public class FishGameState extends GameState {
     public void changeTurn() {
         if (this.playerTurn == 0) {
             this.setPlayerTurn(1);
-        } else {
+        } else if (this.playerTurn == 1){
             this.setPlayerTurn(0);
         }
     }

@@ -34,11 +34,31 @@ public class FishLocalGame extends LocalGame {
         String win = null;
         board = fState.getBoardState();
 
+
         for(int i =0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                if(board[i][j] != null) {
-                    if (board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 1) {
 
+                if(board[i][j] != null) {
+                    FishPenguin curPenguin = board[i][j].getPenguin();
+                    // checks for ComputerPlayer
+
+//                    if (board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 1) {
+//                        //return null;
+//                        // Checks if the ComputerPlayer has no valid moves left, if so the game is over.
+//                        if(true/* Condition to check if CP has valid moves left*/){
+//                            Log.d("Win Condition","Player 1 has NO valid moves left.");
+//                            return null;
+//                        }
+//                    }
+
+
+                    // check for HumanPlayer
+                    if (board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 0){
+                        // Checks if the HumanPlayer has no valid moves left, if so the game is over.
+                        if(fState.movePenguin(curPenguin,board[i][j].getX(),board[i][j].getY())==false){
+                            Log.d("Win Condition","Player 1 has NO valid moves left");
+                            return playerNames[0]+"has no valid moves left.";
+                        }
                     }
                 }
             }

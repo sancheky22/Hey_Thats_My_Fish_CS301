@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.heythatsmyfishcs301.game.GameComputerPlayer;
 import com.example.heythatsmyfishcs301.game.infoMsg.GameInfo;
+import com.example.heythatsmyfishcs301.game.infoMsg.NotYourTurnInfo;
 
 import java.util.Random;
 
@@ -22,6 +23,11 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
     //Computer Player 1 sends a random action to the game state.
     @Override
     protected void receiveInfo(GameInfo info) {
+        // if it was a "not your turn" message, just ignore it
+        if (info instanceof NotYourTurnInfo){
+            return;
+        }
+
         if (!(info instanceof FishGameState)) {
             return;
         }
