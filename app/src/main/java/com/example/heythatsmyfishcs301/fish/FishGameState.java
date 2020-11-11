@@ -231,7 +231,7 @@ public class FishGameState extends GameState {
         p.setYPos(y);
         this.boardState[x][y].setPenguin(p);
         //this.playerTurn = (this.playerTurn+1)%this.numPlayers;
-        this.playerTurn = 0;
+        this.playerTurn = 1;
         return true;
     }
 
@@ -341,6 +341,8 @@ public class FishGameState extends GameState {
                 f[i][j] = t;
             }
         }
+
+        f[6][6].setHasPenguin(true);
         return f;
     }
 
