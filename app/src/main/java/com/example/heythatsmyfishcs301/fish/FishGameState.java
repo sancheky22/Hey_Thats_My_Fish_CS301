@@ -235,6 +235,18 @@ public class FishGameState extends GameState {
         return true;
     }
 
+    /*
+    *
+    * change turn method that changes current turn of the game
+    *
+    * */
+    public void changeTurn() {
+        if (this.playerTurn == 0) {
+            this.setPlayerTurn(1);
+        } else {
+            this.setPlayerTurn(0);
+        }
+    }
 
     //Helper method that is called whenever a player's score needs to be incremented
     //p = player's turn, s = score to be added
