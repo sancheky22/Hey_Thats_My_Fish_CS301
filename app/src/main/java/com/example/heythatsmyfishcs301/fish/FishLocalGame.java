@@ -9,6 +9,7 @@ import com.example.heythatsmyfishcs301.game.actionMsg.GameAction;
 public class FishLocalGame extends LocalGame {
     //This is called after each turn and it sends a copy of the game state to the next player
     private FishGameState fState;
+    private FishTile[][] board;
 
     public FishLocalGame(){
         this.fState = new FishGameState();
@@ -30,7 +31,20 @@ public class FishLocalGame extends LocalGame {
 
     @Override
     protected String checkIfGameOver() {
-        return null;
+        String win = null;
+        board = fState.getBoardState();
+
+        for(int i =0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if(board[i][j] != null) {
+                    if (board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 1) {
+                        
+                    }
+                }
+            }
+        }
+
+        return win;
     }
 
 
