@@ -110,55 +110,6 @@ public class FishGameState extends GameState {
             }
         }
     }
-
-    /**
-     * probably can get rid of
-    @Override
-    public String toString(){
-        Log.d("toString","\n");
-        StringBuilder h = boardStateString();
-        return "Player Turn: " + this.playerTurn + "\n" +
-                "Number of Players: " + this.numPlayers + "\n" +
-                "Player 1 Score: " + this.player1Score + "\n" +
-                "Player 2 Score: " + this.player2Score + "\n" +
-                "Player 3 Score: " + this.player3Score + "\n" +
-                "Player 4 Score: " + this.player4Score + "\n" +
-                "Current Phase of the Game: " + this.gamePhase + "\n" +
-                "Are there valid moves left:" + this.validMoves + "\n" +
-                "This is the hexagon array visualized (T's are tiles and N's are null): " + "\n" + h.toString()+"\n";
-    }
-
-    public StringBuilder boardStateString(){
-    StringBuilder s = new StringBuilder();
-
-        for(int i=0; i<boardState.length;i++) {
-            for (int j = 0; j < boardState[0].length; j++) {
-                if (boardState[i][j] == null) {
-                    s.append("N"); //null tile is on the board
-                } else {
-                    s.append("T"); //tile is present on the board
-                }
-            }
-            s.append("\n");
-        }
-        s.append("\n This is the piece array visualized (Amount of penguins per player and N's are null): \n");
-        for(int k=0; k<pieceArray.length; k++){
-            for(int l=0; l<pieceArray[0].length;l++){
-                if(pieceArray[k][l] == null){
-                    s.append("N"); //null tile is on the board
-                }
-                else{
-                    s.append(this.pieceArray[k][l].getPlayer()); //penguins present
-                    }
-                }
-            s.append("\n");
-        }
-
-        return s;
-
-    }
-    */
-
     /**
      Action methods will go underneath this comment.
      */
@@ -191,10 +142,10 @@ public class FishGameState extends GameState {
         //0 means horizontal, 1 means down right diag, 2 means up right diag
         int direction;
         if (p.getY() == y){
-            direction = 0;
+            direction = 1;
         }
         else if (p.getX() == x){
-            direction = 1;
+            direction = 0;
         }
         else if (p.getY()+p.getX() == x+y){
             direction = 2;
@@ -202,46 +153,48 @@ public class FishGameState extends GameState {
         else{
             return false;
         }
-        //If the new move is horizontal
-        if (direction == 0){
+        //If the new move is up left diag or down right diag
+        if (direction == 1){
             //s is the sign of (new coordinate - old coordinate)
             //if s is positive, then you are moving to the right
             int s = Integer.signum(x-p.getX());
-            for (int i = p.getX()+s; i == x; i+=s){
+            for (int i = p.getX()+s; i != x; i+=s){
                 if (this.boardState[i][p.getY()].hasPenguin() || !this.boardState[i][p.getY()].doesExist()){
                     return false;
                 }
             }
         }
-        //If the new move is vertical (down right diag)
-        else if (direction == 1){
+        //If the new move is horizontal (left or right)
+        else if (direction == 0){
             int s = Integer.signum(y-p.getY());
-            for (int i = p.getY()+s; i == y; i+=s){
+            for (int i = p.getY()+s; i != y; i+=s){
                 if (this.boardState[p.getX()][i].hasPenguin() || !this.boardState[p.getX()][i].doesExist()){
                     return false;
                 }
             }
         }
-        //If the new move is up right diag
+        //If the new move is up right diag or down left diag
         else {
-            int s = Integer.signum((y-x) - (p.getY()-p.getX()));
-            for (int i = 0; i == abs(x-p.getX()); i++){
-                if (this.boardState[p.getX()+i][p.getY()+i].hasPenguin() || !this.boardState[p.getX()+i][p.getY()+i].doesExist()){
-                    return false;
-                }
+            //If s is positive, you are moving upper right diag
+        int s = Integer.signum(y-p.getY());
+        for (int i = s; abs(i) != abs(y-p.getY()); i+=s){
+            if (this.boardState[p.getX()-i][p.getY()+i].hasPenguin() || !this.boardState[p.getX()-i][p.getY()+i].doesExist()){
+                return false;
             }
         }
+    }
 
         //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
 
 
         addScore(playerTurn,this.boardState[p.getX()][p.getY()].getNumFish());
         this.boardState[p.getX()][p.getY()].setExists(false);
+        this.boardState[p.getX()][p.getY()].setHasPenguin(false);
         p.setXPos(x);
         p.setYPos(y);
         this.boardState[x][y].setPenguin(p);
         //this.playerTurn = (this.playerTurn+1)%this.numPlayers;
-        this.playerTurn = 1;
+        this.playerTurn = (this.playerTurn+1)%2;
         return true;
     }
 
