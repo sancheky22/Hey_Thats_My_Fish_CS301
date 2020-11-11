@@ -175,6 +175,18 @@ public class FishView extends SurfaceView {
                             c.drawBitmap(rThreeFish, board[i][j].getBoundingBox().left + 15, board[i][j].getBoundingBox().top + 20, null);
                             break;
                     }
+
+                    //TODO: Replace the white rectangle for penguin sprites
+                    //draw the penguin here as well.
+                    if (board[i][j].getPenguin() != null){
+                        //c.drawRect(board[i][j].getBoundingBox(),testPaint);
+                        if (board[i][j].getPenguin().getPlayer() == 0){
+                            c.drawBitmap(resizedOrangePenguin, board[i][j].getBoundingBox().left, board[i][j].getBoundingBox().top, null);
+                        }
+                        else if(board[i][j].getPenguin().getPlayer() == 1){
+                            c.drawBitmap(resizedRedPenguin, board[i][j].getBoundingBox().left, board[i][j].getBoundingBox().top, null);
+                        }
+                    }
                 }
 
                 //increment the bounds
@@ -194,6 +206,7 @@ public class FishView extends SurfaceView {
             bound.top += hexHeight * spacing;
         }
 
+        /**
         //After we have drawn all of the tiles, we draw the penguins on the board in this loop
         for (int i = 0; i < penguins.length; i++) {
             for (int j = 0; j < penguins[i].length; j++) {
@@ -201,10 +214,9 @@ public class FishView extends SurfaceView {
                 FishPenguin p = penguins[i][j];
                 if (p != null) {
                     Rect box = board[p.getX()][p.getY()].getBoundingBox();
-
-
                     if(i == 0){
-                        c.drawBitmap(resizedOrangePenguin, box.left, box.top, null);
+                        //c.drawBitmap(resizedOrangePenguin, box.left, box.top, null);
+                        c.drawRect(box,testPaint);
                     }
                     else if(i == 1){
                         c.drawBitmap(resizedRedPenguin, box.left, box.top, null);
@@ -213,6 +225,7 @@ public class FishView extends SurfaceView {
                 }
             }
         }
+*/
     }
 
     public FishGameState getGameState() {
