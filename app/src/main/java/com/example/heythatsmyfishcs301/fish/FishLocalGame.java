@@ -48,12 +48,18 @@ public class FishLocalGame extends LocalGame {
 
             if(fState.movePenguin(penguin,dest.getX(),dest.getY())){
                 Log.d("makeMove","Move was legal");
+                //this.fState.changeTurn();
                 return true;
             }
             else{
                 Log.d("makeMove","Move was not legal");
                 return false;
             }
+        }
+
+        else if(action instanceof FishComputerMoveAction){
+            this.fState.changeTurn();
+            return true;
         }
 
         return false;

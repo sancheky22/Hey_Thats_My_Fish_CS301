@@ -33,8 +33,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     private FishPenguin selectedPenguin;
     private FishPenguin[][] pieces;
 
-    int p1Score = 15;
+    int p1Score = 0;
     int p2Score = 0;
+
+    int turn;
 
     /**
      * constructor
@@ -69,6 +71,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             gameState = (FishGameState)info;
 
             pieces = gameState.getPieceArray();
+
+            turn = gameState.getPlayerTurn();
 
 //            p1Score = gameState.getPlayer1Score();
 //            p2Score = gameState.getPlayer2Score();
@@ -126,14 +130,17 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                     //the player has clicked this bounding box.
 
                     Log.d("From FishView", "Touched the Fish View at: "+i+", "+j);
+                    Log.d("From human player", "Current player turn is " + turn);
                     if (selectedPenguin == null) {
                         if (b[i][j].getPenguin() == null){
                             return false;
                         }
-                        else if (b[i][j].getPenguin().getPlayer() == gameState.getPlayerTurn()) {
+                        //set to 0 just for alpha release
+                        else if (b[i][j].getPenguin().getPlayer() == 0) {
                             //The player has selected this penguin to move
                             selectedPenguin = b[i][j].getPenguin();
                             Log.d("From Human Player", "Selected a valid penguin");
+
                         }
                         else{
                             //The player did not touch their own penguin
@@ -144,7 +151,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                     else{
                         FishMoveAction m = new FishMoveAction(this, selectedPenguin,b[i][j]);
                         game.sendAction(m);
-                        surfaceView.invalidate();
+
 
                         Log.d("From Human Player","Sent action to Local Game");
                     }
