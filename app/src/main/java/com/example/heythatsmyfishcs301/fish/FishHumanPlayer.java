@@ -1,11 +1,20 @@
 package com.example.heythatsmyfishcs301.fish;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
@@ -74,15 +83,15 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
             turn = gameState.getPlayerTurn();
 
-//            p1Score = gameState.getPlayer1Score();
-//            p2Score = gameState.getPlayer2Score();
-//
-//
-//            scores.setP1Scores(p1Score);
-//            scores.setP2Score(p2Score);
+            p1Score = gameState.getPlayer1Score();
+            p2Score = gameState.getPlayer2Score();
+
+            scores.setP1Scores(p1Score);
+            scores.setP2Score(p2Score);
 
             surfaceView.setGameState(new FishGameState((FishGameState)info));
             surfaceView.invalidate();
+            scores.invalidate();
 
             //surfaceView.setState(state);
             //surfaceView.invalidate();
@@ -100,6 +109,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         activity.setContentView(R.layout.activity_main);
         surfaceView = activity.findViewById(R.id.fishView);
         scores = activity.findViewById(R.id.scoresDrawings);
+
         surfaceView.setOnTouchListener(this);
 
         // if we have a game state, "simulate" that we have just received

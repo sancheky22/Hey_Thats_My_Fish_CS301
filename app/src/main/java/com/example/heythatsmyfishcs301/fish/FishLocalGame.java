@@ -57,8 +57,13 @@ public class FishLocalGame extends LocalGame {
             }
         }
 
+        //if computer makes a move, we want to set the score it obtains in the
+        //actual gamestate then change the player turn back to human
         else if(action instanceof FishComputerMoveAction){
             this.fState.changeTurn();
+            int score = ((FishComputerMoveAction) action).getComScore();
+            this.fState.changeComScore(score);
+            Log.d("comScore changed","the computer's score is: " + score);
             return true;
         }
 

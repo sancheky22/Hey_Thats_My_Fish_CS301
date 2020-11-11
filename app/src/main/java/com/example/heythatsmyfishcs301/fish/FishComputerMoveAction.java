@@ -7,16 +7,18 @@ public class FishComputerMoveAction extends GameAction {
 
     private FishPenguin penguin;
     private FishTile destination;
+    private int comScore;
 
     /**
      * constructor for GameAction
      *
      * @param player the player who created the action
      */
-    public FishComputerMoveAction(GamePlayer player, FishPenguin penguin, FishTile tile) {
+    public FishComputerMoveAction(GamePlayer player, FishPenguin penguin, FishTile tile, int score) {
         super(player);
         this.penguin = penguin;
         this.destination = tile;
+        this.comScore = score;
     }
 
     public FishPenguin getPenguin(){
@@ -25,5 +27,9 @@ public class FishComputerMoveAction extends GameAction {
 
     public FishTile getDestination(){
         return this.destination;
+    }
+
+    public int getComScore(){
+        return this.comScore;
     }
 }

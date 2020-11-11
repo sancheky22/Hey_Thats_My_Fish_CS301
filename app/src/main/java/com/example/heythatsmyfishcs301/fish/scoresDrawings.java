@@ -11,7 +11,11 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import androidx.annotation.NonNull;
+
 import com.example.heythatsmyfishcs301.R;
+import com.example.heythatsmyfishcs301.game.GameComputerPlayer;
+import com.example.heythatsmyfishcs301.game.GameHumanPlayer;
 import com.example.heythatsmyfishcs301.game.infoMsg.GameInfo;
 import com.example.heythatsmyfishcs301.game.infoMsg.GameOverInfo;
 
@@ -28,12 +32,16 @@ public class scoresDrawings extends SurfaceView {
     int p1Score;
     int p2Score;
 
+    FishGameState fstate;
+
     public scoresDrawings(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
 
         black.setColor(Color.BLACK);
         black.setTextSize(50);
+
+        fstate = new FishGameState();
 
         /**
          *External Citation
@@ -95,10 +103,13 @@ public class scoresDrawings extends SurfaceView {
 
     //setter methods to be used in FishHumanPlayer
     public void setP1Scores(int i){
-        this.p1Score = i;
+        System.out.println("Setting p1 score to: " + i);
+        p1Score = i;
     }
 
     public void setP2Score(int i){
-        this.p2Score = i;
+        p2Score = i;
     }
+
+
 }

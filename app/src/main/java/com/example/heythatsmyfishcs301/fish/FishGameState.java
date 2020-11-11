@@ -1,7 +1,18 @@
 package com.example.heythatsmyfishcs301.fish;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 
+import com.example.heythatsmyfishcs301.R;
 import com.example.heythatsmyfishcs301.game.infoMsg.GameState;
 
 import java.lang.Integer;
@@ -51,13 +62,12 @@ public class FishGameState extends GameState {
     //Arraylist of integers that will hold 1s, 2s, or 3s. Will be used to randomly assign each tile a number of fish
     ArrayList<Integer> fishArray = new ArrayList<>(60);
 
-
     // Default constructor
     public FishGameState(){
         this.playerTurn = 0;
         //numPlayers is set to 2 for the alpha
         this.numPlayers = 2;
-        this.player1Score = 5;
+        this.player1Score = 0;
         this.player2Score = 0;
         this.player3Score = 0;
         this.player4Score = 0;
@@ -246,6 +256,12 @@ public class FishGameState extends GameState {
         } else {
             this.setPlayerTurn(0);
         }
+    }
+
+    //method useed in FishLocalGame and is needed so that when the AI makes a move,
+    //it can be set to the actual gamestate
+    public void changeComScore(int i){
+        this.player2Score = i;
     }
 
     //Helper method that is called whenever a player's score needs to be incremented
@@ -452,6 +468,11 @@ public class FishGameState extends GameState {
         return this.validMoves;
     }
 
+
+
+
+
+
     public FishTile[][] getBoardState(){
 
 //        FishTile[][] tiles = null;
@@ -504,6 +525,7 @@ public class FishGameState extends GameState {
     public void setValidMoves(boolean x){
         this.validMoves = x;
     }
+
 
 
 }
