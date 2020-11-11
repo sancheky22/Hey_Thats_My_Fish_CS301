@@ -185,14 +185,13 @@ public class FishGameState extends GameState {
     }
 
         //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
-
-
         addScore(playerTurn,this.boardState[p.getX()][p.getY()].getNumFish());
         this.boardState[p.getX()][p.getY()].setExists(false);
         this.boardState[p.getX()][p.getY()].setHasPenguin(false);
         p.setXPos(x);
         p.setYPos(y);
         this.boardState[x][y].setPenguin(p);
+        this.boardState[x][y].setHasPenguin(true);
         //this.playerTurn = (this.playerTurn+1)%this.numPlayers;
         this.playerTurn = (this.playerTurn+1)%2;
         return true;
