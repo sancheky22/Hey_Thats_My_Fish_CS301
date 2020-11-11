@@ -98,7 +98,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
         }
 
         //try to move diagonally down to the right
-            if(p.getX() + 1 <= 8 && pieceBoard[p.getX() + 1][p.getY()] != null){
+            if(p.getX() + 1 < 8 && pieceBoard[p.getX() + 1][p.getY()] != null){
                 if (!(pieceBoard[p.getX() + 1][p.getY()].hasPenguin()) && (pieceBoard[p.getX() + 1][p.getY()].doesExist())) {
                     addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
                     this.boardState[p.getX()][p.getY()].setExists(false);
@@ -118,7 +118,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
 
 
             //try to move diagonally down to the left
-            if(p.getX() + 1 > 8 && p.getY() - 1 >= 0 && pieceBoard[p.getX() + 1][p.getY() - 1] != null){
+            if(p.getX() + 1 < 8 && p.getY() - 1 >= 0 && pieceBoard[p.getX() + 1][p.getY() - 1] != null){
                 if (!(pieceBoard[p.getX() + 1][p.getY() - 1].hasPenguin()) && (pieceBoard[p.getX() + 1][p.getY() - 1].doesExist())) {
                     addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
                     this.boardState[p.getX()][p.getY()].setExists(false);
@@ -134,6 +134,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
                     return true;
                 }
             }
+
 
 
         //try to move horizontally to the left
@@ -175,7 +176,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
 
 
         //try to move diagonally up to the right
-            if(p.getX() - 1 <= 0 && p.getY() + 1 <= 8 && pieceBoard[p.getX() - 1][p.getY() + 1] != null){
+            if(p.getX() - 1 >= 0 && p.getY() + 1 <= 8 && pieceBoard[p.getX() - 1][p.getY() + 1] != null){
                 if (!(pieceBoard[p.getX() - 1][p.getY() + 1].hasPenguin()) && (pieceBoard[p.getX() - 1][p.getY() + 1].doesExist())) {
                     addScore(copy.getPlayerTurn(), this.boardState[p.getX() + 1][p.getY()].getNumFish());
                     this.boardState[p.getX()][p.getY()].setExists(false);
