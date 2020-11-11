@@ -38,7 +38,7 @@ public class FishLocalGame extends LocalGame {
             for (int j = 0; j < board[i].length; j++) {
                 if(board[i][j] != null) {
                     if (board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 1) {
-                        
+
                     }
                 }
             }
