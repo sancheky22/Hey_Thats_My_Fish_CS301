@@ -10,15 +10,15 @@ import android.graphics.PixelFormat;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
-import androidx.annotation.NonNull;
-
 import com.example.heythatsmyfishcs301.R;
-import com.example.heythatsmyfishcs301.game.GameComputerPlayer;
-import com.example.heythatsmyfishcs301.game.GameHumanPlayer;
-import com.example.heythatsmyfishcs301.game.infoMsg.GameInfo;
-import com.example.heythatsmyfishcs301.game.infoMsg.GameOverInfo;
 
+
+/**
+ * @author Kyle Sanchez
+ * @author Ryan Enslow
+ * @author Carina Pineda
+ * @author Linda Nguyen
+ **/
 public class scoresDrawings extends SurfaceView {
 
     Bitmap orangeFish = null;

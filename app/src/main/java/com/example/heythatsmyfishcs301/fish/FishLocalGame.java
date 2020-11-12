@@ -6,6 +6,12 @@ import com.example.heythatsmyfishcs301.game.GamePlayer;
 import com.example.heythatsmyfishcs301.game.LocalGame;
 import com.example.heythatsmyfishcs301.game.actionMsg.GameAction;
 
+/**
+ * @author Kyle Sanchez
+ * @author Ryan Enslow
+ * @author Carina Pineda
+ * @author Linda Nguyen
+ **/
 public class FishLocalGame extends LocalGame {
     //This is called after each turn and it sends a copy of the game state to the next player
     private FishGameState fState;

@@ -5,6 +5,12 @@ import com.example.heythatsmyfishcs301.game.infoMsg.GameInfo;
 
 import java.util.Random;
 
+/**
+ * @author Kyle Sanchez
+ * @author Ryan Enslow
+ * @author Carina Pineda
+ * @author Linda Nguyen
+ **/
 public class FishComputerPlayer2 extends GameComputerPlayer {
     //constructor done!
     public FishComputerPlayer2(String name){

@@ -10,6 +10,12 @@ import java.util.Random;
 
 import static java.lang.Math.abs;
 
+/**
+ * @author Kyle Sanchez
+ * @author Ryan Enslow
+ * @author Carina Pineda
+ * @author Linda Nguyen
+ **/
 public class FishComputerPlayer1 extends GameComputerPlayer {
 
     private FishTile[][] boardState;

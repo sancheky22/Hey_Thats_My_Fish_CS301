@@ -10,6 +10,12 @@ import android.graphics.drawable.Drawable;
 import java.lang.Math;
 
 /**
+ * @author Kyle Sanchez
+ * @author Ryan Enslow
+ * @author Carina Pineda
+ * @author Linda Nguyen
+ **/
+/**
  * External Citation
  * Date:    9/20/20
  * Problem: Need to draw regular hexagons to the screen using canvas

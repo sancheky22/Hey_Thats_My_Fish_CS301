@@ -9,6 +9,12 @@ import com.example.heythatsmyfishcs301.game.config.GamePlayerType;
 
 import java.util.ArrayList;
 
+/**
+ * @author Kyle Sanchez
+ * @author Ryan Enslow
+ * @author Carina Pineda
+ * @author Linda Nguyen
+ **/
 public class FishMainActivity extends GameMainActivity {
 
     // media player can go here for sounds

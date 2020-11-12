@@ -25,6 +25,12 @@ import com.example.heythatsmyfishcs301.game.infoMsg.GameInfo;
 
 import java.util.logging.Logger;
 
+/**
+ * @author Kyle Sanchez
+ * @author Ryan Enslow
+ * @author Carina Pineda
+ * @author Linda Nguyen
+ **/
 public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchListener {
     //Tag for logging
     private static final String TAG = "FishHumanPlayer";
