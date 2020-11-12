@@ -6,9 +6,6 @@ import com.example.heythatsmyfishcs301.game.GameComputerPlayer;
 import com.example.heythatsmyfishcs301.game.infoMsg.GameInfo;
 import com.example.heythatsmyfishcs301.game.infoMsg.NotYourTurnInfo;
 
-import java.util.Random;
-
-import static java.lang.Math.abs;
 
 /**
  * @author Kyle Sanchez

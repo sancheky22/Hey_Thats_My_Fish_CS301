@@ -1,11 +1,8 @@
 package com.example.heythatsmyfishcs301.fish;
 
-import android.util.Log;
 
 import com.example.heythatsmyfishcs301.game.GamePlayer;
 import com.example.heythatsmyfishcs301.game.actionMsg.GameAction;
-
-import static java.lang.Math.abs;
 
 /**
  * @author Kyle Sanchez

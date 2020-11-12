@@ -1,6 +1,5 @@
 package com.example.heythatsmyfishcs301.fish;
 
-import com.example.heythatsmyfishcs301.R;
 import com.example.heythatsmyfishcs301.game.GameMainActivity;
 import com.example.heythatsmyfishcs301.game.GamePlayer;
 import com.example.heythatsmyfishcs301.game.LocalGame;
