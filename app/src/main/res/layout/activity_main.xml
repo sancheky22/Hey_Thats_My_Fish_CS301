@@ -20,7 +20,7 @@
             android:text="Scores:"
             android:textSize="35sp" />
 
-          <com.example.heythatsmyfishcs301.fish.scoresDrawings
+          <com.example.heythatsmyfishcs301.fish.ScoresDrawings
              android:id="@+id/scoresDrawings"
              android:layout_width="match_parent"
              android:layout_height="match_parent" />

@@ -1,29 +1,13 @@
 package com.example.heythatsmyfishcs301.fish;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PixelFormat;
-import android.graphics.Point;
-import android.graphics.Rect;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Button;
 
 import com.example.heythatsmyfishcs301.R;
 import com.example.heythatsmyfishcs301.game.GameHumanPlayer;
 import com.example.heythatsmyfishcs301.game.GameMainActivity;
 import com.example.heythatsmyfishcs301.game.infoMsg.GameInfo;
-
-import java.util.logging.Logger;
 
 /**
  * @author Kyle Sanchez
@@ -43,7 +27,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     // the surface view
     private FishView surfaceView;
-    private scoresDrawings scores;
+    private ScoresDrawings scores;
 
     private FishPenguin selectedPenguin;
     private FishPenguin[][] pieces;
@@ -59,9 +43,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
      * @param name the name of the player
      */
     public FishHumanPlayer(String name) {
-
-
-
         super(name);
     }
 
@@ -174,7 +155,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                 }
             }
         }
-        
         return false;
     }
 }

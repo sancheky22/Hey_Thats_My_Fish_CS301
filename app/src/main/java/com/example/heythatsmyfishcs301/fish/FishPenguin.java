@@ -1,6 +1,8 @@
 package com.example.heythatsmyfishcs301.fish;
 
 /**
+ * This object contains all the variables that a piece would have such as: player, position, and whether or not it is on the board.
+ *
  * @author Kyle Sanchez
  * @author Ryan Enslow
  * @author Carina Pineda
@@ -12,8 +14,8 @@ public class FishPenguin {
     /**
      * keep track of position x,y,z
      * if they can make a valid move (boolean) loop through array to check if each piece has valid move if not
-        return false and EndGame
-     **/
+     * return false and EndGame
+     */
     private int player;
     private int xPos;
     private int yPos;
@@ -27,6 +29,10 @@ public class FishPenguin {
         this.legalMoves = true;
     }
 
+    /**
+     * Copy constructor: creates a deep copy
+     * @param p: Object to be copied
+     */
     public FishPenguin(FishPenguin p){
         this.player = p.getPlayer();
         this.onBoard = p.isOnBoard();
@@ -35,7 +41,7 @@ public class FishPenguin {
         this.yPos = p.getY();
     }
 
-
+    //Getter methods
     public int getX(){
         return this.xPos;
     }
@@ -56,6 +62,7 @@ public class FishPenguin {
         return this.onBoard;
     }
 
+    //Setter methods
     public void setXPos(int x){
         this.xPos = x;
     }

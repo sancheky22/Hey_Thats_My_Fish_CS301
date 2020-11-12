@@ -20,7 +20,7 @@ import com.example.heythatsmyfishcs301.R;
  * @author Linda Nguyen
  **/
 
-public class scoresDrawings extends SurfaceView {
+public class ScoresDrawings extends SurfaceView {
 
     Bitmap orangeFish = null;
     Bitmap redFish = null;
@@ -35,7 +35,7 @@ public class scoresDrawings extends SurfaceView {
 
     FishGameState fstate;
 
-    public scoresDrawings(Context context, AttributeSet attrs) {
+    public ScoresDrawings(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
 
