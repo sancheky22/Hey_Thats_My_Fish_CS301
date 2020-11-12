@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-//import android.util.FloatMath;
 import java.lang.Math;
 
 /**
@@ -15,6 +14,8 @@ import java.lang.Math;
  * @author Carina Pineda
  * @author Linda Nguyen
  **/
+
+
 /**
  * External Citation
  * Date:    9/20/20
@@ -27,8 +28,6 @@ import java.lang.Math;
  * Since then, the Math library was improved and FloatMath was left deprecated in API level 22
  * So we have slightly modified this class to make it compatible with our project.
  */
-
-
 
 
 public class HexagonDrawable extends Drawable {
