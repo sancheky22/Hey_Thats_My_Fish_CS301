@@ -58,6 +58,7 @@ public class FishLocalGame extends LocalGame {
                 }
             }
         }
+        
 
         //test if computer player has any moves left
         for(int i =0; i < board.length; i++) {
