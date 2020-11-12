@@ -81,7 +81,6 @@ public class FishGameState extends GameState {
             }
         }
         //this.pieceArray = initializePieces(this.numPlayers);
-
     }
 
     // copy constructor. Copies values from o to a new instance of the game state
@@ -110,11 +109,10 @@ public class FishGameState extends GameState {
             }
         }
     }
+
     /**
      Action methods will go underneath this comment.
      */
-
-
     //TODO: Possibly move the logic for the actions into their own classes.
     //Action: When the player moves a penguin onto the board at the beginning of the game.
     public boolean placePenguin(FishPenguin p, int x, int y) {
@@ -131,31 +129,74 @@ public class FishGameState extends GameState {
     public boolean testMove(FishPenguin p){
 
         //tests tile to the right horizontally
-        if(this.boardState[p.getX()][p.getY() + 1].doesExist()){
+        if(p.getY() + 1 <= 8 && this.boardState[p.getX()][p.getY() + 1] != null && this.boardState[p.getX()][p.getY() + 1].doesExist()){
+            if(p.getPlayer() == 0){
+                Log.d("Possible", "human can make move right horizontally");
+            }
+            else{
+                Log.d("Possible", "computer can make move right horizontally");
+            }
+
             return true;
         }
 
         //tests tile down to the right
-        else if(this.boardState[p.getX() - 1][p.getY()].doesExist()){
+        else if(p.getX() + 1 < 8 && this.boardState[p.getX() + 1][p.getY()] != null && this.boardState[p.getX() + 1][p.getY()].doesExist()){
+            if(p.getPlayer() == 0){
+                Log.d("Possible", "human can make move down to the right");
+            }
+            else{
+                Log.d("Possible", "computer can make move down to the right");
+            }
             return true;
         }
 
-        else  if(this.boardState[p.getX() + 1][p.getY() - 1].doesExist()){
+        //test tile down to the left
+        else  if(p.getX() + 1 < 8 && p.getY() - 1 >= 0 && this.boardState[p.getX() + 1][p.getY() - 1] != null && this.boardState[p.getX() + 1][p.getY() - 1].doesExist()){
+            if(p.getPlayer() == 0){
+                Log.d("Possible", "human can make move down to the left");
+            }
+            else{
+                Log.d("Possible", "computer can make move down to the left");
+            }
             return true;
         }
 
-        else  if(this.boardState[p.getX()][p.getY() - 1].doesExist()){
+        //test tile to the left horizontally
+        else  if(p.getY() - 1 >= 0 && this.boardState[p.getX()][p.getY() - 1] != null && this.boardState[p.getX()][p.getY() - 1].doesExist()){
+            if(p.getPlayer() == 0){
+                Log.d("Possible", "human can make move left horizontally");
+            }
+            else{
+                Log.d("Possible", "computer can make move left horizontally");
+            }
             return true;
         }
 
-        else  if(this.boardState[p.getX() - 1][p.getY()].doesExist()){
+        //test tile up to the left
+        else  if(p.getX() - 1 >= 0 && this.boardState[p.getX() - 1][p.getY()] != null && this.boardState[p.getX() - 1][p.getY()].doesExist()){
+            if(p.getPlayer() == 0){
+                Log.d("Possible", "human can make move to the left");
+            }
+           else{
+                Log.d("Possible", "computer can make move to the left");
+            }
             return true;
         }
 
-        else if(this.boardState[p.getX() - 1][p.getY() + 1].doesExist()){
+        //test tile up to the right
+        else if(p.getX() - 1 >= 0 && p.getY() + 1 <= 8 && boardState[p.getX() - 1][p.getY() + 1] != null && boardState[p.getX() - 1][p.getY() + 1].doesExist()){
+            if(p.getPlayer() == 0){
+                Log.d("Possible", "human can make move to the left");
+            }
+            else{
+                Log.d("Possible", "computer can make move up to the right");
+            }
+
             return true;
         }
 
+        Log.d("Move not possible", "can not make move");
         return false;
     }
 
@@ -221,8 +262,9 @@ public class FishGameState extends GameState {
         this.boardState[p.getX()][p.getY()].setHasPenguin(false);
         p.setXPos(x);
         p.setYPos(y);
+        Log.d("Human Moved", "human moved to (" + p.getX() + "," + p.getY() + ")");
         this.boardState[x][y].setPenguin(p);
-        //this.boardState[x][y].setHasPenguin(true);
+        this.boardState[x][y].setHasPenguin(true);
         //this.playerTurn = (this.playerTurn+1)%this.numPlayers;
         this.playerTurn = (this.playerTurn+1)%2;
         return true;
@@ -242,7 +284,7 @@ public class FishGameState extends GameState {
     }
 
     //method useed in FishLocalGame and is needed so that when the AI makes a move,
-    //it can be set to the actual gamestate
+    //it can be sent to the actual gamestate
     public void changeComScore(int i){
         this.player2Score = i;
     }
@@ -451,21 +493,7 @@ public class FishGameState extends GameState {
         return this.validMoves;
     }
 
-
-
-
-
-
     public FishTile[][] getBoardState(){
-
-//        FishTile[][] tiles = null;
-//        tiles = new FishTile[BOARD_HEIGHT][BOARD_LENGTH];
-//        for (int i=0;i<tiles.length;i++){
-//            for(int j=0;j<tiles[0].length;j++){
-//                tiles[i][j] = this.getBoardState()[i][j];
-//            }
-//        }
-//        return tiles;
         return this.boardState;
     }
 

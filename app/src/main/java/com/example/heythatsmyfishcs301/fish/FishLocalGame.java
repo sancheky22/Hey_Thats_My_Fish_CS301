@@ -34,37 +34,53 @@ public class FishLocalGame extends LocalGame {
         String win = null;
         board = fState.getBoardState();
 
-
+        //test if human player has any moves left
         for(int i =0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
 
-                if(board[i][j] != null) {
+                if(board[i][j] != null && board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 0) {
                     FishPenguin curPenguin = board[i][j].getPenguin();
-                    // checks for ComputerPlayer
 
-//                    if (board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 1) {
-//                        //return null;
-//                        // Checks if the ComputerPlayer has no valid moves left, if so the game is over.
-//                        if(true/* Condition to check if CP has valid moves left*/){
-//                            Log.d("Win Condition","Player 1 has NO valid moves left.");
-//                            return null;
-//                        }
-//                    }
+                    if((fState.getPlayer1Score() - fState.getPlayer2Score()) > 0){
 
-
-                    // check for HumanPlayer
-                    if (board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 0){
-                        // Checks if the HumanPlayer has no valid moves left, if so the game is over.
-                        if(fState.movePenguin(curPenguin,board[i][j].getX(),board[i][j].getY())==false){
-                            Log.d("Win Condition","Player 1 has NO valid moves left");
-                            return playerNames[0]+"has no valid moves left.";
-                        }
                     }
+
+                    if(!fState.testMove(curPenguin) && (fState.getPlayer1Score() - fState.getPlayer2Score()) > 0) {
+                        Log.d("Position", "Penguin position is " + curPenguin.getX() + "," + curPenguin.getY());
+                        return playerNames[0] + " has no moves left and " + playerNames[0] + " won with a score of "
+                                + fState.getPlayer1Score();
+                    }
+                    else if(!fState.testMove(curPenguin) && (fState.getPlayer1Score() - fState.getPlayer2Score()) < 0){
+                        return playerNames[0] + " has no moves left and " + playerNames[1] + " won with a score of "
+                                + fState.getPlayer2Score();
+                    }
+
                 }
             }
         }
 
-        return win;
+        //test if computer player has any moves left
+        for(int i =0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+
+                if(board[i][j] != null && board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 1) {
+                    FishPenguin curPenguin = board[i][j].getPenguin();
+
+                    if(!fState.testMove(curPenguin) && (fState.getPlayer1Score() - fState.getPlayer2Score()) > 0) {
+                        Log.d("Position", "Penguin position is " + curPenguin.getX() + "," + curPenguin.getY());
+                        return playerNames[1] + " has no moves left and " + playerNames[0] + " won with a score of "
+                                + fState.getPlayer1Score();
+                    }
+                    else if(!fState.testMove(curPenguin) && (fState.getPlayer1Score() - fState.getPlayer2Score()) < 0){
+                        return playerNames[1] + " has no moves left and " + playerNames[1] + " won with a score of "
+                                + fState.getPlayer2Score();
+                    }
+
+                }
+            }
+        }
+
+        return null;
     }
 
 

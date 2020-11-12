@@ -69,6 +69,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
         }
     }
 
+
     public boolean computerMovePenguin(FishPenguin p) {
 
         int direction = 0;
@@ -178,7 +179,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
         //try to move diagonally up to the right
             if(p.getX() - 1 >= 0 && p.getY() + 1 <= 8 && pieceBoard[p.getX() - 1][p.getY() + 1] != null){
                 if (!(pieceBoard[p.getX() - 1][p.getY() + 1].hasPenguin()) && (pieceBoard[p.getX() - 1][p.getY() + 1].doesExist())) {
-                    addScore(copy.getPlayerTurn(), this.boardState[p.getX() + 1][p.getY()].getNumFish());
+                    addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
                     this.boardState[p.getX()][p.getY()].setExists(false);
                     this.boardState[p.getX() - 1][p.getY() + 1].setPenguin(p);
                     p.setXPos(p.getX() - 1);
