@@ -8,6 +8,11 @@ import com.example.heythatsmyfishcs301.game.actionMsg.GameAction;
  * @author Ryan Enslow
  * @author Carina Pineda
  * @author Linda Nguyen
+ *
+ * This class is needed in order for the computer player to make a move
+ * An instance of this class is created whenever the computer makes a
+ * move and the action is sent to the gameState (that is done in the
+ * FishLocalGame class)
  **/
 public class FishComputerMoveAction extends GameAction {
 
@@ -27,14 +32,7 @@ public class FishComputerMoveAction extends GameAction {
         this.comScore = score;
     }
 
-    public FishPenguin getPenguin(){
-        return this.penguin;
-    }
-
-    public FishTile getDestination(){
-        return this.destination;
-    }
-
+    //Needed in order to send the computer's score to the gamestate
     public int getComScore(){
         return this.comScore;
     }

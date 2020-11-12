@@ -15,6 +15,9 @@ import static java.lang.Math.abs;
  * @author Ryan Enslow
  * @author Carina Pineda
  * @author Linda Nguyen
+ *
+ * This class contains the algorithm for how the computer player moves. It implements
+ * a separate method for the computer to move and sends the move action to the gameState
  **/
 public class FishComputerPlayer1 extends GameComputerPlayer {
 
@@ -52,7 +55,9 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
 
             // using our copy of gamestate
             FishTile[][] pieceBoard = copy.getBoardState();
-            // loop through
+
+            // loop through the board to see there is a penguin on the tile. If there is, it checks if the
+            //penguin belongs to the computer. If it does, it calls the computerMovePenguin
             if(copy.getPlayerTurn() == 1){
                 for(int i =0; i < pieceBoard.length; i++){
                     for(int j=0; j< pieceBoard[i].length;j++){
@@ -78,9 +83,13 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
     }
 
 
+    /**
+     * This AI is not very smart. It starts by trying to move to the right horizontally. From there, if moving to the right is not valid, it will check
+     * each direction going clockwise if moving there is a valid move. At the first instance of a valid move, it will make that move. It checks if a direction is
+     * a valid move by making sure that the tile isn't null, the if the coordinate we're going to is within the array bounds, if the tile exists, and the tile
+     * doesn't already have a penguin on it. To get access to the adjacent tiles, we just add or subtract to the x and y coordinates
+     */
     public boolean computerMovePenguin(FishPenguin p) {
-
-        int direction = 0;
         FishTile[][] pieceBoard = copy.getBoardState();
 
 
@@ -105,6 +114,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
                 return true;
             }
         }
+
 
         //try to move diagonally down to the right
             if(p.getX() + 1 < 8 && pieceBoard[p.getX() + 1][p.getY()] != null){
@@ -143,7 +153,6 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
                     return true;
                 }
             }
-
 
 
         //try to move horizontally to the left
@@ -205,6 +214,8 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
         return false;
     }
 
+    //method to sum up the scores of the scores of the computer player. It only sends it to a copy of the gamestate
+    //so a different method outside of this class is needed to send the scores to the actual gamestate
     private void addScore(int pT, int s) {
         switch (pT) {
             case 0:

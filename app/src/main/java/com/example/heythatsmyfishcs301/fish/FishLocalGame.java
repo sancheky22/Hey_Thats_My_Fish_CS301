@@ -40,16 +40,15 @@ public class FishLocalGame extends LocalGame {
         String win = null;
         board = fState.getBoardState();
 
-        //test if human player has any moves left
+        //test if human player has any valid moves left. Does so by going through the whole board and checking
+        //if it has a penguin on it then checks if the penguin belongs to the human player. Then it calls the
+        //testMove function and if there's no legal moves left, it returns who won. If there is a legal move left
+        //it checks if the computer has any valid moves left
         for(int i =0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
 
                 if(board[i][j] != null && board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 0) {
                     FishPenguin curPenguin = board[i][j].getPenguin();
-
-                    if((fState.getPlayer1Score() - fState.getPlayer2Score()) > 0){
-
-                    }
 
                     if(!fState.testMove(curPenguin) && (fState.getPlayer1Score() - fState.getPlayer2Score()) > 0) {
                         Log.d("Position", "Penguin position is " + curPenguin.getX() + "," + curPenguin.getY());
@@ -64,9 +63,9 @@ public class FishLocalGame extends LocalGame {
                 }
             }
         }
-        
 
-        //test if computer player has any moves left
+        //test if computer player has any moves left. Method to check is the same as above, checking if the human has any valid moves left
+        //if the computer player also has valid moves left, then checkGameOver will return null
         for(int i =0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
 
@@ -91,7 +90,7 @@ public class FishLocalGame extends LocalGame {
     }
 
 
-    //This method is called whenever a new action arrives from a player.\
+    //This method is called whenever a new action arrives from a player.
     //This is where we update the game state
     //This includes changing the turn, updating the Tiles on the board, scores etc.
     @Override

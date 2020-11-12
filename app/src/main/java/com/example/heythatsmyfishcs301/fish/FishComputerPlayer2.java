@@ -10,6 +10,8 @@ import java.util.Random;
  * @author Ryan Enslow
  * @author Carina Pineda
  * @author Linda Nguyen
+ *
+ * This class should be for the smart AI. Not yet implemented
  **/
 public class FishComputerPlayer2 extends GameComputerPlayer {
     //constructor done!
