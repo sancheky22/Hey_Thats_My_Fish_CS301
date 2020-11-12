@@ -11,17 +11,20 @@ import android.graphics.Rect;
 
 public class FishTile {
 
+    private boolean exists;         //True if the tile is still on the board
+    private boolean hasPenguin;     //True if the tile contains a penguin
+    private FishPenguin penguin;    //Contains the penguin object currently on this tile
+    private int x;                  //Contains the x coordinate in the array
+    private int y;                  //Contains the y coordinate in the array
+    private Rect boundingBox;       //Contains the hit box of the tile
+    private int numFish;            //Contains the number of points on the tile
 
-    private boolean exists;
-    private boolean hasPenguin;
-    private FishPenguin penguin;
-    private int value;
-    private int x;
-    private int y;
-    private Rect boundingBox;
-
-    private int numFish;
-
+    /**
+     * This is the constructor that will be called pretty much every time
+     *
+     * @param x: x location in the 2d array
+     * @param y: y location in the 2d array
+     */
     public FishTile(int x, int y){
         this.x = x;
         this.y = y;
@@ -29,10 +32,13 @@ public class FishTile {
         this.hasPenguin = false;
         this.penguin = null;
         //needs to be [1-3] not just 3 but we can work on that later
-        this.value = 3;
         this.boundingBox = null;
     }
 
+    /**
+     * Copy Constructor: Creates a deep copy
+     * @param t: Tile to be copied
+     */
     public FishTile(FishTile t){
         this.x = t.x;
         this.y = t.y;
@@ -42,6 +48,7 @@ public class FishTile {
         this.boundingBox = new Rect(t.boundingBox);
     }
 
+    //Getter Methods
     public int getX(){
         return this.x;
     }
@@ -62,14 +69,11 @@ public class FishTile {
         return this.penguin;
     }
 
-    public int getValue(){
-        return this.value;
-    }
-
     public Rect getBoundingBox(){
         return this.boundingBox;
     }
 
+    //Setter methods
     public void setX(int x){
         this.x = x;
     }
@@ -88,10 +92,6 @@ public class FishTile {
 
     public void setPenguin(FishPenguin p){
         this.penguin = new FishPenguin(p);
-    }
-
-    public void setValue(int i){
-        this.value = i;
     }
 
     public void setBoundingBox(Rect r){
