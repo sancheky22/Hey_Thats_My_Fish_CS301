@@ -12,8 +12,10 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import com.example.heythatsmyfishcs301.R;
 
-
 /**
+ * Description: The scoresDrawings class draws the fishes that displays the scores. The scores
+ * are displayed and updated to the current player1 and player2 scores.
+
  * @author Kyle Sanchez
  * @author Ryan Enslow
  * @author Carina Pineda
@@ -52,8 +54,11 @@ public class ScoresDrawings extends SurfaceView {
          *
          * Created by: Jens Jensen (4/14/2014)
          *
-         * Solution: We copied these lines of code into our constructor to get rid of the black background
+         * Solution: We copied these lines of code into our constructor to get rid of the black
+         * background
          */
+
+        //Surface View of the Scores that the fish and text view are on
         SurfaceView sfvTrack = (SurfaceView)findViewById(R.id.scoresDrawings);
         sfvTrack.setZOrderOnTop(true);
         SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
@@ -63,12 +68,16 @@ public class ScoresDrawings extends SurfaceView {
          *External Citation
          * Date: 9/18/20
          * Problem: Needed to draw the fish png files to the surfaceview
-         * Resource: Class lecture for creating the bitmap, and also https://stackoverflow.com/questions/17839388/creating-a-scaled-bitmap-with-createscaledbitmap-in-android
+         * Resource: Class lecture for creating the bitmap, and also https://stackoverflow.com/quest
+         * ions/17839388/creating-a-scaled-bitmap-with-createscaledbitmap-in-android
          * to scale the images
          * Created by: Dr. Andrew Nuxoll (9/17/2020) and Geobits (7/24/2013)
          *
-         * Solution: We referenced the examples from lecture and the stackoverflow tutorial to create a bitmap of our image and then resize it to fit the surfaceview
+         * Solution: We referenced the examples from lecture and the stackoverflow tutorial to crea
+         * te a bitmap of our image and then resize it to fit the surfaceview
          */
+
+        //Getting our fishes and resizing them for the scoresDrawing surface View
         orangeFish = BitmapFactory.decodeResource(getResources(), R.drawable.orangefish);
         resizedOrange = Bitmap.createScaledBitmap(orangeFish, 300, 300, false);
 
@@ -77,27 +86,27 @@ public class ScoresDrawings extends SurfaceView {
 
         blueFish = BitmapFactory.decodeResource(getResources(), R.drawable.bluefish);
         resizedBlue = Bitmap.createScaledBitmap(blueFish, 300, 300, false);
-
-
     }
 
 
     @Override
     public void onDraw(Canvas canvas) {
+
+        //drawing our resized fishes using bitmap
         canvas.drawBitmap(this.resizedOrange, 1.0f, 1.0f, null);
         canvas.drawBitmap(this.resizedRed, 0.0f, 300.0f, null);
-
-
 
         /**
          *External Citation
          * Date: 9/18/20
          * Problem: Forgot how to turn an int into a string
-         * Resource: https://www.geeksforgeeks.org/different-ways-for-integer-to-string-conversions-in-java/
+         * Resource: https://www.geeksforgeeks.org/different-ways-for-integer-to-string-conversion
+         * s-in-java/
          * Created by: Geeksforgeeks (12/08/2020)
          *
          * Solution: Used the Integer.toString method shown on the website
          */
+        //draws our scores for player1 and player 2 onto our fishes
         canvas.drawText(Integer.toString(p1Score), (float)140.0, (float)160.0, black);
         canvas.drawText(Integer.toString(p2Score), (float)140.0, (float)465.0, black);
     }
@@ -112,5 +121,4 @@ public class ScoresDrawings extends SurfaceView {
         p2Score = i;
     }
 
-
-}
+}//ScoresDrawings

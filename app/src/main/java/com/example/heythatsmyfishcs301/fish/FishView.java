@@ -11,15 +11,15 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
 import com.example.heythatsmyfishcs301.R;
-import com.example.heythatsmyfishcs301.game.LocalGame;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 
 /**
+ *Descriptions: FishView Class contains all of the components that makes the 1-fish, 2-fish, 3-fish,
+ * red-Penguin, and orange-Penguin. It is controlled by the Human Player and draws all of the
+ * components such as the board,1-fish, 2-fish, 3-fish, red-Penguin, and orange-Penguin.
+ * This class also assigns the hitboxes to the tile objects.
+ *
  * @author Kyle Sanchez
  * @author Ryan Enslow
  * @author Carina Pineda
@@ -28,7 +28,6 @@ import java.util.Random;
 public class FishView extends SurfaceView {
 
     //instance variables necessary to draw the initial board state
-
     private FishGameState gameState;
     private int cWidth;
     private int cHeight;
@@ -91,7 +90,6 @@ public class FishView extends SurfaceView {
         resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, 115, 115, false);
         orangePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
         resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, 115, 115, false);
-
     }
 
 
@@ -107,10 +105,11 @@ public class FishView extends SurfaceView {
     }
 
 
-    //This method uses the dimensions of the Canvas to draw a board of an appropriate size
-    //Each hexagon can fit into a Rect object as its bounds so we take a rect and draw a hexagon inside of it
-    //we also draw any other properties of the tile that need to be drawn (Fish and penguins).
-    //We repeat this process for all 8 rows and the end result is a complete board.
+    /**This method uses the dimensions of the Canvas to draw a board of an appropriate size
+    *Each hexagon can fit into a Rect object as its bounds so we take a rect and draw a hexagon
+    *inside of it
+    *we also draw any other properties of the tile that need to be drawn (Fish and penguins).
+    *We repeat this process for all 8 rows and the end result is a complete board.**/
     public void drawBoard(Canvas c, FishGameState g) {
         FishTile[][] board = g.getBoardState();
         FishPenguin[][] penguins = g.getPieceArray();
@@ -119,25 +118,26 @@ public class FishView extends SurfaceView {
         int hexWidth = cWidth / 8;
         int margin = 15;
 
-        //This Rect object is where we draw the hexagon. We will move it kind of like a stencil and then draw the hexagon inside it
+        //This Rect object is where we draw the hexagon. We will move it kind of like a stencil
+        // and then draw the hexagon inside it
         Rect bound = new Rect(0, 0, hexWidth, hexHeight);
-
         int counter = 0;
 
 
-        //Here we go through the array and if the tile is null, then it is a placeholder and we skip it.
-        //If it is a tile that exists, we draw it.
-        //Increment the Rect bound object
-        //At the end of the row, reset bound to the start.
+       /** Here we go through the array and if the tile is null, then it is a placeholder and we
+        * skip it.
+        * If it is a tile that exists, we draw it.
+        * Increment the Rect bound object
+        * At the end of the row, reset bound to the start**/
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                //If it is a placeholder cell, then do not move the bounds.
+
                 if (board[i][j] == null) {
                     continue;
                 }
+                //This will draw the hexagon, fish, and then the penguins on each tile
                 if (board[i][j].doesExist()) {
-                    //Draw order: hexagon, fish, penguin
-                    //Draws the hexagon
+
                     bigHex.computeHex(bound);
                     bigHex.draw(c);
                     Rect s = new Rect(bound);
@@ -149,24 +149,12 @@ public class FishView extends SurfaceView {
                     s.right -= margin;
                     s.left += margin;
 
-                    //We set the hitbox for the Tile at this point.
-                    //I think there is a better way to do this, but i dont know :(
+                    //We set the hitbox for the Tile
                     board[i][j].setBoundingBox(s);
-
-                    /**
-                     * draw bounding box for hexagons.
-                     * Paint p = new Paint();
-                     * p.setStyle(Paint.Style.STROKE);
-                     * p.setStrokeWidth(10.0f);
-                     * p.setColor(0xFF000000);
-                     * c.drawRect(s,p);
-                     */
-
                     hex.computeHex(s);
                     hex.draw(c);
 
                     //draw the fish on the hexagon
-                    //TODO: Draw the fish images on the tiles.
                     switch (board[i][j].getNumFish()) {
                         case 1:
                             //Draw 1 fish
@@ -182,10 +170,8 @@ public class FishView extends SurfaceView {
                             break;
                     }
 
-                    //TODO: Replace the white rectangle for penguin sprites
-                    //draw the penguin here as well.
+                    //if it is player 0 then it belongs to the orange penguin, if the player is 1, then the red penguin is assigned to that player
                     if (board[i][j].getPenguin() != null){
-                        //c.drawRect(board[i][j].getBoundingBox(),testPaint);
                         if (board[i][j].getPenguin().getPlayer() == 0){
                             c.drawBitmap(resizedOrangePenguin, board[i][j].getBoundingBox().left, board[i][j].getBoundingBox().top, null);
                         }
@@ -203,7 +189,7 @@ public class FishView extends SurfaceView {
 
             //Need to set the bound back to the start and up one more line.
             //If the next line is even, set the left and right bounds to 0
-            //If it's odd, offset it by a little bit.
+            //If it's odd, offset the tile .
             float spacing = 0.75f;
 
             bound.left = ((i + 1) % 2) * hexWidth / 2;
@@ -211,34 +197,8 @@ public class FishView extends SurfaceView {
             bound.bottom += hexHeight * spacing;
             bound.top += hexHeight * spacing;
         }
-
-        /**
-        //After we have drawn all of the tiles, we draw the penguins on the board in this loop
-        for (int i = 0; i < penguins.length; i++) {
-            for (int j = 0; j < penguins[i].length; j++) {
-                //TODO: Draw the penguin at its location.
-                FishPenguin p = penguins[i][j];
-                if (p != null) {
-                    Rect box = board[p.getX()][p.getY()].getBoundingBox();
-                    if(i == 0){
-                        //c.drawBitmap(resizedOrangePenguin, box.left, box.top, null);
-                        c.drawRect(box,testPaint);
-                    }
-                    else if(i == 1){
-                        c.drawBitmap(resizedRedPenguin, box.left, box.top, null);
-                    }
-
-                }
-            }
-        }
-*/
     }
 
-    public FishGameState getGameState() {
-        return this.gameState;
-    }
-
-    public void setGameState(FishGameState f) {
-        this.gameState = new FishGameState(f);
-    }
+    public FishGameState getGameState() { return this.gameState; }
+    public void setGameState(FishGameState f) { this.gameState = new FishGameState(f); }
 }
