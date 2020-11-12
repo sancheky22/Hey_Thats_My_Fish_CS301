@@ -4,6 +4,10 @@ import com.example.heythatsmyfishcs301.game.GamePlayer;
 import com.example.heythatsmyfishcs301.game.actionMsg.GameAction;
 
 /**
+ *
+ * CURRENTLY UNIMPLEMENTED
+ * The FishPlaceAction will allow the GamePlayer's to place their FishPenguin pieces across the board
+ *
  * @author Kyle Sanchez
  * @author Ryan Enslow
  * @author Carina Pineda
