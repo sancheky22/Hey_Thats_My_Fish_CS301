@@ -128,6 +128,37 @@ public class FishGameState extends GameState {
         }
     }
 
+    public boolean testMove(FishPenguin p){
+
+        //tests tile to the right horizontally
+        if(this.boardState[p.getX()][p.getY() + 1].doesExist()){
+            return true;
+        }
+
+        //tests tile down to the right
+        else if(this.boardState[p.getX() - 1][p.getY()].doesExist()){
+            return true;
+        }
+
+        else  if(this.boardState[p.getX() + 1][p.getY() - 1].doesExist()){
+            return true;
+        }
+
+        else  if(this.boardState[p.getX()][p.getY() - 1].doesExist()){
+            return true;
+        }
+
+        else  if(this.boardState[p.getX() - 1][p.getY()].doesExist()){
+            return true;
+        }
+
+        else if(this.boardState[p.getX() - 1][p.getY() + 1].doesExist()){
+            return true;
+        }
+
+        return false;
+    }
+
     //Action: When the player moves a penguin p to the coordinate (x,y) in the hex board.
     //After this action is taken, the original tile needs to be removed, the player's score needs to be updated, and the turn needs to be incremented.
     public boolean movePenguin(FishPenguin p, int x, int y){
@@ -191,7 +222,7 @@ public class FishGameState extends GameState {
         p.setXPos(x);
         p.setYPos(y);
         this.boardState[x][y].setPenguin(p);
-        this.boardState[x][y].setHasPenguin(true);
+        //this.boardState[x][y].setHasPenguin(true);
         //this.playerTurn = (this.playerTurn+1)%this.numPlayers;
         this.playerTurn = (this.playerTurn+1)%2;
         return true;
