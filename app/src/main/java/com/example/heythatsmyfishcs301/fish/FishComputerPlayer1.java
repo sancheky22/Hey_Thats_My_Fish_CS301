@@ -21,7 +21,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
     private FishTile[][] boardState;
     FishGameState copy = null;
 
-    //constructor done!
+    //Constructor for The Computer Player
     public FishComputerPlayer1(String name){
         super(name);
     }
@@ -34,12 +34,14 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
             return;
         }
 
+        //if the info is not of a FishGameState, ignore because it will cause problems otherwise.
         if (!(info instanceof FishGameState)) {
             return;
         }
 
+        //Let copy be the copied state.
         copy = (FishGameState) info;
-        //Random r = new Random();
+
         if (copy.getPlayerTurn() != this.playerNum)
             return;
 
