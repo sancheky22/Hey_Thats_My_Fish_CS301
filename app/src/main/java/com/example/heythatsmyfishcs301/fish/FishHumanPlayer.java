@@ -10,6 +10,11 @@ import com.example.heythatsmyfishcs301.game.GameMainActivity;
 import com.example.heythatsmyfishcs301.game.infoMsg.GameInfo;
 
 /**
+ *
+ * The FishHumanPlayer handles all of the touch events and surface view interactions
+ * that the human sees. Methods in this class handle touch events from the human
+ * and update the Surface View accordingly.
+ *
  * @author Kyle Sanchez
  * @author Ryan Enslow
  * @author Carina Pineda
@@ -29,12 +34,15 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     private FishView surfaceView;
     private ScoresDrawings scores;
 
+    // create local board variable and local penguin variable
     private FishPenguin selectedPenguin;
     private FishPenguin[][] pieces;
 
+    // intial player scores
     int p1Score = 0;
     int p2Score = 0;
 
+    // current player turn
     int turn;
 
     /**
@@ -46,6 +54,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         super(name);
     }
 
+    // Returns the top_gui of the game
     @Override
     public View getTopView() {
         return myActivity.findViewById(R.id.top_gui_layout);
@@ -56,6 +65,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     @Override
     public void receiveInfo(GameInfo info) {
 
+        // checks if SV is null
         if (surfaceView == null) return;
 
         // ignore the message if it's not a FishGameState message
@@ -63,26 +73,31 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             return;
         } else {
             // update the state
+            // initialize currently selectedPenguin
             selectedPenguin = null;
+            // gets gameState
             gameState = (FishGameState)info;
 
+            // initialize piece array
             pieces = gameState.getPieceArray();
 
+            // sets player turn
             turn = gameState.getPlayerTurn();
 
+            // get current player score
             p1Score = gameState.getPlayer1Score();
             p2Score = gameState.getPlayer2Score();
 
+            // set current player score
             scores.setP1Scores(p1Score);
             scores.setP2Score(p2Score);
 
+            // update the surface view
             surfaceView.setGameState(new FishGameState((FishGameState)info));
             surfaceView.invalidate();
+            // invalidate the scores TextView to update
             scores.invalidate();
 
-            //surfaceView.setState(state);
-            //surfaceView.invalidate();
-            //Logger.log(TAG, "receiving");
         }
 
     }
