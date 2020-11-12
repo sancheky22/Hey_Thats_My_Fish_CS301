@@ -10,6 +10,10 @@ import com.example.heythatsmyfishcs301.game.config.GamePlayerType;
 import java.util.ArrayList;
 
 /**
+ * This is the main activity, and the program is run from here.
+ * This is where the local game is initialized and then the game framework handles the rest.
+ * One important thing in this class is the definitions for the types of players: Human and computer.
+ *
  * @author Kyle Sanchez
  * @author Ryan Enslow
  * @author Carina Pineda
@@ -43,7 +47,6 @@ public class FishMainActivity extends GameMainActivity {
         });
 
         // smart computer player
-
         playerTypes.add(new GamePlayerType("Computer Player (smart)") {
             public GamePlayer createPlayer(String name) {return new FishComputerPlayer2(name);
             }
