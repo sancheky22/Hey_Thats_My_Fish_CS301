@@ -7,6 +7,11 @@ import com.example.heythatsmyfishcs301.game.LocalGame;
 import com.example.heythatsmyfishcs301.game.actionMsg.GameAction;
 
 /**
+ *
+ * The FishLocalGame receives the current GameState and sends copies to their respective players.
+ * The LocalGame also checks if the game is over by displaying the name of the player who won
+ * to the screen.
+ *
  * @author Kyle Sanchez
  * @author Ryan Enslow
  * @author Carina Pineda
@@ -14,30 +19,45 @@ import com.example.heythatsmyfishcs301.game.actionMsg.GameAction;
  **/
 public class FishLocalGame extends LocalGame {
     //This is called after each turn and it sends a copy of the game state to the next player
+
+    // create GameState variable for this class
     private FishGameState fState;
+
+    // create a local board variable for this class
     private FishTile[][] board;
 
+    // Constructor for the local game that creates a new GameState
     public FishLocalGame(){
         this.fState = new FishGameState();
     }
 
+    // takes a GamePlayer as a paramter
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
+        // creates a copy of the GameState using its copy constructor
         FishGameState copy = new FishGameState(fState);
+        // sends copy to specified player
         p.sendInfo(copy);
     }
 
+
+    // takes in currentPlayerId
     @Override
     protected boolean canMove(int playerIdx) {
+        // checks if a valid move can be made
         if (playerIdx == this.fState.getPlayerTurn()){
+            // if the current player and the states player turn match return true since a move can be made!
             return true;
         }
         return false;
     }
 
+
+    // This method tests if either player has no moves left
+    // if that's the case print to the screen who's the player and the winners score
     @Override
     protected String checkIfGameOver() {
-        String win = null;
+        // get a copy of the boardState
         board = fState.getBoardState();
 
         //test if human player has any valid moves left. Does so by going through the whole board and checking
@@ -49,6 +69,10 @@ public class FishLocalGame extends LocalGame {
 
                 if(board[i][j] != null && board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 0) {
                     FishPenguin curPenguin = board[i][j].getPenguin();
+
+                    if((fState.getPlayer1Score() - fState.getPlayer2Score()) > 0){
+
+                    }
 
                     if(!fState.testMove(curPenguin) && (fState.getPlayer1Score() - fState.getPlayer2Score()) > 0) {
                         Log.d("Position", "Penguin position is " + curPenguin.getX() + "," + curPenguin.getY());
@@ -114,7 +138,7 @@ public class FishLocalGame extends LocalGame {
         }
 
         //if computer makes a move, we want to set the score it obtains in the
-        //actual gamestate then change the player turn back to human
+        //actual GameState then change the player turn back to human
         else if(action instanceof FishComputerMoveAction){
             this.fState.changeTurn();
             int score = ((FishComputerMoveAction) action).getComScore();
