@@ -62,7 +62,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
                         if(pieceBoard[i][j] != null){
                             if(pieceBoard[i][j].hasPenguin() && pieceBoard[i][j].getPenguin().getPlayer() == playerNum){
                                 computerMovePenguin(pieceBoard[i][j].getPenguin());
-                                break;
+                                return;
                             }
                         }
 
