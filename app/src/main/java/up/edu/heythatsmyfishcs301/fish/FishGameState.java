@@ -284,8 +284,19 @@ public class FishGameState extends GameState {
     it can be sent to the actual gamestate
     This is in the alpha, but will be generalized later
      */
-    public void changeComScore(int i){
-        this.player2Score = i;
+    public void changeComScore(int i, int playerNum){
+        if(playerNum == 0){
+            this.player1Score = i;
+        }
+        else if(playerNum == 1){
+            this.player2Score = i;
+        }
+        else if(playerNum == 2){
+            this.player3Score = 3;
+        }
+        else if(playerNum == 3) {
+            this.player4Score = i;
+        }
     }
 
     /**
@@ -385,6 +396,7 @@ public class FishGameState extends GameState {
             }
         }
         //hardcoded value for alpha release
+         f[5][5].setHasPenguin(true);
         f[6][6].setHasPenguin(true);
         return f;
     }

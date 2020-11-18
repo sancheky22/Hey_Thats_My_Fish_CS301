@@ -142,7 +142,7 @@ public class FishLocalGame extends LocalGame {
         else if(action instanceof FishComputerMoveAction){
             this.fState.changeTurn();
             int score = ((FishComputerMoveAction) action).getComScore();
-            this.fState.changeComScore(score);
+            this.fState.changeComScore(score, ((FishComputerMoveAction) action).getPlayNum());
             Log.d("comScore changed","the computer's score is: " + score);
             return true;
         }
