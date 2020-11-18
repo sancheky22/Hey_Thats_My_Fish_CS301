@@ -154,13 +154,13 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                             Log.d("From Human Player", "Selected a valid penguin");
 
                         }
-                        else{
+                        else {
                             //The player did not touch their own penguin
                             //Maybe throw toast
                             Log.d("From Human Player", "Player expected to touch a penguin, but did not");
                         }
                     }
-                    else{
+                    else {
                         FishMoveAction m = new FishMoveAction(this, selectedPenguin,b[i][j]);
                         game.sendAction(m);
 
