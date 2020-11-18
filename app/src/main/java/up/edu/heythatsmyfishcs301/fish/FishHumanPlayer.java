@@ -137,39 +137,37 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         for(int i = 0; i < b.length; i++){
             for (int j = 0; j < b[i].length; j++){
 
-                if(b[i][j] != null && b[i][j].getBoundingBox() != null){
-                    if(b[i][j] != null && b[i][j].getBoundingBox().contains(x,y)){
-                        //the player has clicked this bounding box.
 
-                        Log.d("From FishView", "Touched the Fish View at: "+i+", "+j);
-                        Log.d("From human player", "Current player turn is " + turn);
-                        if (selectedPenguin == null) {
-                            if (b[i][j].getPenguin() == null){
-                                return false;
-                            }
-                            //set to 0 just for alpha release
-                            else if (b[i][j].getPenguin().getPlayer() == playerNum) {
-                                //The player has selected this penguin to move
-                                selectedPenguin = b[i][j].getPenguin();
-                                Log.d("From Human Player", "Selected a valid penguin");
+                if(b[i][j] != null && b[i][j].getBoundingBox().contains(x,y)){
+                    //the player has clicked this bounding box.
 
-                            }
-                            else{
-                                //The player did not touch their own penguin
-                                //Maybe throw toast
-                                Log.d("From Human Player", "Player expected to touch a penguin, but did not");
-                            }
+                    Log.d("From FishView", "Touched the Fish View at: "+i+", "+j);
+                    Log.d("From human player", "Current player turn is " + turn);
+                    if (selectedPenguin == null) {
+                        if (b[i][j].getPenguin() == null){
+                            return false;
                         }
-                        else{
-                            FishMoveAction m = new FishMoveAction(this, selectedPenguin,b[i][j]);
-                            game.sendAction(m);
+                        //set to 0 just for alpha release
+                        else if (b[i][j].getPenguin().getPlayer() == 0) {
+                            //The player has selected this penguin to move
+                            selectedPenguin = b[i][j].getPenguin();
+                            Log.d("From Human Player", "Selected a valid penguin");
 
-
-                            Log.d("From Human Player","Sent action to Local Game");
+                        }
+                        else {
+                            //The player did not touch their own penguin
+                            //Maybe throw toast
+                            Log.d("From Human Player", "Player expected to touch a penguin, but did not");
                         }
                     }
-                }
+                    else {
+                        FishMoveAction m = new FishMoveAction(this, selectedPenguin,b[i][j]);
+                        game.sendAction(m);
 
+
+                        Log.d("From Human Player","Sent action to Local Game");
+                    }
+                }
             }
         }
         return false;

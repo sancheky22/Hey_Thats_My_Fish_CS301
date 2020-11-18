@@ -285,19 +285,8 @@ public class FishGameState extends GameState {
     it can be sent to the actual gamestate
     This is in the alpha, but will be generalized later
      */
-    public void changeComScore(int i, int playerNum){
-        if(playerNum == 0){
-            this.player1Score = i;
-        }
-        else if(playerNum == 1){
-            this.player2Score = i;
-        }
-        else if(playerNum == 2){
-            this.player3Score = 3;
-        }
-        else if(playerNum == 3) {
-            this.player4Score = i;
-        }
+    public void changeComScore(int i){
+        this.player2Score = i;
     }
 
     /**
@@ -397,7 +386,6 @@ public class FishGameState extends GameState {
             }
         }
         //hardcoded value for alpha release
-         f[5][5].setHasPenguin(true);
         f[6][6].setHasPenguin(true);
         return f;
     }
@@ -476,32 +464,32 @@ public class FishGameState extends GameState {
         p[0][0].setYPos(5);
 
         // Player 1 penguin 2
-        p[0][1].setXPos(3);
+        p[0][1].setXPos(0);
         p[0][1].setYPos(5);
 
         // Player 1 penguin 3
-        p[0][2].setXPos(4);
-        p[0][2].setYPos(5);
+        p[0][2].setXPos(0);
+        p[0][2].setYPos(6);
 
         // Player 1 penguin 4
-        p[0][3].setXPos(3);
-        p[0][3].setYPos(4);
+        p[0][3].setXPos(0);
+        p[0][3].setYPos(7);
 
         // player 2 penguin 2
         p[1][0].setXPos(6);
         p[1][0].setYPos(6);
 
         // Player 2 penguin 2
-        p[1][1].setXPos(6);
-        p[1][1].setYPos(4);
+        p[1][1].setXPos(1);
+        p[1][1].setYPos(5);
 
         // Player 2 penguin 3
-        p[1][2].setXPos(4);
-        p[1][2].setYPos(4);
+        p[1][2].setXPos(1);
+        p[1][2].setYPos(6);
 
         // Player 2 penguin 4
-        p[1][3].setXPos(3);
-        p[1][3].setYPos(6);
+        p[1][3].setXPos(1);
+        p[1][3].setYPos(7);
 
 
 
