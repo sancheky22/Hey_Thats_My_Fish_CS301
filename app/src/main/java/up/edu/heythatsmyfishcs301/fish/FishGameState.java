@@ -96,7 +96,7 @@ public class FishGameState extends GameState {
         //this.pieceArray = new FishPenguin[o.numPlayers][6-o.numPlayers];
 
         //For the alpha, we know that the size of the array will be [2][1]
-        this.pieceArray = new FishPenguin[2][1];
+        this.pieceArray = new FishPenguin[2][4];
         for (int i=0;i<this.pieceArray.length;i++){
             for(int j=0;j<this.pieceArray[0].length;j++){
                 this.pieceArray[i][j] = o.getPieceArray()[i][j];
@@ -454,19 +454,68 @@ public class FishGameState extends GameState {
      This method will be deleted later on when we implement that starting phase of the game.
      */
     private FishPenguin[][] alphaInitializePieces(){
-        FishPenguin[][] p = new FishPenguin[2][1];
+        FishPenguin[][] p = new FishPenguin[2][4];
 
+        // player 1's penguins
         p[0][0] = new FishPenguin(0);
-        p[1][0] = new FishPenguin(1);
+        p[0][1] = new FishPenguin(0);
+        p[0][2] = new FishPenguin(0);
+        p[0][3] = new FishPenguin(0);
 
+
+
+        // player 2's penguins
+        p[1][0] = new FishPenguin(1);
+        p[1][1] = new FishPenguin(1);
+        p[1][2] = new FishPenguin(1);
+        p[1][3] = new FishPenguin(1);
+
+        // Player 1 penguin 1
         p[0][0].setXPos(5);
         p[0][0].setYPos(5);
 
+        // Player 1 penguin 2
+        p[0][1].setXPos(3);
+        p[0][1].setYPos(5);
+
+        // Player 1 penguin 3
+        p[0][2].setXPos(4);
+        p[0][2].setYPos(5);
+
+        // Player 1 penguin 4
+        p[0][3].setXPos(3);
+        p[0][3].setYPos(4);
+
+        // player 2 penguin 2
         p[1][0].setXPos(6);
         p[1][0].setYPos(6);
 
+        // Player 2 penguin 2
+        p[0][1].setXPos(6);
+        p[0][1].setYPos(4);
+
+        // Player 2 penguin 3
+        p[0][2].setXPos(4);
+        p[0][2].setYPos(4);
+
+        // Player 2 penguin 4
+        p[0][3].setXPos(3);
+        p[0][3].setYPos(6);
+
+
+
+
         p[0][0].setOnBoard(true);
         p[1][0].setOnBoard(true);
+
+        p[0][1].setOnBoard(true);
+        p[0][2].setOnBoard(true);
+        p[0][3].setOnBoard(true);
+
+
+        p[1][1].setOnBoard(true);
+        p[1][2].setOnBoard(true);
+        p[1][3].setOnBoard(true);
 
         return p;
     }
