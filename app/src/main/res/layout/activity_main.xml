@@ -35,9 +35,9 @@
 
 
           <up.edu.heythatsmyfishcs301.fish.FishView
-            android:id="@+id/fishView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+              android:id="@+id/fishView"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" />
 
     </LinearLayout>
 

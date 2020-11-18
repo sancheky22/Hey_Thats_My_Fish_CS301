@@ -141,8 +141,6 @@ public class FishView extends SurfaceView {
                     bigHex.computeHex(bound);
                     bigHex.draw(c);
                     Rect s = new Rect(bound);
-                    Paint p = new Paint();
-
 
                     s.top += margin;
                     s.bottom -= margin;
@@ -184,7 +182,6 @@ public class FishView extends SurfaceView {
                 //increment the bounds
                 bound.right += hexWidth;
                 bound.left += hexWidth;
-
             }
 
             //Need to set the bound back to the start and up one more line.

@@ -60,7 +60,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
                     for(int j=0; j< pieceBoard[i].length;j++){
                         //computer player hard coded to play2 for alpha release
                         if(pieceBoard[i][j] != null){
-                            if(pieceBoard[i][j].hasPenguin() && pieceBoard[i][j].getPenguin().getPlayer() == 1){
+                            if(pieceBoard[i][j].hasPenguin() && pieceBoard[i][j].getPenguin().getPlayer() == this.playerNum){
                                 computerMovePenguin(pieceBoard[i][j].getPenguin());
                                 return;
                             }
