@@ -69,6 +69,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
 
                 }
             }
+            // not sure if needed
             Log.d("Move","Computer Player Moving");
         }
         //If the game phase is set up (Placing Penguins)
