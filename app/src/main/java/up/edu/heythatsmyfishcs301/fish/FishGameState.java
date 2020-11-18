@@ -67,6 +67,7 @@ public class FishGameState extends GameState {
         this.boardState = initializeBoard();
         for (int i = 0; i<pieceArray.length;i++){
             for (int j = 0; j<pieceArray[i].length;j++){
+                boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setHasPenguin(true);
                 boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setPenguin(pieceArray[i][j]);
             }
         }
@@ -479,16 +480,16 @@ public class FishGameState extends GameState {
         p[1][0].setYPos(6);
 
         // Player 2 penguin 2
-        p[0][1].setXPos(6);
-        p[0][1].setYPos(4);
+        p[1][1].setXPos(6);
+        p[1][1].setYPos(4);
 
         // Player 2 penguin 3
-        p[0][2].setXPos(4);
-        p[0][2].setYPos(4);
+        p[1][2].setXPos(4);
+        p[1][2].setYPos(4);
 
         // Player 2 penguin 4
-        p[0][3].setXPos(3);
-        p[0][3].setYPos(6);
+        p[1][3].setXPos(3);
+        p[1][3].setYPos(6);
 
 
 
