@@ -1,5 +1,6 @@
 package up.edu.heythatsmyfishcs301.fish;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -57,6 +58,7 @@ public class FishView extends SurfaceView {
     ArrayList<Integer> fishArray = new ArrayList<>(60);
 
 
+    @SuppressLint("NewApi")
     public FishView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
@@ -88,8 +90,11 @@ public class FishView extends SurfaceView {
 
         redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
         resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, 115, 115, false);
+
         orangePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
         resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, 115, 115, false);
+
+
     }
 
 
@@ -110,6 +115,7 @@ public class FishView extends SurfaceView {
     *inside of it
     *we also draw any other properties of the tile that need to be drawn (Fish and penguins).
     *We repeat this process for all 8 rows and the end result is a complete board.**/
+    @SuppressLint("NewApi")
     public void drawBoard(Canvas c, FishGameState g) {
         FishTile[][] board = g.getBoardState();
         FishPenguin[][] penguins = g.getPieceArray();
@@ -132,11 +138,13 @@ public class FishView extends SurfaceView {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
 
-                if (board[i][j] == null) {
+                FishTile tile = board[i][j];
+
+                if (tile == null) {
                     continue;
                 }
                 //This will draw the hexagon, fish, and then the penguins on each tile
-                if (board[i][j].doesExist()) {
+                if (tile.doesExist()) {
 
                     bigHex.computeHex(bound);
                     bigHex.draw(c);
@@ -148,33 +156,39 @@ public class FishView extends SurfaceView {
                     s.left += margin;
 
                     //We set the hitbox for the Tile
-                    board[i][j].setBoundingBox(s);
+                    tile.setBoundingBox(s);
                     hex.computeHex(s);
                     hex.draw(c);
 
                     //draw the fish on the hexagon
-                    switch (board[i][j].getNumFish()) {
+                    switch (tile.getNumFish()) {
                         case 1:
                             //Draw 1 fish
-                            c.drawBitmap(rOneFish, board[i][j].getBoundingBox().left + 10, board[i][j].getBoundingBox().top + 15, null);
+                            c.drawBitmap(rOneFish, tile.getBoundingBox().left + 10, tile.getBoundingBox().top + 15, null);
                             break;
                         case 2:
                             //Draw 2 fish
-                            c.drawBitmap(rTwoFish, board[i][j].getBoundingBox().left + 10, board[i][j].getBoundingBox().top + 15, null);
+                            c.drawBitmap(rTwoFish, tile.getBoundingBox().left + 10, tile.getBoundingBox().top + 15, null);
                             break;
                         case 3:
                             //Draw 3 fish
-                            c.drawBitmap(rThreeFish, board[i][j].getBoundingBox().left + 10, board[i][j].getBoundingBox().top + 15, null);
+                            c.drawBitmap(rThreeFish, tile.getBoundingBox().left + 10, tile.getBoundingBox().top + 15, null);
                             break;
                     }
 
+                    FishPenguin p = tile.getPenguin();
                     //if it is player 0 then it belongs to the orange penguin, if the player is 1, then the red penguin is assigned to that player
-                    if (board[i][j].getPenguin() != null){
-                        if (board[i][j].getPenguin().getPlayer() == 0){
-                            c.drawBitmap(resizedOrangePenguin, board[i][j].getBoundingBox().left, board[i][j].getBoundingBox().top, null);
+                    if (p != null){
+                        //If the penguin is selected, then this float > 0. Otherwise it equals 0.
+                        //TODO: resize the penguins with this selection variable.
+                        float selection = p.getSelected()*15.0f;
+
+
+                        if (p.getPlayer() == 0){
+                            c.drawBitmap(resizedOrangePenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
                         }
-                        else if(board[i][j].getPenguin().getPlayer() == 1){
-                            c.drawBitmap(resizedRedPenguin, board[i][j].getBoundingBox().left, board[i][j].getBoundingBox().top, null);
+                        else if(p.getPlayer() == 1){
+                            c.drawBitmap(resizedRedPenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
                         }
                     }
                 }

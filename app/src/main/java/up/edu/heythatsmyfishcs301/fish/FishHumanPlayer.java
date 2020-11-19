@@ -147,12 +147,14 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                         if (b[i][j].getPenguin() == null){
                             return false;
                         }
-                        //set to 0 just for alpha release
-                        else if (b[i][j].getPenguin().getPlayer() == 0) {
+                        else if (b[i][j].getPenguin().getPlayer() == this.playerNum) {
                             //The player has selected this penguin to move
                             selectedPenguin = b[i][j].getPenguin();
+                            //TODO: Highlight the selected penguin.
+                            selectedPenguin.setSelected(1);
+                            //Invalidate the view so it updates
+                            surfaceView.invalidate();
                             Log.d("From Human Player", "Selected a valid penguin");
-
                         }
                         else {
                             //The player did not touch their own penguin
@@ -163,9 +165,11 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                     else {
                         FishMoveAction m = new FishMoveAction(this, selectedPenguin,b[i][j]);
                         game.sendAction(m);
-
-
                         Log.d("From Human Player","Sent action to Local Game");
+                        //TODO: unhighlight penguin
+                        selectedPenguin.setSelected(0);
+                        selectedPenguin = null;
+                        surfaceView.invalidate();
                     }
                 }
             }

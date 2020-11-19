@@ -109,8 +109,9 @@ public class FishGameState extends GameState {
      * TestMove will see if a penguin p has valid moves.
      */
     public boolean testMove(FishPenguin p){
+
         //tests tile to the right horizontally
-        if(p.getY() + 1 <= 8 && this.boardState[p.getX()][p.getY() + 1] != null && this.boardState[p.getX()][p.getY() + 1].doesExist()){
+        if(p.getY() + 1 <= 8 && this.boardState[p.getX()][p.getY() + 1] != null && this.boardState[p.getX()][p.getY() + 1].doesExist() && !this.boardState[p.getX()][p.getY() + 1].hasPenguin()){
             if(p.getPlayer() == 0){
                 Log.d("Possible", "human can make move right horizontally");
             }
@@ -122,7 +123,7 @@ public class FishGameState extends GameState {
         }
 
         //tests tile down to the right
-        else if(p.getX() + 1 < 8 && this.boardState[p.getX() + 1][p.getY()] != null && this.boardState[p.getX() + 1][p.getY()].doesExist()){
+        else if(p.getX() + 1 < 8 && this.boardState[p.getX() + 1][p.getY()] != null && this.boardState[p.getX() + 1][p.getY()].doesExist() && !this.boardState[p.getX() + 1][p.getY()].hasPenguin()){
             if(p.getPlayer() == 0){
                 Log.d("Possible", "human can make move down to the right");
             }
@@ -133,7 +134,7 @@ public class FishGameState extends GameState {
         }
 
         //test tile down to the left
-        else  if(p.getX() + 1 < 8 && p.getY() - 1 >= 0 && this.boardState[p.getX() + 1][p.getY() - 1] != null && this.boardState[p.getX() + 1][p.getY() - 1].doesExist()){
+        else  if(p.getX() + 1 < 8 && p.getY() - 1 >= 0 && this.boardState[p.getX() + 1][p.getY() - 1] != null && this.boardState[p.getX() + 1][p.getY() - 1].doesExist() && !this.boardState[p.getX() + 1][p.getY() - 1].hasPenguin()){
             if(p.getPlayer() == 0){
                 Log.d("Possible", "human can make move down to the left");
             }
@@ -144,7 +145,7 @@ public class FishGameState extends GameState {
         }
 
         //test tile to the left horizontally
-        else  if(p.getY() - 1 >= 0 && this.boardState[p.getX()][p.getY() - 1] != null && this.boardState[p.getX()][p.getY() - 1].doesExist()){
+        else  if(p.getY() - 1 >= 0 && this.boardState[p.getX()][p.getY() - 1] != null && this.boardState[p.getX()][p.getY() - 1].doesExist() && !this.boardState[p.getX()][p.getY() - 1].hasPenguin()){
             if(p.getPlayer() == 0){
                 Log.d("Possible", "human can make move left horizontally");
             }
@@ -155,7 +156,7 @@ public class FishGameState extends GameState {
         }
 
         //test tile up to the left
-        else  if(p.getX() - 1 >= 0 && this.boardState[p.getX() - 1][p.getY()] != null && this.boardState[p.getX() - 1][p.getY()].doesExist()){
+        else  if(p.getX() - 1 >= 0 && this.boardState[p.getX() - 1][p.getY()] != null && this.boardState[p.getX() - 1][p.getY()].doesExist() && !this.boardState[p.getX() - 1][p.getY()].hasPenguin()){
             if(p.getPlayer() == 0){
                 Log.d("Possible", "human can make move to the left");
             }
@@ -166,7 +167,7 @@ public class FishGameState extends GameState {
         }
 
         //test tile up to the right
-        else if(p.getX() - 1 >= 0 && p.getY() + 1 <= 8 && boardState[p.getX() - 1][p.getY() + 1] != null && boardState[p.getX() - 1][p.getY() + 1].doesExist()){
+        else if(p.getX() - 1 >= 0 && p.getY() + 1 <= 8 && boardState[p.getX() - 1][p.getY() + 1] != null && boardState[p.getX() - 1][p.getY() + 1].doesExist() && boardState[p.getX() - 1][p.getY() + 1].hasPenguin()){
             if(p.getPlayer() == 0){
                 Log.d("Possible", "human can make move to the left");
             }
@@ -385,8 +386,6 @@ public class FishGameState extends GameState {
                 f[i][j] = t;
             }
         }
-        //hardcoded value for alpha release
-        f[6][6].setHasPenguin(true);
         return f;
     }
 

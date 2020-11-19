@@ -21,12 +21,14 @@ public class FishPenguin {
     private int yPos;
     private boolean onBoard;
     private boolean legalMoves;
+    private int selected;
 
     //Constructor for a penguin piece. Needs a player who placed it and the location it was placed in.
     public FishPenguin(int playerNumber){
         this.player = playerNumber;
         this.onBoard = false;
         this.legalMoves = true;
+        this.selected = 0;
     }
 
     /**
@@ -39,6 +41,7 @@ public class FishPenguin {
         this.legalMoves = p.hasLegalMoves();
         this.xPos = p.getX();
         this.yPos = p.getY();
+        this.selected = p.getSelected();
     }
 
     //Getter methods
@@ -62,6 +65,8 @@ public class FishPenguin {
         return this.onBoard;
     }
 
+    public int getSelected() {return this.selected;}
+
     //Setter methods
     public void setXPos(int x){
         this.xPos = x;
@@ -83,4 +88,6 @@ public class FishPenguin {
     public void setLegalMoves(boolean b){
         this.legalMoves = b;
     }
+
+    public void setSelected(int i) { this.selected = i;}
 }
