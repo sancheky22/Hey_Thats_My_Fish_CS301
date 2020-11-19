@@ -81,16 +81,17 @@ public class FishLocalGame extends LocalGame {
 
                             return null;
 
-                        } else if(!fState.testMove(p) && (fState.getPlayer1Score() - fState.getPlayer2Score()) > 0){
-                            Log.d("Position", "Penguin position is " + p.getX() + "," + p.getY());
-                            return playerNames[1] + " has no moves left and " + playerNames[0] + " won with a score of "
-                                + fState.getPlayer1Score();
-                        } else if (!fState.testMove(p) && (fState.getPlayer1Score() - fState.getPlayer2Score()) < 0){
-                            return playerNames[1] + " has no moves left and " + playerNames[1] + " won with a score of "
-                                + fState.getPlayer2Score();
-
-                        }else if (!fState.testMove(p)&& (fState.getPlayer1Score() - fState.getPlayer2Score()) == 0){ // check if tie
-                            return "There is a tie no one wins!";
+                        } else if(!fState.testMove(p)){
+                            if((fState.getPlayer1Score() - fState.getPlayer2Score()) > 0){
+                                Log.d("Position", "Penguin position is " + p.getX() + "," + p.getY());
+                                return playerNames[1] + " has no moves left and " + playerNames[0] + " won with a score of "
+                                        + fState.getPlayer1Score();
+                            } else if ((fState.getPlayer1Score() - fState.getPlayer2Score()) < 0){
+                                return playerNames[1] + " has no moves left and " + playerNames[1] + " won with a score of "
+                                        + fState.getPlayer2Score();
+                            }else if ((fState.getPlayer1Score() - fState.getPlayer2Score()) == 0){ // check if tie
+                                return playerNames[0] + " and " + playerNames[1] + " have no moves left! There is a tie no one wins!";
+                            }
                         }
 
                     }
@@ -120,17 +121,20 @@ public class FishLocalGame extends LocalGame {
 
                         if (fState.testMove(p)) {
                             return null;
-                        } else if(!fState.testMove(p) && (fState.getPlayer1Score() - fState.getPlayer2Score()) > 0){
-                            Log.d("Position", "Penguin position is " + p.getX() + "," + p.getY());
-                        return playerNames[0] + " has no moves left and " + playerNames[0] + " won with a score of "
-                                + fState.getPlayer1Score();
-                        } else if (!fState.testMove(p) && (fState.getPlayer1Score() - fState.getPlayer2Score()) < 0){
-                            return playerNames[0] + " has no moves left and " + playerNames[1] + " won with a score of "
-                                + fState.getPlayer2Score();
-                        }else if (!fState.testMove(p)&& (fState.getPlayer1Score() - fState.getPlayer2Score()) == 0){ // check if tie
-                            return "There is a tie no one wins!";
-                        }
 
+                        } else if(!fState.testMove(p)) {
+                            if ((fState.getPlayer1Score() - fState.getPlayer2Score()) > 0) {
+                                Log.d("Position", "Penguin position is " + p.getX() + "," + p.getY());
+                                return playerNames[0] + " has no moves left and " + playerNames[0] + " won with a score of "
+                                        + fState.getPlayer1Score();
+                            } else if ((fState.getPlayer1Score() - fState.getPlayer2Score()) < 0) {
+                                return playerNames[0] + " has no moves left and " + playerNames[1] + " won with a score of "
+                                        + fState.getPlayer2Score();
+                            } else if ((fState.getPlayer1Score() - fState.getPlayer2Score()) == 0) { // check if tie
+                                return playerNames[0] + " and " + playerNames[1] + " have no moves left! There is a tie no one wins!";
+                            }
+
+                        }
                     }
                     return "Computer Big oof";
 
