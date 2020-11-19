@@ -69,22 +69,32 @@ public class FishLocalGame extends LocalGame {
         //if it has a penguin on it then checks if the penguin belongs to the human player. Then it calls the
         //testMove function and if there's no legal moves left, it returns who won. If there is a legal move left
         //it checks if the computer has any valid moves left
-//        for (int i = 0; i < board.length; i++) {
-//            for (int j = 0; j < board[i].length; j++) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
 //
-//                if (board[i][j] != null && board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 0) {
+               if (board[i][j] != null && board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 0) {
 //                    FishPenguin curPenguin = board[i][j].getPenguin();
 //
-//                    for (FishPenguin p : fState.getPieceArray()[fState.getPlayerTurn()]){
-//
-//                        if (fState.testMove(p)){
-//
-//                            return null;
-//
-//                        }
-//
-//                    }
-//                    return "Human Player big oof";
+                    for (FishPenguin p : fState.getPieceArray()[fState.getPlayerTurn()]){
+
+                        if (fState.testMove(p)){
+
+                            return null;
+
+                        } else if(!fState.testMove(p) && (fState.getPlayer1Score() - fState.getPlayer2Score()) > 0){
+                            Log.d("Position", "Penguin position is " + p.getX() + "," + p.getY());
+                            return playerNames[1] + " has no moves left and " + playerNames[0] + " won with a score of "
+                                + fState.getPlayer1Score();
+                        } else if (!fState.testMove(p) && (fState.getPlayer1Score() - fState.getPlayer2Score()) < 0){
+                            return playerNames[1] + " has no moves left and " + playerNames[1] + " won with a score of "
+                                + fState.getPlayer2Score();
+
+                        }else if (!fState.testMove(p)&& (fState.getPlayer1Score() - fState.getPlayer2Score()) == 0){ // check if tie
+                            return "There is a tie no one wins!";
+                        }
+
+                    }
+                    return "Human Player big oof";
 //                    if (!fState.testMove(curPenguin) && (fState.getPlayer1Score() - fState.getPlayer2Score()) > 0) {
 //                        Log.d("Position", "Penguin position is " + curPenguin.getX() + "," + curPenguin.getY());
 //                        return playerNames[0] + " has no moves left and " + playerNames[0] + " won with a score of "
@@ -95,25 +105,34 @@ public class FishLocalGame extends LocalGame {
 //                    }
 
 
-//                }
-//            }
-//        }
+                }
+            }
+        }
 
         //test if computer player has any moves left. Method to check is the same as above, checking if the human has any valid moves left
         //if the computer player also has valid moves left, then checkGameOver will return null
-//        for (int i = 0; i < board.length; i++) {
-//            for (int j = 0; j < board[i].length; j++) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
 //
-//                if (board[i][j] != null && board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 1) {
+                if (board[i][j] != null && board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 1) {
 //                    FishPenguin curPenguin = board[i][j].getPenguin();
-//                    for (FishPenguin p : fState.getPieceArray()[fState.getPlayerTurn()]){
-//
-//                        if (fState.testMove(p)){
-//                            return null;
-//                        }
-//
-//                    }
-//                    return "Computer Big oof";
+                    for (FishPenguin p : fState.getPieceArray()[fState.getPlayerTurn()]) {
+
+                        if (fState.testMove(p)) {
+                            return null;
+                        } else if(!fState.testMove(p) && (fState.getPlayer1Score() - fState.getPlayer2Score()) > 0){
+                            Log.d("Position", "Penguin position is " + p.getX() + "," + p.getY());
+                        return playerNames[0] + " has no moves left and " + playerNames[0] + " won with a score of "
+                                + fState.getPlayer1Score();
+                        } else if (!fState.testMove(p) && (fState.getPlayer1Score() - fState.getPlayer2Score()) < 0){
+                            return playerNames[0] + " has no moves left and " + playerNames[1] + " won with a score of "
+                                + fState.getPlayer2Score();
+                        }else if (!fState.testMove(p)&& (fState.getPlayer1Score() - fState.getPlayer2Score()) == 0){ // check if tie
+                            return "There is a tie no one wins!";
+                        }
+
+                    }
+                    return "Computer Big oof";
 
 //                    if (!fState.testMove(curPenguin) && (fState.getPlayer1Score() - fState.getPlayer2Score()) > 0) {
 //                        Log.d("Position", "Penguin position is " + curPenguin.getX() + "," + curPenguin.getY());
@@ -125,19 +144,18 @@ public class FishLocalGame extends LocalGame {
 //                    }
 
 
-//                }
-//            }
-//        }
-
-        //return null;
-        for (FishPenguin p : fState.getPieceArray()[fState.getPlayerTurn()]){
-
-            if (fState.testMove(p)){
-                return null;
+                }
             }
-
         }
-        return "Big oof";
+        return null;
+//        for (FishPenguin p : fState.getPieceArray()[fState.getPlayerTurn()]){
+//
+//            if (fState.testMove(p)){
+//                return null;
+//            }
+//
+//        }
+//        return "Big oof";
     }
 
 
