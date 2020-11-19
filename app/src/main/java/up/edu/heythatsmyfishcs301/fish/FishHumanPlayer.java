@@ -1,6 +1,5 @@
 package up.edu.heythatsmyfishcs301.fish;
 
-import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,13 +33,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     // the surface view
     private FishView surfaceView;
     private ScoresDrawings scores;
-    private FishPlaceView fishPlace;
 
     // create local board variable and local penguin variable
     private FishPenguin selectedPenguin;
     private FishPenguin[][] pieces;
-    private Rect selectedRect;
-    FishTile dest;
 
     // intial player scores
     int p1Score = 0;
@@ -48,10 +44,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     // current player turn
     int turn;
-
-    //Variables that connect the rect array to the piece array
-    int px = 0;
-    int py = 0;
 
     /**
      * constructor
@@ -75,8 +67,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
         // checks if SV is null
         if (surfaceView == null) return;
-
-        if (fishPlace == null) return;
 
         // ignore the message if it's not a FishGameState message
         if (!(info instanceof FishGameState)){
@@ -102,17 +92,11 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             scores.setP1Scores(p1Score);
             scores.setP2Score(p2Score);
 
-            //send how many players there are to the placePenguin view
-            fishPlace.setGamePhase(gameState.getGamePhase());
-            fishPlace.setGameState(gameState);
-            fishPlace.invalidate();
-
             // update the surface view
             surfaceView.setGameState(new FishGameState((FishGameState)info));
             surfaceView.invalidate();
             // invalidate the scores TextView to update
             scores.invalidate();
-
 
         }
 
@@ -126,11 +110,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         myActivity = activity;
         activity.setContentView(R.layout.activity_main);
         surfaceView = activity.findViewById(R.id.fishView);
-        fishPlace = activity.findViewById(R.id.fishPlaceView);
         scores = activity.findViewById(R.id.scoresDrawings);
 
-
-        fishPlace.setOnTouchListener(this);
         surfaceView.setOnTouchListener(this);
 
         // if we have a game state, "simulate" that we have just received
@@ -146,77 +127,49 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
         FishTile[][] b = surfaceView.getGameState().getBoardState();
-        Rect[][] rectArr = fishPlace.getRects();
-
-
 
         //Local variables for the location of the touch.
         int x = (int) motionEvent.getX();
         int y = (int) motionEvent.getY();
 
+        //Iterate through the tiles in the 2d board array until you find the one that contains the place where it was touched.
+        //There has to be a better way to do this :(
+        for(int i = 0; i < b.length; i++){
+            for (int j = 0; j < b[i].length; j++){
 
-        if(gameState.getGamePhase() == 0){
-            if(selectedRect == null){
-                for(int i = 0; i < rectArr.length; i++){
-                    for(int j = 0; j < rectArr[i].length; j++){
-                        if(rectArr[i][j] != null && rectArr[i][j].contains(x,y)){
-                            if(i == playerNum){
-                                selectedRect = rectArr[i][j];
-                                Log.d("Selected Rect", "Selected rect at (" + i + ", " + j + ")");
-                                px = i;
-                                py = j;
-                            }
+
+                if(b[i][j] != null && b[i][j].getBoundingBox().contains(x,y)){
+                    //the player has clicked this bounding box.
+
+                    Log.d("From FishView", "Touched the Fish View at: "+i+", "+j);
+                    Log.d("From human player", "Current player turn is " + turn);
+                    if (selectedPenguin == null) {
+                        if (b[i][j].getPenguin() == null){
+                            return false;
+                        }
+                        else if (b[i][j].getPenguin().getPlayer() == this.playerNum) {
+                            //The player has selected this penguin to move
+                            selectedPenguin = b[i][j].getPenguin();
+                            //TODO: Highlight the selected penguin.
+                            selectedPenguin.setSelected(1);
+                            //Invalidate the view so it updates
+                            surfaceView.invalidate();
+                            Log.d("From Human Player", "Selected a valid penguin");
+                        }
+                        else {
+                            //The player did not touch their own penguin
+                            //Maybe throw toast
+                            Log.d("From Human Player", "Player expected to touch a penguin, but did not");
                         }
                     }
-                }
-            }
-            else if(selectedRect != null){
-                for(int i = 0; i < b.length; i++) {
-                    for (int j = 0; j < b[i].length; j++) {
-                        if(b[i][j] != null && b[i][j].getBoundingBox().contains(x,y)){
-                            dest = b[i][j];
-                            FishPlaceAction p = new FishPlaceAction(this, dest, gameState.getPieceArray()[px][py]);
-                            game.sendAction(p);
-                            selectedRect = null;
-                            rectArr[px][py] = null;
-                            fishPlace.setRects(rectArr);
-                            px = 0;
-                            py = 0;
-                            fishPlace.invalidate();
-                        }
-                    }
-                }
-            }
-        }
-
-        else {
-            //Iterate through the tiles in the 2d board array until you find the one that contains the place where it was touched.
-            //There has to be a better way to do this :(
-            for (int i = 0; i < b.length; i++) {
-                for (int j = 0; j < b[i].length; j++) {
-                    if (b[i][j] != null && b[i][j].getBoundingBox().contains(x, y)) {
-                        //the player has clicked this bounding box.
-
-                        Log.d("From FishView", "Touched the Fish View at: " + i + ", " + j);
-                        Log.d("From human player", "Current player turn is " + turn);
-                        if (selectedPenguin == null) {
-                            if (b[i][j].getPenguin() == null) {
-                                return false;
-                            } else if (b[i][j].getPenguin().getPlayer() == playerNum) {
-                                //The player has selected this penguin to move
-                                selectedPenguin = b[i][j].getPenguin();
-                                Log.d("From Human Player", "Selected a valid penguin");
-
-                            } else {
-                                //The player did not touch their own penguin
-                                //Maybe throw toast
-                                Log.d("From Human Player", "Player expected to touch a penguin, but did not");
-                            }
-                        } else {
-                            FishMoveAction m = new FishMoveAction(this, selectedPenguin, b[i][j]);
-                            game.sendAction(m);
-                            Log.d("From Human Player", "Sent action to Local Game");
-                        }
+                    else {
+                        FishMoveAction m = new FishMoveAction(this, selectedPenguin,b[i][j]);
+                        game.sendAction(m);
+                        Log.d("From Human Player","Sent action to Local Game");
+                        //TODO: unhighlight penguin
+                        selectedPenguin.setSelected(0);
+                        selectedPenguin = null;
+                        surfaceView.invalidate();
                     }
                 }
             }

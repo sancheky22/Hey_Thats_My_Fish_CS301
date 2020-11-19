@@ -58,20 +58,13 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
             if(copy.getPlayerTurn() == this.playerNum){
                 for(int i =0; i < pieceBoard.length; i++){
                     for(int j=0; j< pieceBoard[i].length;j++){
-                        //computer player hard coded to play2 for alpha release
                         if(pieceBoard[i][j] != null){
                             if(pieceBoard[i][j].hasPenguin() && pieceBoard[i][j].getPenguin().getPlayer() == this.playerNum){
                                 if(!computerMovePenguin(pieceBoard[i][j].getPenguin())){
                                     //Penguin is removed from board.
                                     continue;
-                                }else {
-                                    return;
                                 }
-
-
-
                             }
-
                         }
                     }
 
@@ -99,7 +92,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
 
 
         //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
-        if (copy.getPlayerTurn() == 1) {
+        if (copy.getPlayerTurn() == this.playerNum) {
 
         //try to move horizontally to the right
         if (p.getY() + 1 <= 8 && (pieceBoard[p.getX()][p.getY() + 1] != null) ) {
