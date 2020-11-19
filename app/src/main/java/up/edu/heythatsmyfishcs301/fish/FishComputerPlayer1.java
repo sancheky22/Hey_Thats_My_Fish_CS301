@@ -64,6 +64,9 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
                                     //Penguin is removed from board.
                                     continue;
                                 }
+                                else {
+                                    return;
+                                }
                             }
                         }
                     }
