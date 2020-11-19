@@ -55,15 +55,23 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
 
             // loop through the board to see there is a penguin on the tile. If there is, it checks if the
             //penguin belongs to the computer. If it does, it calls the computerMovePenguin
-            if(copy.getPlayerTurn() == 1){
+            if(copy.getPlayerTurn() == this.playerNum){
                 for(int i =0; i < pieceBoard.length; i++){
                     for(int j=0; j< pieceBoard[i].length;j++){
                         //computer player hard coded to play2 for alpha release
                         if(pieceBoard[i][j] != null){
                             if(pieceBoard[i][j].hasPenguin() && pieceBoard[i][j].getPenguin().getPlayer() == this.playerNum){
-                                computerMovePenguin(pieceBoard[i][j].getPenguin());
-                                return;
+                                if(!computerMovePenguin(pieceBoard[i][j].getPenguin())){
+                                    //Penguin is removed from board.
+                                    continue;
+                                }else {
+                                    return;
+                                }
+
+
+
                             }
+
                         }
                     }
 
