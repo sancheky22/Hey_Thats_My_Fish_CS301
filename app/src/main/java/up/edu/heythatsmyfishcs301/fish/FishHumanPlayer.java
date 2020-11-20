@@ -1,8 +1,17 @@
 package up.edu.heythatsmyfishcs301.fish;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.graphics.Canvas;
+import java.lang.Object;
+import android.widget.ImageButton;
 
 import up.edu.heythatsmyfishcs301.R;
 import up.edu.heythatsmyfishcs301.game.GameHumanPlayer;
@@ -37,6 +46,15 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     // create local board variable and local penguin variable
     private FishPenguin selectedPenguin;
     private FishPenguin[][] pieces;
+
+    private ScaleGestureDetector mScaleDetector;
+    private float mScaleFactor = 1.f;
+//    Bitmap redPeng = null;
+//    Bitmap resizedRedPeng = null;
+//    Bitmap orangePeng = null;
+//    Bitmap resizedOrangePeng = null;
+
+
 
     // intial player scores
     int p1Score = 0;
@@ -120,8 +138,23 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             receiveInfo(gameState);
         }
     }
+//    @SuppressLint("NewApi")
+//    public FishHumanPlayer(Context context, AttributeSet attrs) {
+//        super(context, attrs);
+//        surfaceView.setWillNotDraw();
+//
+//        gameState = new FishGameState();
+//        redPeng = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
+//        resizedRedPeng = Bitmap.createScaledBitmap(redPeng, 115, 115, false);
+//
+//        orangePeng = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
+//        resizedOrangePeng = Bitmap.createScaledBitmap(orangePeng, 115, 115, false);
+//    }
 
-
+//    @SuppressLint("NewApi")
+//    public void drawBoard(Canvas c, FishGameState g) {
+//
+//    }
     //This method controls all the touch events for the screen.
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -151,8 +184,13 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                             //The player has selected this penguin to move
                             selectedPenguin = b[i][j].getPenguin();
                             //TODO: Highlight the selected penguin.
-                            selectedPenguin.setSelected(1);
+                            //selectedPenguin.setSelected(1);
+                            //selectedPenguin.setScaleX(4.0f);
                             //Invalidate the view so it updates
+                          // selectedPenguin.(1.2f);
+                           // view.animate().scaleX(1.5f).scaleY(1.5f);
+
+//                          cardButton.setScaleY(1.2f);
                             surfaceView.invalidate();
                             Log.d("From Human Player", "Selected a valid penguin");
                         }
@@ -167,13 +205,47 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                         game.sendAction(m);
                         Log.d("From Human Player","Sent action to Local Game");
                         //TODO: unhighlight penguin
-                        selectedPenguin.setSelected(0);
-                        selectedPenguin = null;
-                        surfaceView.invalidate();
+                        //selectedPenguin.setSelected(0);
+                       // selectedPenguin.setScaleX(1f);
+                                    //view.animate().scaleX(1f).scaleY(1f);
+                                    selectedPenguin = null;
+                            surfaceView.invalidate();
+
                     }
                 }
             }
         }
         return false;
+
+
     }
 }
+
+//        // if we are not yet connected to a game, ignore
+//        if (game == null) return;
+//
+//        GameAction action = null;
+//
+//        GameInfo.setText("Info");
+//
+//        //if the player clicks one of the card buttons and it holds a card, select it
+//        //if positive, index functions as the index of both the correct ImageButton in the
+//        //button list and the correct Card in state.P1Hand
+//        int index = isCardButton(button);
+//        if (index >= 0){
+//            //set as the selected card
+//            state.setSelectedCard(state.getP1Hand().get(index));
+//
+//            //make the gui element a little larger, set all others to normal scale.
+//            for (ImageButton cardButton : cardButtonList){
+//                if (cardButton.getId() == cardButtonList.get(index).getId()){
+//                    cardButton.setScaleX(1.2f);
+//                    cardButton.setScaleY(1.2f);
+//                }
+//                else{
+//                    cardButton.setScaleX(1f);
+//                    cardButton.setScaleY(1f);
+//                }
+//            }
+//            updateDisplay();
+//        }

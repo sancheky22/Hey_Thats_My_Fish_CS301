@@ -1,5 +1,5 @@
 package up.edu.heythatsmyfishcs301.fish;
-
+import java.lang.Object;
 /**
  * This object contains all the variables that a piece would have such as: player, position, and whether or not it is on the board.
  *
@@ -22,6 +22,7 @@ public class FishPenguin {
     private boolean onBoard;
     private boolean legalMoves;
     private int selected;
+    private float scaleX;
 
     //Constructor for a penguin piece. Needs a player who placed it and the location it was placed in.
     public FishPenguin(int playerNumber){
@@ -30,6 +31,7 @@ public class FishPenguin {
         this.legalMoves = true;
         this.selected = 0;
     }
+
 
     /**
      * Copy constructor: creates a deep copy
@@ -90,4 +92,7 @@ public class FishPenguin {
     }
 
     public void setSelected(int i) { this.selected = i;}
+
+    public void setScaleX(float v) { this.scaleX = v;}
+
 }
