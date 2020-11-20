@@ -40,7 +40,7 @@ public class FishPlaceView extends SurfaceView {
 
     private FishGameState gameState;
 
-    private Rect[][] rects = new Rect[2][4];
+    private Rect[][] rects;
 
     Bitmap redPenguin = null;
     Bitmap resizedRedPenguin = null;
@@ -52,13 +52,14 @@ public class FishPlaceView extends SurfaceView {
         setWillNotDraw(false);
 
         gameState = new FishGameState();
+        numPlayers = 2;
+        rects = new Rect[2][4];
 
         int offSet = 100;
 
         for(int i = 0; i < numPlayers; i++){
             for(int j = 0; j < 6 - numPlayers; j++){
-                Rect temp = new Rect(10 + j * PENGUIN_SIZE, 10 + i * 200 + offSet, (j + 1) * PENGUIN_SIZE, (i + 1) * 200 + offSet);
-                this.rects[i][j] = new Rect(temp);
+                rects[i][j] = new Rect(10 + j * PENGUIN_SIZE, 10 + i * 200 + offSet, (j + 1) * PENGUIN_SIZE, (i + 1) * 200 + offSet);
             }
             offSet += 100;
         }
@@ -95,8 +96,6 @@ public class FishPlaceView extends SurfaceView {
         cHeight = canvas.getHeight();
 
         Rect bound = new Rect(0, 0, cWidth, cHeight);
-
-
 
         numPlayers = 2;
 

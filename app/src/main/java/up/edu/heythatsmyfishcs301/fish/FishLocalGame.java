@@ -60,6 +60,17 @@ public class FishLocalGame extends LocalGame {
     protected String checkIfGameOver() {
         // get a copy of the boardState
         board = fState.getBoardState();
+        if (fState.getGamePhase() == 0){
+            for (FishPenguin[] arr : fState.getPieceArray()){
+                for (FishPenguin p : arr){
+                    if (!p.isOnBoard()){
+                        //Then game phase stays the same
+                        return null;
+                    }
+                }
+            }
+            fState.setGamePhase(1);
+        }
 
         //test if human player has any valid moves left. Does so by going through the whole board and checking
         //if it has a penguin on it then checks if the penguin belongs to the human player. Then it calls the
@@ -110,7 +121,6 @@ public class FishLocalGame extends LocalGame {
                 }
             }
         }
-
         return null;
     }
 
@@ -138,14 +148,14 @@ public class FishLocalGame extends LocalGame {
             }
         }
 
-        if(action instanceof  FishPlaceAction){
+        if(action instanceof FishPlaceAction){
             Log.d("Placing penguins", "Trying to place a penguin");
             FishTile dest = ((FishPlaceAction) action).getDestination();
-            Rect rect = ((FishPlaceAction) action).getRect();
             FishPenguin penguin = ((FishPlaceAction) action).getPenguin();
 
             if(fState.placePenguin(penguin, dest.getX(), dest.getY())){
                 Log.d("Place penguin", "penguin is now on tile (" + dest.getX() + ", " + dest.getY() + ")");
+                this.fState.changeTurn();
                 return true;
             }
             else{
