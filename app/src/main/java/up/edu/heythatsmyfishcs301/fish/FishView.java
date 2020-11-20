@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.view.ScaleGestureDetector;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import up.edu.heythatsmyfishcs301.R;
@@ -57,6 +58,9 @@ public class FishView extends SurfaceView {
 
     ArrayList<Integer> fishArray = new ArrayList<>(60);
 
+    //input
+   // private ScaleGestureDetector mScaleDetector;
+  //  private float mScaleFactor = 1.f;
 
     @SuppressLint("NewApi")
     public FishView(Context context, AttributeSet attrs) {
@@ -94,6 +98,8 @@ public class FishView extends SurfaceView {
         orangePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
         resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, 115, 115, false);
 
+        //added
+      //  mScaleDetector = new ScaleGestureDetector(context, new FishView());
 
     }
 
@@ -186,6 +192,7 @@ public class FishView extends SurfaceView {
 
                         if (p.getPlayer() == 0){
                             c.drawBitmap(resizedOrangePenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
+
                         }
                         else if(p.getPlayer() == 1){
                             c.drawBitmap(resizedRedPenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
