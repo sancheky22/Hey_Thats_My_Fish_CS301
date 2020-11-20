@@ -79,6 +79,7 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
             Log.d("Move","Computer Player 2 Moving");
         }
         //If the game phase is set up (Placing Penguins)
+        // IDEA: When Comp player places put on tile surrounded by the most fish
         else{
             FishPlaceAction placeAction = new FishPlaceAction(this);
             this.game.sendAction(placeAction);
@@ -87,7 +88,12 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
 
 
     /**
-     * This AI is not very smart. It starts by trying to move to the right horizontally. From there, if moving to the right is not valid, it will check
+     * Improved AI has a few improvements to the original moving algorithm:
+     * It checks every single direction for the tile that has the most fish and moves there first
+     * (If it can move to a tile with 3 fish and a tile with 2 fish it will choose the tile with 3 fish first)
+     *
+     * DESCRIPTION of moving algorithm:
+     * It starts by trying to move to the right horizontally. From there, if moving to the right is not valid, it will check
      * each direction going clockwise if moving there is a valid move. At the first instance of a valid move, it will make that move. It checks if a direction is
      * a valid move by making sure that the tile isn't null, the if the coordinate we're going to is within the array bounds, if the tile exists, and the tile
      * doesn't already have a penguin on it. To get access to the adjacent tiles, we just add or subtract to the x and y coordinates
