@@ -25,11 +25,11 @@ public class FishPlaceAction extends GameAction {
      *
      * @param player the player who created the action
      */
-    public FishPlaceAction(GamePlayer player, Rect r, FishTile dest) {
+    public FishPlaceAction(GamePlayer player, Rect r, FishTile dest, FishPenguin p) {
         super(player);
         this.rect = r;
         this.destination = dest;
-
+        this.penguin = p;
     }
 
     public FishTile getDestination(){

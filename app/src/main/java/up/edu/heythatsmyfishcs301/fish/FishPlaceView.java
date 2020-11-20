@@ -53,11 +53,23 @@ public class FishPlaceView extends SurfaceView {
 
         gameState = new FishGameState();
 
+        int offSet = 100;
+
+        for(int i = 0; i < numPlayers; i++){
+            for(int j = 0; j < 6 - numPlayers; j++){
+                Rect temp = new Rect(10 + j * PENGUIN_SIZE, 10 + i * 200 + offSet, (j + 1) * PENGUIN_SIZE, (i + 1) * 200 + offSet);
+                this.rects[i][j] = new Rect(temp);
+            }
+            offSet += 100;
+        }
+
+
         black.setColor(Color.BLACK);
         black.setTextSize(70);
 
         redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
         resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, 115, 115, false);
+
 
         /**
          *External Citation
@@ -84,23 +96,15 @@ public class FishPlaceView extends SurfaceView {
 
         Rect bound = new Rect(0, 0, cWidth, cHeight);
 
-        int offSet = 100;
-        numPlayers = 2;
 
-        for(int i = 0; i < numPlayers; i++){
-            for(int j = 0; j < 6 - numPlayers; j++){
-                Rect temp = new Rect(10 + j * PENGUIN_SIZE, 10 + i * 200 + offSet, (j + 1) * PENGUIN_SIZE, (i + 1) * 200 + offSet);
-                this.rects[i][j] = temp;
-            }
-            offSet += 100;
-        }
+
+        numPlayers = 2;
 
         for(int i = 0; i < rects.length; i++){
             for(int j = 0; j < rects[i].length; j++) {
                 if(!(gameState.getPieceArray()[i][j].isOnBoard())){
                     canvas.drawRect(rects[i][j], black);
                 }
-
             }
         }
 
@@ -130,6 +134,14 @@ public class FishPlaceView extends SurfaceView {
 
     public Rect[][] getRects(){
         return this.rects;
+    }
+
+    public void setRects(Rect[][] arr) {
+        for (int i = 0; i<arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                this.rects[i][j] = arr[i][j];
+            }
+        }
     }
 
     public void setNumPlayers(int num){

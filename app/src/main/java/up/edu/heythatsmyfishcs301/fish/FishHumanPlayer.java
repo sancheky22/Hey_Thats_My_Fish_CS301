@@ -49,6 +49,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     // current player turn
     int turn;
 
+    //Variables that connect the rect array to the piece array
+    int px = 0;
+    int py = 0;
+
     /**
      * constructor
      *
@@ -71,6 +75,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
         // checks if SV is null
         if (surfaceView == null) return;
+
+        if (fishPlace == null) return;
 
         // ignore the message if it's not a FishGameState message
         if (!(info instanceof FishGameState)){
@@ -142,6 +148,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         FishTile[][] b = surfaceView.getGameState().getBoardState();
         Rect[][] rectArr = fishPlace.getRects();
 
+
+
         //Local variables for the location of the touch.
         int x = (int) motionEvent.getX();
         int y = (int) motionEvent.getY();
@@ -155,6 +163,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                             if(i == playerNum){
                                 selectedRect = rectArr[i][j];
                                 Log.d("Selected Rect", "Selected rect at (" + i + ", " + j + ")");
+                                px = i;
+                                py = j;
                             }
                         }
                     }
@@ -165,16 +175,18 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                     for (int j = 0; j < b[i].length; j++) {
                         if(b[i][j] != null && b[i][j].getBoundingBox().contains(x,y)){
                             dest = b[i][j];
-                            FishPlaceAction p = new FishPlaceAction(this, selectedRect, dest);
+                            FishPlaceAction p = new FishPlaceAction(this, selectedRect, dest, gameState.getPieceArray()[px][py]);
                             game.sendAction(p);
                             selectedRect = null;
+                            rectArr[px][py] = null;
+                            fishPlace.setRects(rectArr);
+                            px = 0;
+                            py = 0;
                             fishPlace.invalidate();
                         }
                     }
                 }
-
             }
-
         }
 
 
