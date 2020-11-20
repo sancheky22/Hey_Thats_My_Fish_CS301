@@ -63,14 +63,17 @@ public class FishGameState extends GameState {
         this.player4Score = 0;
         this.gamePhase = 0;
         this.validMoves = true;
-        this.pieceArray = alphaInitializePieces();
+        //this.pieceArray = alphaInitializePieces();
+
         this.boardState = initializeBoard();
-        for (int i = 0; i<pieceArray.length;i++){
-            for (int j = 0; j<pieceArray[i].length;j++){
-                boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setHasPenguin(true);
-                boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setPenguin(pieceArray[i][j]);
-            }
-        }
+        pieceArray = new FishPenguin[2][4];
+        pieceArray = initializePieces(2);
+//        for (int i = 0; i<pieceArray.length;i++){
+//            for (int j = 0; j<pieceArray[i].length;j++){
+//                boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setHasPenguin(true);
+//                boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setPenguin(pieceArray[i][j]);
+//            }
+//        }
         //this.pieceArray = initializePieces(this.numPlayers);
     }
 
@@ -109,7 +112,6 @@ public class FishGameState extends GameState {
      * TestMove will see if a penguin p has valid moves.
      */
     public boolean testMove(FishPenguin p){
-
         //tests tile to the right horizontally
         if(p.getY() + 1 <= 8 && this.boardState[p.getX()][p.getY() + 1] != null && this.boardState[p.getX()][p.getY() + 1].doesExist() && !this.boardState[p.getX()][p.getY() + 1].hasPenguin()){
             if(p.getPlayer() == 0){
@@ -118,7 +120,6 @@ public class FishGameState extends GameState {
             else{
                 Log.d("Possible", "computer can make move right horizontally");
             }
-
             return true;
         }
 
@@ -187,14 +188,15 @@ public class FishGameState extends GameState {
      */
     //Action: When the player moves a penguin onto the board at the beginning of the game.
     public boolean placePenguin(FishPenguin p, int x, int y) {
-        if (p.isOnBoard()){
+        if(boardState[x][y].hasPenguin()){
             return false;
         }
-        else {
-            p.setXPos(x);
-            p.setYPos(y);
-            return true;
-        }
+        boardState[x][y].setPenguin(p);
+        boardState[x][y].setHasPenguin(true);
+        p.setOnBoard(true);
+        p.setXPos(x);
+        p.setYPos(y);
+        return true;
     }
 
     /**
@@ -256,18 +258,18 @@ public class FishGameState extends GameState {
         }
     }
 
-        //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
-        addScore(playerTurn,this.boardState[p.getX()][p.getY()].getNumFish());
-        this.boardState[p.getX()][p.getY()].setExists(false);
-        this.boardState[p.getX()][p.getY()].setHasPenguin(false);
-        p.setXPos(x);
-        p.setYPos(y);
-        Log.d("Human Moved", "human moved to (" + p.getX() + "," + p.getY() + ")");
-        this.boardState[x][y].setPenguin(p);
-        this.boardState[x][y].setHasPenguin(true);
-        //this.playerTurn = (this.playerTurn+1)%this.numPlayers;
-        this.playerTurn = (this.playerTurn+1)%2;
-        return true;
+    //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
+    addScore(playerTurn,this.boardState[p.getX()][p.getY()].getNumFish());
+    this.boardState[p.getX()][p.getY()].setExists(false);
+    this.boardState[p.getX()][p.getY()].setHasPenguin(false);
+    p.setXPos(x);
+    p.setYPos(y);
+    Log.d("Human Moved", "human moved to (" + p.getX() + "," + p.getY() + ")");
+    this.boardState[x][y].setPenguin(p);
+    this.boardState[x][y].setHasPenguin(true);
+    //this.playerTurn = (this.playerTurn+1)%this.numPlayers;
+    //this.playerTurn = (this.playerTurn+1)%2;
+    return true;
     }
 
     /**
@@ -386,6 +388,8 @@ public class FishGameState extends GameState {
                 f[i][j] = t;
             }
         }
+        //hardcoded value for alpha release
+        //f[6][6].setHasPenguin(true);
         return f;
     }
 
@@ -431,6 +435,8 @@ public class FishGameState extends GameState {
         for (int i=0;i<p.length;i++){
             for (int j=0;j<p[0].length;j++){
                 tempguin = new FishPenguin(i);
+                tempguin.setPlayer(i);
+                tempguin.setOnBoard(false);
                 p[i][j] = tempguin;
             }
         }

@@ -1,5 +1,7 @@
 package up.edu.heythatsmyfishcs301.fish;
 
+import android.graphics.Rect;
+
 import up.edu.heythatsmyfishcs301.game.GamePlayer;
 import up.edu.heythatsmyfishcs301.game.actionMsg.GameAction;
 
@@ -14,12 +16,26 @@ import up.edu.heythatsmyfishcs301.game.actionMsg.GameAction;
  * @author Linda Nguyen
  **/
 public class FishPlaceAction extends GameAction {
+    FishTile destination;
+    private FishPenguin penguin;
+
     /**
      * constructor for GameAction
      *
      * @param player the player who created the action
      */
-    public FishPlaceAction(GamePlayer player) {
+    public FishPlaceAction(GamePlayer player, FishTile dest, FishPenguin p) {
         super(player);
+        this.destination = dest;
+        this.penguin = p;
     }
+
+    public FishTile getDestination(){
+        return this.destination;
+    }
+
+    public FishPenguin getPenguin(){
+        return this.penguin;
+    }
+
 }
