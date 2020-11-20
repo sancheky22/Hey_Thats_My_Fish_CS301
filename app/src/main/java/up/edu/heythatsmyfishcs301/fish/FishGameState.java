@@ -270,7 +270,7 @@ public class FishGameState extends GameState {
         this.boardState[x][y].setPenguin(p);
         this.boardState[x][y].setHasPenguin(true);
         //this.playerTurn = (this.playerTurn+1)%this.numPlayers;
-        this.playerTurn = (this.playerTurn+1)%2;
+        //this.playerTurn = (this.playerTurn+1)%2;
         return true;
     }
 
