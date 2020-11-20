@@ -16,7 +16,6 @@ import up.edu.heythatsmyfishcs301.game.actionMsg.GameAction;
  * @author Linda Nguyen
  **/
 public class FishPlaceAction extends GameAction {
-    Rect rect;
     FishTile destination;
     private FishPenguin penguin;
 
@@ -25,9 +24,8 @@ public class FishPlaceAction extends GameAction {
      *
      * @param player the player who created the action
      */
-    public FishPlaceAction(GamePlayer player, Rect r, FishTile dest, FishPenguin p) {
+    public FishPlaceAction(GamePlayer player, FishTile dest, FishPenguin p) {
         super(player);
-        this.rect = r;
         this.destination = dest;
         this.penguin = p;
     }
@@ -40,7 +38,4 @@ public class FishPlaceAction extends GameAction {
         return this.penguin;
     }
 
-    public Rect getRect(){
-        return this.rect;
-    }
 }

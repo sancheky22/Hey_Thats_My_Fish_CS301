@@ -175,7 +175,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                     for (int j = 0; j < b[i].length; j++) {
                         if(b[i][j] != null && b[i][j].getBoundingBox().contains(x,y)){
                             dest = b[i][j];
-                            FishPlaceAction p = new FishPlaceAction(this, selectedRect, dest, gameState.getPieceArray()[px][py]);
+                            FishPlaceAction p = new FishPlaceAction(this, dest, gameState.getPieceArray()[px][py]);
                             game.sendAction(p);
                             selectedRect = null;
                             rectArr[px][py] = null;
@@ -189,40 +189,36 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             }
         }
 
-
-        //Iterate through the tiles in the 2d board array until you find the one that contains the place where it was touched.
-        //There has to be a better way to do this :(
-        for(int i = 0; i < b.length; i++){
-            for (int j = 0; j < b[i].length; j++){
+        else {
 
 
-                if(b[i][j] != null && b[i][j].getBoundingBox().contains(x,y)){
-                    //the player has clicked this bounding box.
+            //Iterate through the tiles in the 2d board array until you find the one that contains the place where it was touched.
+            //There has to be a better way to do this :(
+            for (int i = 0; i < b.length; i++) {
+                for (int j = 0; j < b[i].length; j++) {
+                    if (b[i][j] != null && b[i][j].getBoundingBox().contains(x, y)) {
+                        //the player has clicked this bounding box.
 
-                    Log.d("From FishView", "Touched the Fish View at: "+i+", "+j);
-                    Log.d("From human player", "Current player turn is " + turn);
-                    if (selectedPenguin == null) {
-                        if (b[i][j].getPenguin() == null){
-                            return false;
+                        Log.d("From FishView", "Touched the Fish View at: " + i + ", " + j);
+                        Log.d("From human player", "Current player turn is " + turn);
+                        if (selectedPenguin == null) {
+                            if (b[i][j].getPenguin() == null) {
+                                return false;
+                            } else if (b[i][j].getPenguin().getPlayer() == playerNum) {
+                                //The player has selected this penguin to move
+                                selectedPenguin = b[i][j].getPenguin();
+                                Log.d("From Human Player", "Selected a valid penguin");
+
+                            } else {
+                                //The player did not touch their own penguin
+                                //Maybe throw toast
+                                Log.d("From Human Player", "Player expected to touch a penguin, but did not");
+                            }
+                        } else {
+                            FishMoveAction m = new FishMoveAction(this, selectedPenguin, b[i][j]);
+                            game.sendAction(m);
+                            Log.d("From Human Player", "Sent action to Local Game");
                         }
-                        else if (b[i][j].getPenguin().getPlayer() == playerNum) {
-                            //The player has selected this penguin to move
-                            selectedPenguin = b[i][j].getPenguin();
-                            Log.d("From Human Player", "Selected a valid penguin");
-
-                        }
-                        else {
-                            //The player did not touch their own penguin
-                            //Maybe throw toast
-                            Log.d("From Human Player", "Player expected to touch a penguin, but did not");
-                        }
-                    }
-                    else {
-                        FishMoveAction m = new FishMoveAction(this, selectedPenguin,b[i][j]);
-                        game.sendAction(m);
-
-
-                        Log.d("From Human Player","Sent action to Local Game");
                     }
                 }
             }

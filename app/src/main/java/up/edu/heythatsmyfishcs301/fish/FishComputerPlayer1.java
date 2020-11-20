@@ -45,17 +45,32 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
         if (copy.getPlayerTurn() != this.playerNum)
             return;
 
-        //If the game phase is mid-game (Moving penguins)
-        //for alpha release set to 0, change to 1 later
+        FishTile[][] pieceBoard = copy.getBoardState();
+        FishPenguin[][] penguins = copy.getPieceArray();
+        //If the game phase is zero, then the computer needs to place a penguin
         if (copy.getGamePhase() == 0){
+            for (int x = 0; x<penguins[this.playerNum].length;x++){
+                if (!penguins[this.playerNum][x].isOnBoard()){
+                    for (int i = 0; i< pieceBoard.length; i++){
+                        for (int j = 0; j<pieceBoard[i].length; j++){
+                            if (pieceBoard[i][j] != null && pieceBoard[i][j].getNumFish() == 1 && !pieceBoard[i][j].hasPenguin()){
+                                FishPlaceAction p = new FishPlaceAction(this,pieceBoard[i][j],penguins[this.playerNum][x]);
+                                game.sendAction(p);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else if (copy.getGamePhase() == 1){
             boardState = copy.getBoardState();
 
             // using our copy of gamestate
-            FishTile[][] pieceBoard = copy.getBoardState();
+
 
             // loop through the board to see there is a penguin on the tile. If there is, it checks if the
             //penguin belongs to the computer. If it does, it calls the computerMovePenguin
-            if(copy.getPlayerTurn() == 1){
+            if(copy.getPlayerTurn() == this.playerNum){
                 for(int i =0; i < pieceBoard.length; i++){
                     for(int j=0; j< pieceBoard[i].length;j++){
                         //computer player hard coded to play2 for alpha release
