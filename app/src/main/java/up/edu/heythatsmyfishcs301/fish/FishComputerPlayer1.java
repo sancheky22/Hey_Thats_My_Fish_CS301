@@ -61,7 +61,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
                 }
             }
         }
-        else if (copy.getGamePhase() == 1){
+        else {
 
 
             // using our copy of game state
