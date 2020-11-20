@@ -190,8 +190,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         }
 
         else {
-
-
             //Iterate through the tiles in the 2d board array until you find the one that contains the place where it was touched.
             //There has to be a better way to do this :(
             for (int i = 0; i < b.length; i++) {
