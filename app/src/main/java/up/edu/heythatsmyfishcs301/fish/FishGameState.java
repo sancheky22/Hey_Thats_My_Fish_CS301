@@ -192,7 +192,6 @@ public class FishGameState extends GameState {
         if(boardState[x][y].hasPenguin()){
             return false;
         }
-
             boardState[x][y].setPenguin(p);
             boardState[x][y].setHasPenguin(true);
             p.setOnBoard(true);

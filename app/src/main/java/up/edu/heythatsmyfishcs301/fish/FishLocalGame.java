@@ -144,7 +144,7 @@ public class FishLocalGame extends LocalGame {
             Rect rect = ((FishPlaceAction) action).getRect();
             FishPenguin penguin = ((FishPlaceAction) action).getPenguin();
 
-            if(fState.placePenguin(fState.getPieceArray()[0][1], dest.getX(), dest.getY())){
+            if(fState.placePenguin(penguin, dest.getX(), dest.getY())){
                 Log.d("Place penguin", "penguin is now on tile (" + dest.getX() + ", " + dest.getY() + ")");
                 return true;
             }
