@@ -63,14 +63,17 @@ public class FishGameState extends GameState {
         this.player4Score = 0;
         this.gamePhase = 0;
         this.validMoves = true;
-        this.pieceArray = alphaInitializePieces();
+        //this.pieceArray = alphaInitializePieces();
+
         this.boardState = initializeBoard();
-        for (int i = 0; i<pieceArray.length;i++){
-            for (int j = 0; j<pieceArray[i].length;j++){
-                boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setHasPenguin(true);
-                boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setPenguin(pieceArray[i][j]);
-            }
-        }
+        pieceArray = new FishPenguin[2][4];
+        pieceArray = initializePieces(2);
+//        for (int i = 0; i<pieceArray.length;i++){
+//            for (int j = 0; j<pieceArray[i].length;j++){
+//                boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setHasPenguin(true);
+//                boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setPenguin(pieceArray[i][j]);
+//            }
+//        }
         //this.pieceArray = initializePieces(this.numPlayers);
     }
 
@@ -186,14 +189,17 @@ public class FishGameState extends GameState {
      */
     //Action: When the player moves a penguin onto the board at the beginning of the game.
     public boolean placePenguin(FishPenguin p, int x, int y) {
-        if (p.isOnBoard()){
+        if(boardState[x][y].hasPenguin()){
             return false;
         }
-        else {
+
+            boardState[x][y].setPenguin(p);
+            boardState[x][y].setHasPenguin(true);
+            p.setOnBoard(true);
             p.setXPos(x);
             p.setYPos(y);
             return true;
-        }
+
     }
 
     /**
@@ -386,7 +392,7 @@ public class FishGameState extends GameState {
             }
         }
         //hardcoded value for alpha release
-        f[6][6].setHasPenguin(true);
+        //f[6][6].setHasPenguin(true);
         return f;
     }
 
@@ -432,6 +438,8 @@ public class FishGameState extends GameState {
         for (int i=0;i<p.length;i++){
             for (int j=0;j<p[0].length;j++){
                 tempguin = new FishPenguin(i);
+                tempguin.setPlayer(i);
+                tempguin.setOnBoard(false);
                 p[i][j] = tempguin;
             }
         }

@@ -74,8 +74,8 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
         }
         //If the game phase is set up (Placing Penguins)
         else{
-            FishPlaceAction placeAction = new FishPlaceAction(this);
-            this.game.sendAction(placeAction);
+            //FishPlaceAction placeAction = new FishPlaceAction(this);
+            //this.game.sendAction(placeAction);
         }
     }
 

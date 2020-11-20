@@ -1,5 +1,6 @@
 package up.edu.heythatsmyfishcs301.fish;
 
+import android.graphics.Rect;
 import android.util.Log;
 
 import up.edu.heythatsmyfishcs301.game.GamePlayer;
@@ -133,6 +134,22 @@ public class FishLocalGame extends LocalGame {
             }
             else{
                 Log.d("makeMove","Move was not legal");
+                return false;
+            }
+        }
+
+        if(action instanceof  FishPlaceAction){
+            Log.d("Placing penguins", "Trying to place a penguin");
+            FishTile dest = ((FishPlaceAction) action).getDestination();
+            Rect rect = ((FishPlaceAction) action).getRect();
+            FishPenguin penguin = ((FishPlaceAction) action).getPenguin();
+
+            if(fState.placePenguin(fState.getPieceArray()[0][1], dest.getX(), dest.getY())){
+                Log.d("Place penguin", "penguin is now on tile (" + dest.getX() + ", " + dest.getY() + ")");
+                return true;
+            }
+            else{
+                Log.d("Place penguin", "Placing penguin failed");
                 return false;
             }
         }
