@@ -62,7 +62,6 @@ public class FishView extends SurfaceView {
    // private ScaleGestureDetector mScaleDetector;
   //  private float mScaleFactor = 1.f;
 
-    @SuppressLint("NewApi")
     public FishView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);

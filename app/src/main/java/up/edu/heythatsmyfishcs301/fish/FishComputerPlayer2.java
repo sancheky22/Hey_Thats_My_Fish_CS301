@@ -80,10 +80,12 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
         }
         //If the game phase is set up (Placing Penguins)
         // IDEA: When Comp player places put on tile surrounded by the most fish
+        /**
         else{
             FishPlaceAction placeAction = new FishPlaceAction(this);
             this.game.sendAction(placeAction);
         }
+         */
     }
 
 
