@@ -76,25 +76,10 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/player1PiecesLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="80dp"
-            android:layout_marginBottom="60dp"
-            android:text="Player 1 Pieces:"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/player2PiecesLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            android:text="Player 2 Pieces:"
-            android:textColorHighlight="#FFFFFF"
-            android:textSize="30sp" />
+        <up.edu.heythatsmyfishcs301.fish.FishPlaceView
+            android:id="@+id/fishPlaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

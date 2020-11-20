@@ -91,7 +91,7 @@ public class FishTile {
     }
 
     public void setPenguin(FishPenguin p){
-        this.penguin = new FishPenguin(p);
+        this.penguin = (p);
     }
 
     public void setBoundingBox(Rect r){

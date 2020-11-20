@@ -1,5 +1,6 @@
 package up.edu.heythatsmyfishcs301.fish;
 
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,10 +34,13 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     // the surface view
     private FishView surfaceView;
     private ScoresDrawings scores;
+    private FishPlaceView fishPlace;
 
     // create local board variable and local penguin variable
     private FishPenguin selectedPenguin;
     private FishPenguin[][] pieces;
+    private Rect selectedRect;
+    FishTile dest;
 
     // intial player scores
     int p1Score = 0;
@@ -92,12 +96,18 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             scores.setP1Scores(p1Score);
             scores.setP2Score(p2Score);
 
+            //send how many players there are to the placePenguin view
+            fishPlace.setNumPlayers(gameState.getNumPlayers());
+            fishPlace.setGamePhase(gameState.getGamePhase());
+            fishPlace.setGameState(gameState);
+
             // update the surface view
             surfaceView.setGameState(new FishGameState((FishGameState)info));
             surfaceView.invalidate();
             // invalidate the scores TextView to update
             scores.invalidate();
 
+            fishPlace.invalidate();
         }
 
     }
@@ -110,8 +120,11 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         myActivity = activity;
         activity.setContentView(R.layout.activity_main);
         surfaceView = activity.findViewById(R.id.fishView);
+        fishPlace = activity.findViewById(R.id.fishPlaceView);
         scores = activity.findViewById(R.id.scoresDrawings);
 
+
+        fishPlace.setOnTouchListener(this);
         surfaceView.setOnTouchListener(this);
 
         // if we have a game state, "simulate" that we have just received
@@ -127,10 +140,43 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
         FishTile[][] b = surfaceView.getGameState().getBoardState();
+        Rect[][] rectArr = fishPlace.getRects();
 
         //Local variables for the location of the touch.
         int x = (int) motionEvent.getX();
         int y = (int) motionEvent.getY();
+
+
+        if(gameState.getGamePhase() == 0){
+            if(selectedRect == null){
+                for(int i = 0; i < rectArr.length; i++){
+                    for(int j = 0; j < rectArr[i].length; j++){
+                        if(rectArr[i][j] != null && rectArr[i][j].contains(x,y)){
+                            if(i == playerNum){
+                                selectedRect = rectArr[i][j];
+                                Log.d("Selected Rect", "Selected rect at (" + i + ", " + j + ")");
+                            }
+                        }
+                    }
+                }
+            }
+            else if(selectedRect != null){
+                for(int i = 0; i < b.length; i++) {
+                    for (int j = 0; j < b[i].length; j++) {
+                        if(b[i][j] != null && b[i][j].getBoundingBox().contains(x,y)){
+                            dest = b[i][j];
+                            FishPlaceAction p = new FishPlaceAction(this, selectedRect, dest);
+                            game.sendAction(p);
+                            selectedRect = null;
+                            fishPlace.invalidate();
+                        }
+                    }
+                }
+
+            }
+
+        }
+
 
         //Iterate through the tiles in the 2d board array until you find the one that contains the place where it was touched.
         //There has to be a better way to do this :(
@@ -147,8 +193,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                         if (b[i][j].getPenguin() == null){
                             return false;
                         }
-                        //set to 0 just for alpha release
-                        else if (b[i][j].getPenguin().getPlayer() == 0) {
+                        else if (b[i][j].getPenguin().getPlayer() == playerNum) {
                             //The player has selected this penguin to move
                             selectedPenguin = b[i][j].getPenguin();
                             Log.d("From Human Player", "Selected a valid penguin");
