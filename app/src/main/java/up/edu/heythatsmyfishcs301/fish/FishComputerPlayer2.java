@@ -29,6 +29,7 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
     //Computer Player 1 sends a random action to the game state.
     @Override
     protected void receiveInfo(GameInfo info) {
+        //this is correct one
         // if it was a "not your turn" message, just ignore it
         if (info instanceof NotYourTurnInfo){
             return;
