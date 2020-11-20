@@ -66,6 +66,8 @@ public class FishLocalGame extends LocalGame {
         //if it has a penguin on it then checks if the penguin belongs to the human player. Then it calls the
         //testMove function and if there's no legal moves left, it returns who won. If there is a legal move left
         //it checks if the computer has any valid moves left
+
+        /**
         for(int i =0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
 
@@ -110,6 +112,16 @@ public class FishLocalGame extends LocalGame {
 
                 }
             }
+        }
+        */
+
+        if (fState.getGamePhase() == 1) {
+            for (FishPenguin p : fState.getPieceArray()[fState.getPlayerTurn()]) {
+                if (fState.testMove(p)) {
+                    return null;
+                }
+            }
+            return "Big oof";
         }
         return null;
     }
