@@ -108,143 +108,144 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
         //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
         if (copy.getPlayerTurn() == this.playerNum) {
 
-//            if (p.getY() + 1 <= 8 && (pieceBoard[p.getX()][p.getY() + 1] != null) ) {
-//                if(!(pieceBoard[p.getX()][p.getY() + 1].hasPenguin()) && (pieceBoard[p.getX()][p.getY()].getNumFish()==3) && (pieceBoard[p.getX()][p.getY() + 1].doesExist())){
-//                    addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
-//                    this.boardState[p.getX()][p.getY()].setExists(false);
-//                    this.boardState[p.getX()][p.getY() + 1].setPenguin(p);
-//                    p.setXPos(p.getX());
-//                    p.setYPos(p.getY() + 1);
-//
-//
-//                    FishPenguin selectedPenguin = this.boardState[p.getX()][p.getY()].getPenguin();
-//                    //FishComputerMoveAction m = new FishComputerMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()], copy.getPlayer2Score());
-//                    FishMoveAction m = new FishMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()]);
-//                    Log.d("Move", "Computer Player Moving horizontally to the right");
-//                    Log.d("Computer Moved", "Computer moved to (" + p.getX() + "," + p.getY() + ")");
-//                    game.sendAction(m);
-//                    return true;
-//                }
-//            }
-
-          //  try to move horizontally to the right
-            if (p.getY() + 1 <= 8 && (pieceBoard[p.getX()][p.getY() + 1] != null) ) {
-                if(!(pieceBoard[p.getX()][p.getY() + 1].hasPenguin()) && (pieceBoard[p.getX()][p.getY()+1].getNumFish()==3) && (pieceBoard[p.getX()][p.getY() + 1].doesExist())) {
-                    addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
-                    this.boardState[p.getX()][p.getY()].setExists(false);
-                    this.boardState[p.getX()][p.getY() + 1].setPenguin(p);
-                    p.setXPos(p.getX());
-                    p.setYPos(p.getY() + 1);
 
 
-                    FishPenguin selectedPenguin = this.boardState[p.getX()][p.getY()].getPenguin();
-                    //FishComputerMoveAction m = new FishComputerMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()], copy.getPlayer2Score());
-                    FishMoveAction m = new FishMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()]);
-                    Log.d("Move", "Computer Player Moving horizontally to the right");
-                    Log.d("Computer Moved", "Computer moved to (" + p.getX() + "," + p.getY() + ")");
-                    game.sendAction(m);
-                    return true;
+            //(pieceBoard[p.getX()][p.getY()+1].getNumFish()==3)
+
+
+            for (int i = 3; i > 0;i--) {
+                // checks if it can move to a tile with 3 fish then 2 fish and then 1 fish
+                //  try to move horizontally to the right
+                if (p.getY() + 1 <= 8 && (pieceBoard[p.getX()][p.getY() + 1] != null)) {
+
+                    if (!(pieceBoard[p.getX()][p.getY() + 1].hasPenguin()) && (pieceBoard[p.getX()][p.getY() + 1].getNumFish() == i) && (pieceBoard[p.getX()][p.getY() + 1].doesExist())) {
+                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
+                        this.boardState[p.getX()][p.getY()].setExists(false);
+                        this.boardState[p.getX()][p.getY() + 1].setPenguin(p);
+                        p.setXPos(p.getX());
+                        p.setYPos(p.getY() + 1);
+
+
+                        FishPenguin selectedPenguin = this.boardState[p.getX()][p.getY()].getPenguin();
+                        //FishComputerMoveAction m = new FishComputerMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()], copy.getPlayer2Score());
+                        FishMoveAction m = new FishMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()]);
+                        Log.d("Move", "Computer Player Moving horizontally to the right");
+                        Log.d("Computer Moved", "Computer moved to (" + p.getX() + "," + p.getY() + ")");
+                        game.sendAction(m);
+                        return true;
+                    }
                 }
-            }
 
 
-            //try to move diagonally down to the right
-            if(p.getX() + 1 < 8 && pieceBoard[p.getX() + 1][p.getY()] != null){
-                if (!(pieceBoard[p.getX() + 1][p.getY()].hasPenguin()) && (pieceBoard[p.getX()+1][p.getY()].getNumFish()==3) && (pieceBoard[p.getX() + 1][p.getY()].doesExist())) {
-                    addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
-                    this.boardState[p.getX()][p.getY()].setExists(false);
-                    this.boardState[p.getX() + 1][p.getY()].setPenguin(p);
-                    p.setXPos(p.getX() + 1);
-                    p.setYPos(p.getY());
+                // (pieceBoard[p.getX()+1][p.getY()].getNumFish()==3)
+                //try to move diagonally down to the right
+                if (p.getX() + 1 < 8 && pieceBoard[p.getX() + 1][p.getY()] != null) {
+                    if (!(pieceBoard[p.getX() + 1][p.getY()].hasPenguin()) && (pieceBoard[p.getX()+1][p.getY()].getNumFish()==i) && (pieceBoard[p.getX() + 1][p.getY()].doesExist())) {
+                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
+                        this.boardState[p.getX()][p.getY()].setExists(false);
+                        this.boardState[p.getX() + 1][p.getY()].setPenguin(p);
+                        p.setXPos(p.getX() + 1);
+                        p.setYPos(p.getY());
 
-                    FishPenguin selectedPenguin = this.boardState[p.getX()][p.getY()].getPenguin();
-                    //FishComputerMoveAction m = new FishComputerMoveAction(this, selectedPenguin,this.boardState[p.getX()][p.getY()], copy.getPlayer2Score());
-                    FishMoveAction m = new FishMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()]);
-                    Log.d("Move","Computer Player Moving diagonally down to the right");
-                    Log.d("Computer Moved", "Computer moved to (" + p.getX() + "," + p.getY() + ")");
-                    game.sendAction(m);
+                        FishPenguin selectedPenguin = this.boardState[p.getX()][p.getY()].getPenguin();
+                        //FishComputerMoveAction m = new FishComputerMoveAction(this, selectedPenguin,this.boardState[p.getX()][p.getY()], copy.getPlayer2Score());
+                        FishMoveAction m = new FishMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()]);
+                        Log.d("Move", "Computer Player Moving diagonally down to the right");
+                        Log.d("Computer Moved", "Computer moved to (" + p.getX() + "," + p.getY() + ")");
+                        game.sendAction(m);
 
-                    return true;
+                        return true;
+                    }
                 }
-            }
 
 
-            //try to move diagonally down to the left
-            if(p.getX() + 1 < 8 && p.getY() - 1 >= 0 && pieceBoard[p.getX() + 1][p.getY() - 1] != null){
-                if (!(pieceBoard[p.getX() + 1][p.getY() - 1].hasPenguin()) && (pieceBoard[p.getX()+1][p.getY()-1].getNumFish()==3) && (pieceBoard[p.getX() + 1][p.getY() - 1].doesExist())) {
-                    addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
-                    this.boardState[p.getX()][p.getY()].setExists(false);
-                    this.boardState[p.getX() + 1][p.getY() - 1].setPenguin(p);
-                    p.setXPos(p.getX() + 1);
-                    p.setYPos(p.getY() - 1);
+                //  && (pieceBoard[p.getX()+1][p.getY()-1].getNumFish()==3)
+                //try to move diagonally down to the left
+                if (p.getX() + 1 < 8 && p.getY() - 1 >= 0 && pieceBoard[p.getX() + 1][p.getY() - 1] != null) {
+                    // tries to move to tiles with 3 fish first
+                    if (!(pieceBoard[p.getX() + 1][p.getY() - 1].hasPenguin()) && (pieceBoard[p.getX()+1][p.getY()-1].getNumFish()==i) && (pieceBoard[p.getX() + 1][p.getY() - 1].doesExist())) {
+                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
+                        this.boardState[p.getX()][p.getY()].setExists(false);
+                        this.boardState[p.getX() + 1][p.getY() - 1].setPenguin(p);
+                        p.setXPos(p.getX() + 1);
+                        p.setYPos(p.getY() - 1);
 
-                    FishPenguin selectedPenguin = this.boardState[p.getX()][p.getY()].getPenguin();
-                    //FishComputerMoveAction m = new FishComputerMoveAction(this, selectedPenguin,this.boardState[p.getX()][p.getY()], copy.getPlayer2Score());
-                    FishMoveAction m = new FishMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()]);
-                    Log.d("Move","Computer Player Moving diagonally down to the left");
-                    Log.d("Computer Moved", "Computer moved to (" + p.getX() + "," + p.getY() + ")");
-                    game.sendAction(m);
-                    return true;
+                        FishPenguin selectedPenguin = this.boardState[p.getX()][p.getY()].getPenguin();
+                        //FishComputerMoveAction m = new FishComputerMoveAction(this, selectedPenguin,this.boardState[p.getX()][p.getY()], copy.getPlayer2Score());
+                        FishMoveAction m = new FishMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()]);
+                        Log.d("Move", "Computer Player Moving diagonally down to the left");
+                        Log.d("Computer Moved", "Computer moved to (" + p.getX() + "," + p.getY() + ")");
+                        game.sendAction(m);
+                        return true;
+
+                    }
                 }
-            }
 
 
-            //try to move horizontally to the left
-            if(p.getY() - 1 >= 0 && pieceBoard[p.getX()][p.getY() - 1] != null){
-                if (!(pieceBoard[p.getX()][p.getY() - 1].hasPenguin())&& (pieceBoard[p.getX()][p.getY()-1].getNumFish()==3)&& (pieceBoard[p.getX()][p.getY() - 1].doesExist())) {
-                    addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
-                    this.boardState[p.getX()][p.getY()].setExists(false);
-                    this.boardState[p.getX()][p.getY() - 1].setPenguin(p);
-                    p.setXPos(p.getX());
-                    p.setYPos(p.getY() - 1);
+                // (pieceBoard[p.getX()][p.getY()-1].getNumFish()==3)
+                //try to move horizontally to the left
+                if (p.getY() - 1 >= 0 && pieceBoard[p.getX()][p.getY() - 1] != null) {
+                    // moves to tiles with 3 fish first
+                    if (!(pieceBoard[p.getX()][p.getY() - 1].hasPenguin()) && (pieceBoard[p.getX()][p.getY()-1].getNumFish()==i) && (pieceBoard[p.getX()][p.getY() - 1].doesExist())) {
+                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
+                        this.boardState[p.getX()][p.getY()].setExists(false);
+                        this.boardState[p.getX()][p.getY() - 1].setPenguin(p);
+                        p.setXPos(p.getX());
+                        p.setYPos(p.getY() - 1);
 
-                    FishPenguin selectedPenguin = this.boardState[p.getX()][p.getY()].getPenguin();
-                    //FishComputerMoveAction m = new FishComputerMoveAction(this, selectedPenguin,this.boardState[p.getX()][p.getY()], copy.getPlayer2Score());
-                    FishMoveAction m = new FishMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()]);
-                    Log.d("Move","Computer Player Moving horizontally to the left");
-                    Log.d("Computer Moved", "Computer moved to (" + p.getX() + "," + p.getY() + ")");
-                    game.sendAction(m);
-                    return true;
+                        FishPenguin selectedPenguin = this.boardState[p.getX()][p.getY()].getPenguin();
+                        //FishComputerMoveAction m = new FishComputerMoveAction(this, selectedPenguin,this.boardState[p.getX()][p.getY()], copy.getPlayer2Score());
+                        FishMoveAction m = new FishMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()]);
+                        Log.d("Move", "Computer Player Moving horizontally to the left");
+                        Log.d("Computer Moved", "Computer moved to (" + p.getX() + "," + p.getY() + ")");
+                        game.sendAction(m);
+                        return true;
+
+                    }
                 }
-            }
 
+                //  && (pieceBoard[p.getX()-1][p.getY()].getNumFish()==3)
+                //try to move diagonally up to the left
+                if (p.getX() - 1 >= 0 && pieceBoard[p.getX() - 1][p.getY()] != null) {
+                    // moves to tiles with 3 fish first
+                    if (!(pieceBoard[p.getX() - 1][p.getY()].hasPenguin()) && (pieceBoard[p.getX()-1][p.getY()].getNumFish()==i) && (pieceBoard[p.getX() - 1][p.getY()].doesExist())) {
+                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
+                        this.boardState[p.getX()][p.getY()].setExists(false);
+                        this.boardState[p.getX() - 1][p.getY()].setPenguin(p);
+                        p.setXPos(p.getX() - 1);
+                        p.setYPos(p.getY());
 
-            //try to move diagonally up to the left
-            if(p.getX() - 1 >= 0 && pieceBoard[p.getX() - 1][p.getY()] != null){
-                if (!(pieceBoard[p.getX() - 1][p.getY()].hasPenguin()) && (pieceBoard[p.getX()-1][p.getY()].getNumFish()==3)&& (pieceBoard[p.getX() - 1][p.getY()].doesExist())) {
-                    addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
-                    this.boardState[p.getX()][p.getY()].setExists(false);
-                    this.boardState[p.getX() - 1][p.getY()].setPenguin(p);
-                    p.setXPos(p.getX() - 1);
-                    p.setYPos(p.getY());
+                        FishPenguin selectedPenguin = this.boardState[p.getX()][p.getY()].getPenguin();
+                        //FishComputerMoveAction m = new FishComputerMoveAction(this, selectedPenguin,this.boardState[p.getX()][p.getY()], copy.getPlayer2Score());
+                        FishMoveAction m = new FishMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()]);
+                        Log.d("Move", "Computer Player Moving diagonally up to the left");
+                        Log.d("Computer Moved", "Computer moved to (" + p.getX() + "," + p.getY() + ")");
+                        game.sendAction(m);
+                        return true;
 
-                    FishPenguin selectedPenguin = this.boardState[p.getX()][p.getY()].getPenguin();
-                    //FishComputerMoveAction m = new FishComputerMoveAction(this, selectedPenguin,this.boardState[p.getX()][p.getY()], copy.getPlayer2Score());
-                    FishMoveAction m = new FishMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()]);
-                    Log.d("Move","Computer Player Moving diagonally up to the left");
-                    Log.d("Computer Moved", "Computer moved to (" + p.getX() + "," + p.getY() + ")");
-                    game.sendAction(m);
-                    return true;
+                    }
                 }
-            }
 
+                // && (pieceBoard[p.getX()-1][p.getY()+1].getNumFish()==3)
+                //try to move diagonally up to the right
+                if (p.getX() - 1 >= 0 && p.getY() + 1 <= 8 && pieceBoard[p.getX() - 1][p.getY() + 1] != null) {
+                    // moves to tiles with 3 fish first
+                    if (!(pieceBoard[p.getX() - 1][p.getY() + 1].hasPenguin()) && (pieceBoard[p.getX()-1][p.getY()+1].getNumFish()==i) && (pieceBoard[p.getX() - 1][p.getY() + 1].doesExist())) {
+                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
+                        this.boardState[p.getX()][p.getY()].setExists(false);
+                        this.boardState[p.getX() - 1][p.getY() + 1].setPenguin(p);
+                        p.setXPos(p.getX() - 1);
+                        p.setYPos(p.getY() + 1);
 
-            //try to move diagonally up to the right
-            if(p.getX() - 1 >= 0 && p.getY() + 1 <= 8 && pieceBoard[p.getX() - 1][p.getY() + 1] != null){
-                if (!(pieceBoard[p.getX() - 1][p.getY() + 1].hasPenguin()) && (pieceBoard[p.getX()-1][p.getY()+1].getNumFish()==3) && (pieceBoard[p.getX() - 1][p.getY() + 1].doesExist())) {
-                    addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
-                    this.boardState[p.getX()][p.getY()].setExists(false);
-                    this.boardState[p.getX() - 1][p.getY() + 1].setPenguin(p);
-                    p.setXPos(p.getX() - 1);
-                    p.setYPos(p.getY() + 1);
+                        FishPenguin selectedPenguin = this.boardState[p.getX()][p.getY()].getPenguin();
+                        //FishComputerMoveAction m = new FishComputerMoveAction(this, selectedPenguin,this.boardState[p.getX()][p.getY()], copy.getPlayer2Score());
+                        FishMoveAction m = new FishMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()]);
+                        Log.d("Move", "Computer Player Moving diagonally up to the right");
+                        Log.d("Computer Moved", "Computer moved to (" + p.getX() + "," + p.getY() + ")");
+                        game.sendAction(m);
+                        return true;
 
-                    FishPenguin selectedPenguin = this.boardState[p.getX()][p.getY()].getPenguin();
-                    //FishComputerMoveAction m = new FishComputerMoveAction(this, selectedPenguin,this.boardState[p.getX()][p.getY()], copy.getPlayer2Score());
-                    FishMoveAction m = new FishMoveAction(this, selectedPenguin, this.boardState[p.getX()][p.getY()]);
-                    Log.d("Move","Computer Player Moving diagonally up to the right");
-                    Log.d("Computer Moved", "Computer moved to (" + p.getX() + "," + p.getY() + ")");
-                    game.sendAction(m);
-                    return true;
+                    }
                 }
             }
         }
