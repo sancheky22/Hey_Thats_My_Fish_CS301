@@ -53,6 +53,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     private ScaleGestureDetector mScaleDetector;
     private float mScaleFactor = 1.f;
+
 //    Bitmap redPeng = null;
 //    Bitmap resizedRedPeng = null;
 //    Bitmap orangePeng = null;

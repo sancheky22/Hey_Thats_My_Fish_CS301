@@ -1,6 +1,5 @@
 package up.edu.heythatsmyfishcs301.fish;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.view.ScaleGestureDetector;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import up.edu.heythatsmyfishcs301.R;
@@ -37,8 +35,14 @@ public class FishView extends SurfaceView {
     private HexagonDrawable bigHex = new HexagonDrawable(0xFF5685C5);
     private Rect tile;
     private Rect bigTile;
+    private final int RESIZE = 150;
     Bitmap redPenguin = null;
     Bitmap resizedRedPenguin = null;
+    Bitmap orangePenguin = null;
+    Bitmap resizedOrangePenguin = null;
+    Bitmap bluePenguin = null;
+    Bitmap resizedBluePenguin = null;
+
 
     Bitmap oneFish = null;
     Bitmap twoFish = null;
@@ -49,9 +53,6 @@ public class FishView extends SurfaceView {
     Bitmap rThreeFish = null;
 
     private int randTile;
-
-    Bitmap orangePenguin = null;
-    Bitmap resizedOrangePenguin = null;
 
 
     private Paint testPaint = new Paint();
@@ -66,7 +67,7 @@ public class FishView extends SurfaceView {
         super(context, attrs);
         setWillNotDraw(false);
 
-        gameState = new FishGameState(1);
+        gameState = new FishGameState(2);
 
         /**
          *External Citation
@@ -91,10 +92,12 @@ public class FishView extends SurfaceView {
         rTwoFish = Bitmap.createScaledBitmap(twoFish, 90, 90, false);
         rThreeFish = Bitmap.createScaledBitmap(threeFish, 90, 90, false);
 
-        redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
-        resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, 115, 115, false);
-
+        redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.actuppenguin);
+        resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, RESIZE, RESIZE, false);
         orangePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
+        resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, RESIZE, RESIZE, false);
+        bluePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.bluepenguin);
+        resizedBluePenguin = Bitmap.createScaledBitmap(bluePenguin, RESIZE, RESIZE, false);
         resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, 115, 115, false);
 
         //added
@@ -120,7 +123,6 @@ public class FishView extends SurfaceView {
     *inside of it
     *we also draw any other properties of the tile that need to be drawn (Fish and penguins).
     *We repeat this process for all 8 rows and the end result is a complete board.**/
-    @SuppressLint("NewApi")
     public void drawBoard(Canvas c, FishGameState g) {
         FishTile[][] board = g.getBoardState();
         FishPenguin[][] penguins = g.getPieceArray();
