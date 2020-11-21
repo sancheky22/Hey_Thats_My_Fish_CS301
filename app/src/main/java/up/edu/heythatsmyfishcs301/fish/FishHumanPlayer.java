@@ -1,7 +1,7 @@
 package up.edu.heythatsmyfishcs301.fish;
 
-import android.graphics.Rect;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,14 +13,14 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.graphics.Canvas;
 import java.lang.Object;
+
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import up.edu.heythatsmyfishcs301.R;
 import up.edu.heythatsmyfishcs301.game.GameHumanPlayer;
 import up.edu.heythatsmyfishcs301.game.GameMainActivity;
-import up.edu.heythatsmyfishcs301.game.LocalGame;
 import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
-import up.edu.heythatsmyfishcs301.game.infoMsg.IllegalMoveInfo;
 
 /**
  *
@@ -33,7 +33,7 @@ import up.edu.heythatsmyfishcs301.game.infoMsg.IllegalMoveInfo;
  * @author Carina Pineda
  * @author Linda Nguyen
  **/
-public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchListener {
+public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener {
     //Tag for logging
     private static final String TAG = "FishHumanPlayer";
 
@@ -48,6 +48,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     private ScoresDrawings scores;
     private FishPlaceView fishPlace;
 
+    //buttons
+    private Button restartButton;
+    private Button infoButton;
+
     // create local board variable and local penguin variable
     private FishPenguin selectedPenguin;
     private FishPenguin[][] pieces;
@@ -56,11 +60,15 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     private ScaleGestureDetector mScaleDetector;
     private float mScaleFactor = 1.f;
-
 //    Bitmap redPeng = null;
 //    Bitmap resizedRedPeng = null;
 //    Bitmap orangePeng = null;
 //    Bitmap resizedOrangePeng = null;
+
+
+    // intial player scores
+    int p1Score = 0;
+    int p2Score = 0;
 
     // current player turn
     int turn;
@@ -68,8 +76,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     //Variables that connect the rect array to the piece array
     int px = 0;
     int py = 0;
-
-    Rect[][] rectArr;
 
     /**
      * constructor
@@ -96,12 +102,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
         if (fishPlace == null) return;
 
-
         // ignore the message if it's not a FishGameState message
         if (!(info instanceof FishGameState)) {
             return;
-        }
-        else {
+        } else {
             // update the state
             // initialize currently selectedPenguin
             selectedPenguin = null;
@@ -114,55 +118,57 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             // sets player turn
             turn = gameState.getPlayerTurn();
 
+            // get current player score
+            p1Score = gameState.getPlayer1Score();
+            p2Score = gameState.getPlayer2Score();
+
             // set current player score
-            scores.setNumPlayers(gameState.getNumPlayers());
-            scores.setP1Scores(gameState.getPlayer1Score());
-            scores.setP2Score(gameState.getPlayer2Score());
-            scores.setP3Score(gameState.getPlayer3Score());
-            scores.setP4Score(gameState.getPlayer4Score());
+            scores.setP1Scores(p1Score);
+            scores.setP2Score(p2Score);
 
             //send how many players there are to the placePenguin view
+            fishPlace.setNumPlayers(gameState.getNumPlayers());
             fishPlace.setGamePhase(gameState.getGamePhase());
             fishPlace.setGameState(gameState);
 
-            fishPlace.invalidate();
-
-
-
             // update the surface view
-            surfaceView.setGameState(new FishGameState((FishGameState)info));
+            surfaceView.setGameState(new FishGameState((FishGameState) info));
             surfaceView.invalidate();
             // invalidate the scores TextView to update
             scores.invalidate();
 
+            fishPlace.invalidate();
         }
+
     }
 
 
     //I don't know when this is called or what it does.
     @Override
     public void setAsGui(GameMainActivity activity) {
-
         // remember the activity
         myActivity = activity;
         activity.setContentView(R.layout.activity_main);
         surfaceView = activity.findViewById(R.id.fishView);
         fishPlace = activity.findViewById(R.id.fishPlaceView);
-
         scores = activity.findViewById(R.id.scoresDrawings);
-
 
 
         fishPlace.setOnTouchListener(this);
         surfaceView.setOnTouchListener(this);
 
-        if (gameState != null) {
-            receiveInfo(gameState);
-        }
+        //buttons
+        restartButton = (Button) activity.findViewById(R.id.restartButton);
+        restartButton.setOnClickListener(this);
+
+        infoButton = (Button) activity.findViewById(R.id.infoButton);
+        infoButton.setOnClickListener(this);
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated
-
+        if (gameState != null) {
+            receiveInfo(gameState);
+        }
     }
 //    @SuppressLint("NewApi")
 //    public FishHumanPlayer(Context context, AttributeSet attrs) {
@@ -186,14 +192,17 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
         FishTile[][] b = surfaceView.getGameState().getBoardState();
-        rectArr = fishPlace.getRects();
+        Rect[][] rectArr = fishPlace.getRects();
+
 
         //Local variables for the location of the touch.
         int x = (int) motionEvent.getX();
         int y = (int) motionEvent.getY();
 
+
         //If the players are placing penguins
         if (gameState.getGamePhase() == 0) {
+
             if (selectedRect == null) {
                 for (int i = 0; i < rectArr.length; i++) {
                     for (int j = 0; j < rectArr[i].length; j++) {
@@ -203,9 +212,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                                 Log.d("Selected Rect", "Selected rect at (" + i + ", " + j + ")");
                                 px = i;
                                 py = j;
-
-
-
                             }
                         }
                     }
@@ -219,14 +225,11 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                             FishPlaceAction p = new FishPlaceAction(this, dest, gameState.getPieceArray()[px][py]);
                             game.sendAction(p);
                             selectedRect = null;
-                            /**
-                             * might need this later idk
-                             rectArr[px][py] = null;
-                             fishPlace.setRects(rectArr);
-                             px = 0;
-                             py = 0;
-                             fishPlace.invalidate();
-                             */
+                            rectArr[px][py] = null;
+                            fishPlace.setRects(rectArr);
+                            px = 0;
+                            py = 0;
+                            fishPlace.invalidate();
                         }
                     }
                 }
@@ -279,9 +282,39 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                     }
                 }
             }
+
         }
         return false;
     }
+
+    @Override
+    public void onClick(View button) {
+        if(button.equals(restartButton)){
+            // restarts game and goes back to main menu
+            myActivity.recreate();
+        }else if(button.equals(infoButton)){
+            openDialog();
+        }else{
+            return; // do nothing
+        }
+    }
+
+    /**
+     External Citation
+     Date: 20 December 2020
+     Problem: Creating a dialog popup (for the help menu).
+     Resource:
+     https://developer.android.com/guide/topics/ui/dialogs
+     Solution: I looked at the documentation to help figure
+     out how to add a dialog popup for the info button.
+     */
+    public void openDialog() {
+        final Dialog dialog = new Dialog(myActivity); // Context, this, etc.
+        dialog.setContentView(R.layout.activity_display_help);
+        dialog.show();
+    }
+
+
 }
 
 //        // if we are not yet connected to a game, ignore
