@@ -30,6 +30,7 @@ public class FishLocalGame extends LocalGame {
 
     // Constructor for the local game that creates a new GameState
     public FishLocalGame(){
+        super();
         this.fState = new FishGameState();
     }
 
