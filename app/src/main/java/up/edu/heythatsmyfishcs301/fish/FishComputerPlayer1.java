@@ -2,9 +2,6 @@ package up.edu.heythatsmyfishcs301.fish;
 
 import android.util.Log;
 
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-
 import up.edu.heythatsmyfishcs301.game.GameComputerPlayer;
 import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
 import up.edu.heythatsmyfishcs301.game.infoMsg.NotYourTurnInfo;
@@ -24,7 +21,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
     private FishTile[][] boardState;
     FishGameState copy = null;
 
-    //Constructor for The Computer Player
+    //Constructor for Computer Player 1
     public FishComputerPlayer1(String name){
         super(name);
     }
