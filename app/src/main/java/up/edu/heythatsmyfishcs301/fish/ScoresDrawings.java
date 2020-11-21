@@ -32,8 +32,12 @@ public class ScoresDrawings extends SurfaceView {
     Bitmap resizedBlue = null;
     private Paint black = new Paint();
 
+    int numPlayers;
+
     int p1Score;
     int p2Score;
+    int p3Score;
+    int p4Score;
 
     FishGameState fstate;
 

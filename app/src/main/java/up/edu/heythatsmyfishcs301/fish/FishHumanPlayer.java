@@ -130,7 +130,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             //send how many players there are to the placePenguin view
             fishPlace.setGamePhase(gameState.getGamePhase());
             fishPlace.setGameState(gameState);
+
             fishPlace.invalidate();
+
+
 
             // update the surface view
             surfaceView.setGameState(new FishGameState((FishGameState)info));
@@ -153,6 +156,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         fishPlace = activity.findViewById(R.id.fishPlaceView);
 
         scores = activity.findViewById(R.id.scoresDrawings);
+
 
 
         fishPlace.setOnTouchListener(this);

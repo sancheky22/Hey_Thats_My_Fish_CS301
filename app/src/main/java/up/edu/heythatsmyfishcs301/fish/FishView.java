@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import up.edu.heythatsmyfishcs301.R;
@@ -41,6 +42,7 @@ public class FishView extends SurfaceView {
     Bitmap bluePenguin = null;
     Bitmap resizedBluePenguin = null;
 
+
     Bitmap oneFish = null;
     Bitmap twoFish = null;
     Bitmap threeFish = null;
@@ -49,6 +51,8 @@ public class FishView extends SurfaceView {
     Bitmap rTwoFish = null;
     Bitmap rThreeFish = null;
 
+
+    private int randTile;
 
     private Paint testPaint = new Paint();
 
@@ -188,6 +192,12 @@ public class FishView extends SurfaceView {
                         }
                         else if(p.getPlayer() == 1){
                             c.drawBitmap(resizedRedPenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
+                        }
+                        else if(p.getPlayer() == 2){
+                            c.drawBitmap(resizedBluePenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
+                        }
+                        else if(p.getPlayer() == 3){
+                            c.drawBitmap(resizedBluePenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
                         }
                     }
                 }

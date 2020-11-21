@@ -29,6 +29,9 @@ public class FishPlaceView extends SurfaceView {
     private int gamePhase;
     private final int PENGUIN_SIZE = 150;
 
+    private int cWidth;
+    private int cHeight;
+
     private final String p1Place = "Player 1 Pieces:";
     private final String p2Place = "Player 2 Pieces:";
     private final String p3Place = "Player 3 Pieces:";
@@ -110,6 +113,9 @@ public class FishPlaceView extends SurfaceView {
                 }
             }
         }
+
+
+
         /**
          *External Citation
          * Date: 9/18/20
@@ -154,10 +160,6 @@ public class FishPlaceView extends SurfaceView {
                 this.rects[i][j] = arr[i][j];
             }
         }
-    }
-
-    public void setNumPlayers(int num){
-        this.numPlayers = num;
     }
 
     public void setGamePhase(int phase){
