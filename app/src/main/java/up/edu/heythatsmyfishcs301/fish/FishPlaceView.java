@@ -27,11 +27,7 @@ import up.edu.heythatsmyfishcs301.R;
 
 public class FishPlaceView extends SurfaceView {
     private int gamePhase;
-    private int numPlayers;
     private final int PENGUIN_SIZE = 150;
-
-    private int cWidth;
-    private int cHeight;
 
     private final String p1Place = "Player 1 Pieces:";
     private final String p2Place = "Player 2 Pieces:";
@@ -39,10 +35,11 @@ public class FishPlaceView extends SurfaceView {
     private final String p4Place = "Player 4 Pieces:";
 
     private FishGameState gameState;
+    private int numPlayers;
     int temp;
 
-    private Rect[][] rects;
-    private Bitmap[][] bitArr;
+    private Rect[][] rects = new Rect[4][4];
+    private Bitmap[][] bitArr = new Bitmap[4][4];
 
     Bitmap redPenguin = null;
     Bitmap resizedRedPenguin = null;
@@ -58,15 +55,15 @@ public class FishPlaceView extends SurfaceView {
         super(context, attrs);
         setWillNotDraw(false);
 
-        gameState = new FishGameState(2);
-        numPlayers = gameState.getNumPlayers();
-        rects = new Rect[numPlayers][6 - numPlayers];
-        bitArr = new Bitmap [numPlayers][6 - numPlayers];
+
+        //rects = new Rect[numPlayers][6 - numPlayers];
+        //bitArr = new Bitmap [numPlayers][6 - numPlayers];
+        gameState = new FishGameState(4);
 
         black.setColor(Color.BLACK);
         black.setTextSize(70);
 
-        redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.actuppenguin);
+        redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
         resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, PENGUIN_SIZE, PENGUIN_SIZE, false);
         orangePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
         resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, PENGUIN_SIZE, PENGUIN_SIZE, false);
@@ -77,8 +74,20 @@ public class FishPlaceView extends SurfaceView {
 
         int offSet = 100;
 
+        /**
         for(int i = 0; i < numPlayers; i++){
             for(int j = 0; j < 6 - numPlayers; j++){
+                rects[i][j] = new Rect(10 + j * PENGUIN_SIZE, 10 + i * 150 + offSet, (j + 1) * PENGUIN_SIZE, (i + 1) * 150 + offSet);
+
+            }
+            offSet += 150;
+        }
+         */
+
+        //Will create a 4x4 array that contains all of the drawings and hitboxes.
+        //Will draw a portion of them in onDraw
+        for (int i = 0; i < 4; i++){
+            for (int j = 0; j < 4; j++){
                 rects[i][j] = new Rect(10 + j * PENGUIN_SIZE, 10 + i * 150 + offSet, (j + 1) * PENGUIN_SIZE, (i + 1) * 150 + offSet);
             }
             offSet += 150;
@@ -96,13 +105,11 @@ public class FishPlaceView extends SurfaceView {
                 else if(i == 2){
                     bitArr[i][j] = resizedBluePenguin;
                 }
+                else{
+                    bitArr[i][j] = resizedBluePenguin;
+                }
             }
         }
-
-
-
-
-
         /**
          *External Citation
          * Date: 9/18/20
@@ -123,23 +130,18 @@ public class FishPlaceView extends SurfaceView {
 
     @Override
     public void onDraw(Canvas canvas){
-
-
-        for(int i = 0; i < rects.length; i++){
-            for(int j = 0; j < rects[i].length; j++) {
+        int numPlayers = gameState.getNumPlayers();
+        for(int i = 0; i < numPlayers; i++){
+            for(int j = 0; j < 6-numPlayers; j++) {
                 if(!(gameState.getPieceArray()[i][j].isOnBoard())){
-                    //canvas.drawRect(rects[i][j], black);
                     canvas.drawBitmap(bitArr[i][j], rects[i][j].left, rects[i][j].top, null);
                     temp = rects[i][j].top;
                 }
             }
             if(gamePhase == 0){
-
                canvas.drawText("Player " + i + " Pieces", 15, temp - 15, black);
             }
         }
-
-
     }
 
     public Rect[][] getRects(){

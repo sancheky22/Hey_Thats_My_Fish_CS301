@@ -1,5 +1,6 @@
 package up.edu.heythatsmyfishcs301.fish;
 
+import android.graphics.Rect;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.widget.ImageButton;
 import up.edu.heythatsmyfishcs301.R;
 import up.edu.heythatsmyfishcs301.game.GameHumanPlayer;
 import up.edu.heythatsmyfishcs301.game.GameMainActivity;
+import up.edu.heythatsmyfishcs301.game.LocalGame;
 import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
 
 /**
@@ -121,17 +123,16 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             scores.setP2Score(p2Score);
 
             //send how many players there are to the placePenguin view
-            fishPlace.setNumPlayers(gameState.getNumPlayers());
             fishPlace.setGamePhase(gameState.getGamePhase());
             fishPlace.setGameState(gameState);
+            fishPlace.invalidate();
 
             // update the surface view
-            surfaceView.setGameState(new FishGameState((FishGameState) info));
+            surfaceView.setGameState(new FishGameState((FishGameState)info));
             surfaceView.invalidate();
             // invalidate the scores TextView to update
             scores.invalidate();
 
-            fishPlace.invalidate();
         }
 
     }
@@ -140,22 +141,26 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     //I don't know when this is called or what it does.
     @Override
     public void setAsGui(GameMainActivity activity) {
+
         // remember the activity
         myActivity = activity;
         activity.setContentView(R.layout.activity_main);
         surfaceView = activity.findViewById(R.id.fishView);
         fishPlace = activity.findViewById(R.id.fishPlaceView);
+
         scores = activity.findViewById(R.id.scoresDrawings);
 
 
         fishPlace.setOnTouchListener(this);
         surfaceView.setOnTouchListener(this);
 
-        // if we have a game state, "simulate" that we have just received
-        // the state from the game so that the GUI values are updated
         if (gameState != null) {
             receiveInfo(gameState);
         }
+
+        // if we have a game state, "simulate" that we have just received
+        // the state from the game so that the GUI values are updated
+
     }
 //    @SuppressLint("NewApi")
 //    public FishHumanPlayer(Context context, AttributeSet attrs) {
@@ -180,7 +185,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
         FishTile[][] b = surfaceView.getGameState().getBoardState();
         Rect[][] rectArr = fishPlace.getRects();
-
 
         //Local variables for the location of the touch.
         int x = (int) motionEvent.getX();
@@ -269,11 +273,9 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                     }
                 }
             }
-
         }
         return false;
     }
-
 }
 
 //        // if we are not yet connected to a game, ignore
