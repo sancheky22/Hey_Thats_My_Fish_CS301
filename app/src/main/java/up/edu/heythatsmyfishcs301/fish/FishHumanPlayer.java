@@ -1,6 +1,7 @@
 package up.edu.heythatsmyfishcs301.fish;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +13,8 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.graphics.Canvas;
 import java.lang.Object;
+
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import up.edu.heythatsmyfishcs301.R;
@@ -30,7 +33,7 @@ import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
  * @author Carina Pineda
  * @author Linda Nguyen
  **/
-public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchListener {
+public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener {
     //Tag for logging
     private static final String TAG = "FishHumanPlayer";
 
@@ -44,6 +47,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     private FishView surfaceView;
     private ScoresDrawings scores;
     private FishPlaceView fishPlace;
+
+    //buttons
+    private Button restartButton;
+    private Button infoButton;
 
     // create local board variable and local penguin variable
     private FishPenguin selectedPenguin;
@@ -149,6 +156,13 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
         fishPlace.setOnTouchListener(this);
         surfaceView.setOnTouchListener(this);
+
+        //buttons
+        restartButton = (Button) activity.findViewById(R.id.restartButton);
+        restartButton.setOnClickListener(this);
+
+        infoButton = (Button) activity.findViewById(R.id.infoButton);
+        infoButton.setOnClickListener(this);
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated
@@ -272,6 +286,34 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         }
         return false;
     }
+
+    @Override
+    public void onClick(View button) {
+        if(button.equals(restartButton)){
+            // restarts game and goes back to main menu
+            myActivity.recreate();
+        }else if(button.equals(infoButton)){
+            openDialog();
+        }else{
+            return; // do nothing
+        }
+    }
+
+    /**
+     External Citation
+     Date: 20 December 2020
+     Problem: Creating a dialog popup (for the help menu).
+     Resource:
+     https://developer.android.com/guide/topics/ui/dialogs
+     Solution: I looked at the documentation to help figure
+     out how to add a dialog popup for the info button.
+     */
+    public void openDialog() {
+        final Dialog dialog = new Dialog(myActivity); // Context, this, etc.
+        dialog.setContentView(R.layout.activity_display_help);
+        dialog.show();
+    }
+
 
 }
 
