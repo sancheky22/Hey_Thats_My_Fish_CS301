@@ -24,12 +24,13 @@ public class FishGameState extends GameState {
 
     final int BOARD_HEIGHT = 8;
     final int BOARD_LENGTH = 11;
+    private int numPlayers;
 
     //store the current players turn (0,1,2,3)
     private int playerTurn;
 
     // number of players playing the game
-    private int numPlayers;
+
 
     //store scores for all players
     //Note: if the game has fewer than 4 players, then the non-existent player scores will stay at 0
@@ -189,7 +190,7 @@ public class FishGameState extends GameState {
      */
     //Action: When the player moves a penguin onto the board at the beginning of the game.
     public boolean placePenguin(FishPenguin p, int x, int y) {
-        if(boardState[x][y].hasPenguin()){
+        if(boardState[x][y].hasPenguin() || boardState[x][y].getNumFish() != 1){
             return false;
         }
         boardState[x][y].setPenguin(p);
