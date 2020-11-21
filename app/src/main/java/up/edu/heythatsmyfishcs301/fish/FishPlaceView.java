@@ -154,6 +154,10 @@ public class FishPlaceView extends SurfaceView {
         }
     }
 
+    public void setNumPlayers(int num){
+        this.numPlayers = num;
+    }
+
     public void setGamePhase(int phase){
         this.gamePhase = phase;
     }

@@ -1,6 +1,5 @@
 package up.edu.heythatsmyfishcs301.fish;
 
-import android.graphics.Rect;
 import android.util.Log;
 
 import up.edu.heythatsmyfishcs301.game.GamePlayer;
@@ -28,12 +27,12 @@ public class FishLocalGame extends LocalGame {
     private FishTile[][] board;
 
     // Constructor for the local game that creates a new GameState
-    public FishLocalGame(int i){
+    public FishLocalGame(int numPlayers){
         super();
-        this.fState = new FishGameState(i);
+        this.fState = new FishGameState(numPlayers);
     }
 
-    // takes a GamePlayer as a paramter
+    // takes a GamePlayer as a parameter
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
         // creates a copy of the GameState using its copy constructor
@@ -63,16 +62,89 @@ public class FishLocalGame extends LocalGame {
         // get a copy of the boardState
         board = fState.getBoardState();
 
-
-        if (fState.getGamePhase() == 1) {
-            for (FishPenguin p : fState.getPieceArray()[fState.getPlayerTurn()]) {
-                if (fState.testMove(p)) {
-                    return null;
-                }
-            }
-            return "Big oof";
+        //The game can not end in the place penguin phase
+        if (fState.getGamePhase() == 0){
+            return null;
         }
-        return null;
+
+        //get a copy of the piece array
+        //pieces = fState.getPieceArray();
+
+        //test if human player has any valid moves left. Does so by going through the whole board and checking
+        //if it has a penguin on it then checks if the penguin belongs to the human player. Then it calls the
+        //testMove function and if there's no legal moves left, it returns who won. If there is a legal move left
+        //it checks if the computer has any valid moves left
+
+
+//        for (int i = 0; i < board.length; i++) {
+//            for (int j = 0; j < board[i].length; j++) {
+//                //
+//                if (board[i][j] != null && board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 0) {
+//                    //                    FishPenguin curPenguin = board[i][j].getPenguin();
+//                    //
+//                    for (FishPenguin p : fState.getPieceArray()[fState.getPlayerTurn()]) {
+//
+//                        if (fState.testMove(p)) {
+//
+//                            return null;
+//
+//                        } else if (!fState.testMove(p)) {
+//                            if ((fState.getPlayer1Score() - fState.getPlayer2Score()) > 0) {
+//                                Log.d("Position", "Penguin position is " + p.getX() + "," + p.getY());
+//                                return playerNames[1] + " has no moves left and " + playerNames[0] + " won with a score of "
+//                                        + fState.getPlayer1Score();
+//                            } else if ((fState.getPlayer1Score() - fState.getPlayer2Score()) < 0) {
+//                                return playerNames[1] + " has no moves left and " + playerNames[1] + " won with a score of "
+//                                        + fState.getPlayer2Score();
+//                            } else if ((fState.getPlayer1Score() - fState.getPlayer2Score()) == 0) { // check if tie
+//                                return playerNames[0] + " and " + playerNames[1] + " have no moves left! There is a tie no one wins!";
+//                            }
+//                        }
+//
+//                    }
+//                    return "Human Player big oof";
+//                }
+//            }
+//        }
+//
+//        //test if computer player has any moves left. Method to check is the same as above, checking if the human has any valid moves left
+//        //if the computer player also has valid moves left, then checkGameOver will return null
+//        for (int i = 0; i < board.length; i++) {
+//            for (int j = 0; j < board[i].length; j++) {
+//
+//                if (board[i][j] != null && board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 1) {
+////                    FishPenguin curPenguin = board[i][j].getPenguin();
+//                    for (FishPenguin p : fState.getPieceArray()[fState.getPlayerTurn()]) {
+//
+//                        if (fState.testMove(p)) {
+//                            return null;
+//
+//                        } else if (!fState.testMove(p)) {
+//                            if ((fState.getPlayer1Score() - fState.getPlayer2Score()) > 0) {
+//                                Log.d("Position", "Penguin position is " + p.getX() + "," + p.getY());
+//                                return playerNames[0] + " has no moves left and " + playerNames[0] + " won with a score of "
+//                                        + fState.getPlayer1Score();
+//                            } else if ((fState.getPlayer1Score() - fState.getPlayer2Score()) < 0) {
+//                                return playerNames[0] + " has no moves left and " + playerNames[1] + " won with a score of "
+//                                        + fState.getPlayer2Score();
+//                            } else if ((fState.getPlayer1Score() - fState.getPlayer2Score()) == 0) { // check if tie
+//                                return playerNames[0] + " and " + playerNames[1] + " have no moves left! There is a tie no one wins!";
+//                            }
+//
+//                        }
+//                    }
+//                    return "Computer Big oof";
+//                }
+//            }
+//        }
+//      return null;
+
+        for (FishPenguin p : fState.getPieceArray()[(fState.getPlayerTurn()+1)%2]){
+            if (fState.testMove(p)){
+                return null;
+            }
+        }
+        return "Game Over!";
     }
 
 
@@ -104,11 +176,9 @@ public class FishLocalGame extends LocalGame {
             FishTile dest = ((FishPlaceAction) action).getDestination();
             FishPenguin penguin = ((FishPlaceAction) action).getPenguin();
 
-
             if(fState.placePenguin(penguin, dest.getX(), dest.getY())){
                 Log.d("Place penguin", "penguin is now on tile (" + dest.getX() + ", " + dest.getY() + ")");
                 this.fState.changeTurn();
-
                 if (fState.getGamePhase() == 0){
                     for (FishPenguin[] arr : fState.getPieceArray()){
                         for (FishPenguin p : arr){

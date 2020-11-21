@@ -53,10 +53,10 @@ public class FishGameState extends GameState {
     ArrayList<Integer> fishArray = new ArrayList<>(60);
 
     // Default constructor
-    public FishGameState(int num){
+    public FishGameState(int n){
         this.playerTurn = 0;
         //numPlayers is set to 2 for the alpha
-        this.numPlayers = num;
+        this.numPlayers = n;
         this.player1Score = 0;
         this.player2Score = 0;
         this.player3Score = 0;
@@ -113,7 +113,7 @@ public class FishGameState extends GameState {
      */
     public boolean testMove(FishPenguin p){
         //tests tile to the right horizontally
-        if(p.getY() + 1 <= 8 && this.boardState[p.getX()][p.getY() + 1] != null && this.boardState[p.getX()][p.getY() + 1].doesExist()){
+        if(p.getY() + 1 <= 8 && this.boardState[p.getX()][p.getY() + 1] != null && this.boardState[p.getX()][p.getY() + 1].doesExist() && !this.boardState[p.getX()][p.getY() + 1].hasPenguin()){
             if(p.getPlayer() == 0){
                 Log.d("Possible", "human can make move right horizontally");
             }
@@ -125,7 +125,7 @@ public class FishGameState extends GameState {
         }
 
         //tests tile down to the right
-        else if(p.getX() + 1 < 8 && this.boardState[p.getX() + 1][p.getY()] != null && this.boardState[p.getX() + 1][p.getY()].doesExist()){
+        else if(p.getX() + 1 < 8 && this.boardState[p.getX() + 1][p.getY()] != null && this.boardState[p.getX() + 1][p.getY()].doesExist() && !this.boardState[p.getX() + 1][p.getY()].hasPenguin()){
             if(p.getPlayer() == 0){
                 Log.d("Possible", "human can make move down to the right");
             }
@@ -136,7 +136,7 @@ public class FishGameState extends GameState {
         }
 
         //test tile down to the left
-        else  if(p.getX() + 1 < 8 && p.getY() - 1 >= 0 && this.boardState[p.getX() + 1][p.getY() - 1] != null && this.boardState[p.getX() + 1][p.getY() - 1].doesExist()){
+        else  if(p.getX() + 1 < 8 && p.getY() - 1 >= 0 && this.boardState[p.getX() + 1][p.getY() - 1] != null && this.boardState[p.getX() + 1][p.getY() - 1].doesExist() && !this.boardState[p.getX() + 1][p.getY() - 1].hasPenguin()){
             if(p.getPlayer() == 0){
                 Log.d("Possible", "human can make move down to the left");
             }
@@ -147,7 +147,7 @@ public class FishGameState extends GameState {
         }
 
         //test tile to the left horizontally
-        else  if(p.getY() - 1 >= 0 && this.boardState[p.getX()][p.getY() - 1] != null && this.boardState[p.getX()][p.getY() - 1].doesExist()){
+        else  if(p.getY() - 1 >= 0 && this.boardState[p.getX()][p.getY() - 1] != null && this.boardState[p.getX()][p.getY() - 1].doesExist() && !this.boardState[p.getX()][p.getY() - 1].hasPenguin()){
             if(p.getPlayer() == 0){
                 Log.d("Possible", "human can make move left horizontally");
             }
@@ -158,7 +158,7 @@ public class FishGameState extends GameState {
         }
 
         //test tile up to the left
-        else  if(p.getX() - 1 >= 0 && this.boardState[p.getX() - 1][p.getY()] != null && this.boardState[p.getX() - 1][p.getY()].doesExist()){
+        else  if(p.getX() - 1 >= 0 && this.boardState[p.getX() - 1][p.getY()] != null && this.boardState[p.getX() - 1][p.getY()].doesExist() && !this.boardState[p.getX() - 1][p.getY()].hasPenguin()){
             if(p.getPlayer() == 0){
                 Log.d("Possible", "human can make move to the left");
             }
@@ -169,7 +169,7 @@ public class FishGameState extends GameState {
         }
 
         //test tile up to the right
-        else if(p.getX() - 1 >= 0 && p.getY() + 1 <= 8 && boardState[p.getX() - 1][p.getY() + 1] != null && boardState[p.getX() - 1][p.getY() + 1].doesExist()){
+        else if(p.getX() - 1 >= 0 && p.getY() + 1 <= 8 && boardState[p.getX() - 1][p.getY() + 1] != null && boardState[p.getX() - 1][p.getY() + 1].doesExist() && boardState[p.getX() - 1][p.getY() + 1].hasPenguin()){
             if(p.getPlayer() == 0){
                 Log.d("Possible", "human can make move to the left");
             }
@@ -198,7 +198,6 @@ public class FishGameState extends GameState {
         p.setXPos(x);
         p.setYPos(y);
         return true;
-
     }
 
     /**
@@ -260,18 +259,18 @@ public class FishGameState extends GameState {
         }
     }
 
-        //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
-        addScore(playerTurn,this.boardState[p.getX()][p.getY()].getNumFish());
-        this.boardState[p.getX()][p.getY()].setExists(false);
-        this.boardState[p.getX()][p.getY()].setHasPenguin(false);
-        p.setXPos(x);
-        p.setYPos(y);
-        Log.d("Human Moved", "human moved to (" + p.getX() + "," + p.getY() + ")");
-        this.boardState[x][y].setPenguin(p);
-        this.boardState[x][y].setHasPenguin(true);
-        //this.playerTurn = (this.playerTurn+1)%this.numPlayers;
-        //this.playerTurn = (this.playerTurn+1)%2;
-        return true;
+    //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
+    addScore(playerTurn,this.boardState[p.getX()][p.getY()].getNumFish());
+    this.boardState[p.getX()][p.getY()].setExists(false);
+    this.boardState[p.getX()][p.getY()].setHasPenguin(false);
+    p.setXPos(x);
+    p.setYPos(y);
+    Log.d("Human Moved", "human moved to (" + p.getX() + "," + p.getY() + ")");
+    this.boardState[x][y].setPenguin(p);
+    this.boardState[x][y].setHasPenguin(true);
+    //this.playerTurn = (this.playerTurn+1)%this.numPlayers;
+    //this.playerTurn = (this.playerTurn+1)%2;
+    return true;
     }
 
     /**
