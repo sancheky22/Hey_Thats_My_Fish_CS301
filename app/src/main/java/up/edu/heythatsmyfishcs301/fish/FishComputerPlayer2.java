@@ -6,7 +6,6 @@ import up.edu.heythatsmyfishcs301.game.GameComputerPlayer;
 import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
 import up.edu.heythatsmyfishcs301.game.infoMsg.NotYourTurnInfo;
 
-import java.util.Random;
 
 /**
  * @author Kyle Sanchez
@@ -17,16 +16,16 @@ import java.util.Random;
  * This class should be for the smart AI. Not yet implemented
  **/
 public class FishComputerPlayer2 extends GameComputerPlayer {
-    //constructor done!
 
     private FishTile[][] boardState;
     FishGameState copy = null;
 
+    //Constructor for Computer Player 2
     public FishComputerPlayer2(String name){
         super(name);
     }
 
-    //Computer Player 1 sends a random action to the game state.
+    //Computer Player 2 sends a random action to the game state.
     @Override
     protected void receiveInfo(GameInfo info) {
         //this is correct one
@@ -43,20 +42,40 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
         //Let copy be the copied state.
         copy = (FishGameState) info;
 
-        if (copy.getPlayerTurn() != this.playerNum)
-            return;
+        if (copy.getPlayerTurn() != this.playerNum) return;
 
-        //If the game phase is mid-game (Moving penguins)
-        //for alpha release set to 0, change to 1 later
+        FishTile[][] pieceBoard = copy.getBoardState();
+        FishPenguin[][] penguins = copy.getPieceArray();
+
+        //If the game phase is zero, then the computer needs to place a penguin
         if (copy.getGamePhase() == 0){
-            boardState = copy.getBoardState();
-
             // using our copy of gamestate
-            FishTile[][] pieceBoard = copy.getBoardState();
+            for (int x = 0; x<penguins[this.playerNum].length;x++){
+                if (!penguins[this.playerNum][x].isOnBoard()){
+                    for (int i = 0; i< pieceBoard.length; i++){
+                        for (int j = 0; j<pieceBoard[i].length; j++){
+                            if (pieceBoard[i][j] != null && pieceBoard[i][j].getNumFish() == 1 && !pieceBoard[i][j].hasPenguin()){
+                                FishPlaceAction p = new FishPlaceAction(this,pieceBoard[i][j],penguins[this.playerNum][x]);
+                                game.sendAction(p);
+                            }
+                        }
+                    }
+                }
+            }
 
+
+        }else {
+            //If the game phase is set up (Placing Penguins)
+            // IDEA: When Comp player places put on tile surrounded by the most fish
+            /**
+             else{
+             FishPlaceAction placeAction = new FishPlaceAction(this);
+             this.game.sendAction(placeAction);
+             }
+             */
             // loop through the board to see there is a penguin on the tile. If there is, it checks if the
             //penguin belongs to the computer. If it does, it calls the computerMovePenguin
-            if(copy.getPlayerTurn() == this.playerNum){
+
                 for(int i =0; i < pieceBoard.length; i++){
                     for(int j=0; j< pieceBoard[i].length;j++){
                         if(pieceBoard[i][j] != null){
@@ -74,18 +93,11 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
                     }
 
                 }
-            }
+
             // not sure if needed
             Log.d("Move","Computer Player 2 Moving");
+
         }
-        //If the game phase is set up (Placing Penguins)
-        // IDEA: When Comp player places put on tile surrounded by the most fish
-        /**
-        else{
-            FishPlaceAction placeAction = new FishPlaceAction(this);
-            this.game.sendAction(placeAction);
-        }
-         */
     }
 
 
