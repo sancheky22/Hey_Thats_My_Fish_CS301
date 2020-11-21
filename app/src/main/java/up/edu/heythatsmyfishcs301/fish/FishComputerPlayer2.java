@@ -129,9 +129,9 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
                 if (p.getY() + 1 <= 8 && (pieceBoard[p.getX()][p.getY() + 1] != null)) {
 
                     if (!(pieceBoard[p.getX()][p.getY() + 1].hasPenguin()) && (pieceBoard[p.getX()][p.getY() + 1].getNumFish() == i) && (pieceBoard[p.getX()][p.getY() + 1].doesExist())) {
-                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
-                        this.boardState[p.getX()][p.getY()].setExists(false);
-                        this.boardState[p.getX()][p.getY() + 1].setPenguin(p);
+//                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
+//                        this.boardState[p.getX()][p.getY()].setExists(false);
+//                        this.boardState[p.getX()][p.getY() + 1].setPenguin(p);
 //                        p.setXPos(p.getX());
 //                        p.setYPos(p.getY() + 1);
 
@@ -151,9 +151,9 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
                 //try to move diagonally down to the right
                 if (p.getX() + 1 < 8 && pieceBoard[p.getX() + 1][p.getY()] != null) {
                     if (!(pieceBoard[p.getX() + 1][p.getY()].hasPenguin()) && (pieceBoard[p.getX()+1][p.getY()].getNumFish()==i) && (pieceBoard[p.getX() + 1][p.getY()].doesExist())) {
-                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
-                        this.boardState[p.getX()][p.getY()].setExists(false);
-                        this.boardState[p.getX() + 1][p.getY()].setPenguin(p);
+//                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
+//                        this.boardState[p.getX()][p.getY()].setExists(false);
+//                        this.boardState[p.getX() + 1][p.getY()].setPenguin(p);
 //                        p.setXPos(p.getX() + 1);
 //                        p.setYPos(p.getY());
 
@@ -175,9 +175,9 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
                 if (p.getX() + 1 < 8 && p.getY() - 1 >= 0 && pieceBoard[p.getX() + 1][p.getY() - 1] != null) {
                     // tries to move to tiles with 3 fish first
                     if (!(pieceBoard[p.getX() + 1][p.getY() - 1].hasPenguin()) && (pieceBoard[p.getX()+1][p.getY()-1].getNumFish()==i) && (pieceBoard[p.getX() + 1][p.getY() - 1].doesExist())) {
-                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
-                        this.boardState[p.getX()][p.getY()].setExists(false);
-                        this.boardState[p.getX() + 1][p.getY() - 1].setPenguin(p);
+//                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
+//                        this.boardState[p.getX()][p.getY()].setExists(false);
+//                        this.boardState[p.getX() + 1][p.getY() - 1].setPenguin(p);
 //                        p.setXPos(p.getX() + 1);
 //                        p.setYPos(p.getY() - 1);
 
@@ -198,9 +198,9 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
                 if (p.getY() - 1 >= 0 && pieceBoard[p.getX()][p.getY() - 1] != null) {
                     // moves to tiles with 3 fish first
                     if (!(pieceBoard[p.getX()][p.getY() - 1].hasPenguin()) && (pieceBoard[p.getX()][p.getY()-1].getNumFish()==i) && (pieceBoard[p.getX()][p.getY() - 1].doesExist())) {
-                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
-                        this.boardState[p.getX()][p.getY()].setExists(false);
-                        this.boardState[p.getX()][p.getY() - 1].setPenguin(p);
+//                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
+//                        this.boardState[p.getX()][p.getY()].setExists(false);
+//                        this.boardState[p.getX()][p.getY() - 1].setPenguin(p);
 //                        p.setXPos(p.getX());
 //                        p.setYPos(p.getY() - 1);
 
@@ -220,9 +220,9 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
                 if (p.getX() - 1 >= 0 && pieceBoard[p.getX() - 1][p.getY()] != null) {
                     // moves to tiles with 3 fish first
                     if (!(pieceBoard[p.getX() - 1][p.getY()].hasPenguin()) && (pieceBoard[p.getX()-1][p.getY()].getNumFish()==i) && (pieceBoard[p.getX() - 1][p.getY()].doesExist())) {
-                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
-                        this.boardState[p.getX()][p.getY()].setExists(false);
-                        this.boardState[p.getX() - 1][p.getY()].setPenguin(p);
+//                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
+//                        this.boardState[p.getX()][p.getY()].setExists(false);
+//                        this.boardState[p.getX() - 1][p.getY()].setPenguin(p);
 //                        p.setXPos(p.getX() - 1);
 //                        p.setYPos(p.getY());
 
@@ -242,9 +242,9 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
                 if (p.getX() - 1 >= 0 && p.getY() + 1 <= 8 && pieceBoard[p.getX() - 1][p.getY() + 1] != null) {
                     // moves to tiles with 3 fish first
                     if (!(pieceBoard[p.getX() - 1][p.getY() + 1].hasPenguin()) && (pieceBoard[p.getX()-1][p.getY()+1].getNumFish()==i) && (pieceBoard[p.getX() - 1][p.getY() + 1].doesExist())) {
-                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
-                        this.boardState[p.getX()][p.getY()].setExists(false);
-                        this.boardState[p.getX() - 1][p.getY() + 1].setPenguin(p);
+//                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
+//                        this.boardState[p.getX()][p.getY()].setExists(false);
+//                        this.boardState[p.getX() - 1][p.getY() + 1].setPenguin(p);
 //                        p.setXPos(p.getX() - 1);
 //                        p.setYPos(p.getY() + 1);
 
