@@ -44,7 +44,7 @@ public class ScoresDrawings extends SurfaceView {
         black.setColor(Color.BLACK);
         black.setTextSize(50);
 
-        fstate = new FishGameState();
+        fstate = new FishGameState(3);
 
         /**
          *External Citation
