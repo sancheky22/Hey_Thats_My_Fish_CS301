@@ -68,7 +68,7 @@ public class FishMainActivity extends GameMainActivity {
     }
 
     @Override
-    public LocalGame createLocalGame() {
-        return new FishLocalGame();
+    public LocalGame createLocalGame(int numPlayers) {
+        return new FishLocalGame(numPlayers);
     }
 }

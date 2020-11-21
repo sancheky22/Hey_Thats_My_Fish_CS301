@@ -66,7 +66,7 @@ public class FishView extends SurfaceView {
         super(context, attrs);
         setWillNotDraw(false);
 
-        gameState = new FishGameState();
+        gameState = new FishGameState(1);
 
         /**
          *External Citation
