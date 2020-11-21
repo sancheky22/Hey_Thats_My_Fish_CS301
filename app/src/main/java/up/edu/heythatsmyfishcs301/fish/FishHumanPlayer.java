@@ -103,9 +103,9 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             scores.setP2Score(p2Score);
 
             //send how many players there are to the placePenguin view
-            fishPlace.setNumPlayers(gameState.getNumPlayers());
             fishPlace.setGamePhase(gameState.getGamePhase());
             fishPlace.setGameState(gameState);
+            fishPlace.invalidate();
 
             // update the surface view
             surfaceView.setGameState(new FishGameState((FishGameState)info));
@@ -113,7 +113,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             // invalidate the scores TextView to update
             scores.invalidate();
 
-            fishPlace.invalidate();
+
         }
 
     }

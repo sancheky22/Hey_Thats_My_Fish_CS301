@@ -35,8 +35,14 @@ public class FishView extends SurfaceView {
     private HexagonDrawable bigHex = new HexagonDrawable(0xFF5685C5);
     private Rect tile;
     private Rect bigTile;
+    private final int RESIZE = 150;
     Bitmap redPenguin = null;
     Bitmap resizedRedPenguin = null;
+    Bitmap orangePenguin = null;
+    Bitmap resizedOrangePenguin = null;
+    Bitmap bluePenguin = null;
+    Bitmap resizedBluePenguin = null;
+
 
     Bitmap oneFish = null;
     Bitmap twoFish = null;
@@ -48,8 +54,6 @@ public class FishView extends SurfaceView {
 
     private int randTile;
 
-    Bitmap orangePenguin = null;
-    Bitmap resizedOrangePenguin = null;
 
 
     private Paint testPaint = new Paint();
@@ -61,7 +65,7 @@ public class FishView extends SurfaceView {
         super(context, attrs);
         setWillNotDraw(false);
 
-        gameState = new FishGameState();
+        gameState = new FishGameState(3);
 
         /**
          *External Citation
@@ -86,10 +90,12 @@ public class FishView extends SurfaceView {
         rTwoFish = Bitmap.createScaledBitmap(twoFish, 90, 90, false);
         rThreeFish = Bitmap.createScaledBitmap(threeFish, 90, 90, false);
 
-        redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
-        resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, 115, 115, false);
+        redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.actuppenguin);
+        resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, RESIZE, RESIZE, false);
         orangePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
-        resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, 115, 115, false);
+        resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, RESIZE, RESIZE, false);
+        bluePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.bluepenguin);
+        resizedBluePenguin = Bitmap.createScaledBitmap(bluePenguin, RESIZE, RESIZE, false);
     }
 
 

@@ -28,14 +28,16 @@ public class FishLocalGame extends LocalGame {
     private FishTile[][] board;
 
     // Constructor for the local game that creates a new GameState
-    public FishLocalGame(){
-        this.fState = new FishGameState();
+    public FishLocalGame(int i){
+        super();
+        this.fState = new FishGameState(i);
     }
 
     // takes a GamePlayer as a paramter
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
         // creates a copy of the GameState using its copy constructor
+        fState.setNumPlayers(players.length);
         FishGameState copy = new FishGameState(fState);
         // sends copy to specified player
         p.sendInfo(copy);

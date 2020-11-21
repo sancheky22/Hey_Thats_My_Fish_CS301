@@ -53,10 +53,10 @@ public class FishGameState extends GameState {
     ArrayList<Integer> fishArray = new ArrayList<>(60);
 
     // Default constructor
-    public FishGameState(){
+    public FishGameState(int num){
         this.playerTurn = 0;
         //numPlayers is set to 2 for the alpha
-        this.numPlayers = 2;
+        this.numPlayers = num;
         this.player1Score = 0;
         this.player2Score = 0;
         this.player3Score = 0;
@@ -66,8 +66,8 @@ public class FishGameState extends GameState {
         //this.pieceArray = alphaInitializePieces();
 
         this.boardState = initializeBoard();
-        pieceArray = new FishPenguin[2][4];
-        pieceArray = initializePieces(2);
+        pieceArray = new FishPenguin[numPlayers][6 - numPlayers];
+        pieceArray = initializePieces(numPlayers);
 //        for (int i = 0; i<pieceArray.length;i++){
 //            for (int j = 0; j<pieceArray[i].length;j++){
 //                boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setHasPenguin(true);
@@ -100,7 +100,7 @@ public class FishGameState extends GameState {
         //this.pieceArray = new FishPenguin[o.numPlayers][6-o.numPlayers];
 
         //For the alpha, we know that the size of the array will be [2][1]
-        this.pieceArray = new FishPenguin[2][4];
+        this.pieceArray = new FishPenguin[numPlayers][6 - numPlayers];
         for (int i=0;i<this.pieceArray.length;i++){
             for(int j=0;j<this.pieceArray[0].length;j++){
                 this.pieceArray[i][j] = o.getPieceArray()[i][j];
@@ -278,11 +278,7 @@ public class FishGameState extends GameState {
     * change turn method that changes current turn of the game
     */
     public void changeTurn() {
-        if (this.playerTurn == 0) {
-            this.setPlayerTurn(1);
-        } else if (this.playerTurn == 1){
-            this.setPlayerTurn(0);
-        }
+        this.playerTurn = (this.playerTurn+1)%this.numPlayers;
     }
 
     /**
