@@ -29,9 +29,9 @@ public class FishLocalGame extends LocalGame {
 
 
     // Constructor for the local game that creates a new GameState
-    public FishLocalGame(){
+    public FishLocalGame(int numPlayers){
         super();
-        this.fState = new FishGameState();
+        this.fState = new FishGameState(numPlayers);
     }
 
     // takes a GamePlayer as a parameter
@@ -112,7 +112,7 @@ public class FishLocalGame extends LocalGame {
 //        //if the computer player also has valid moves left, then checkGameOver will return null
 //        for (int i = 0; i < board.length; i++) {
 //            for (int j = 0; j < board[i].length; j++) {
-////
+//
 //                if (board[i][j] != null && board[i][j].hasPenguin() && board[i][j].getPenguin().getPlayer() == 1) {
 ////                    FishPenguin curPenguin = board[i][j].getPenguin();
 //                    for (FishPenguin p : fState.getPieceArray()[fState.getPlayerTurn()]) {
@@ -145,9 +145,7 @@ public class FishLocalGame extends LocalGame {
                 return null;
             }
         }
-        return "Big oof";
-
-
+        return "Game Over!";
     }
 
     //This method is called whenever a new action arrives from a player.

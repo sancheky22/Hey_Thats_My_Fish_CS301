@@ -53,10 +53,10 @@ public class FishGameState extends GameState {
     ArrayList<Integer> fishArray = new ArrayList<>(60);
 
     // Default constructor
-    public FishGameState(){
+    public FishGameState(int n){
         this.playerTurn = 0;
         //numPlayers is set to 2 for the alpha
-        this.numPlayers = 2;
+        this.numPlayers = n;
         this.player1Score = 0;
         this.player2Score = 0;
         this.player3Score = 0;
@@ -276,11 +276,7 @@ public class FishGameState extends GameState {
     * change turn method that changes current turn of the game
     */
     public void changeTurn() {
-        if (this.playerTurn == 0) {
-            this.setPlayerTurn(1);
-        } else if (this.playerTurn == 1){
-            this.setPlayerTurn(0);
-        }
+        this.playerTurn = (this.playerTurn+1)%this.numPlayers;
     }
 
     /**
