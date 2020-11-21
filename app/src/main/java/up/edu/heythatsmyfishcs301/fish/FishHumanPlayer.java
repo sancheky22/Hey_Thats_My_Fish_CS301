@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import up.edu.heythatsmyfishcs301.R;
 import up.edu.heythatsmyfishcs301.game.GameHumanPlayer;
 import up.edu.heythatsmyfishcs301.game.GameMainActivity;
+import up.edu.heythatsmyfishcs301.game.LocalGame;
 import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
 
 /**
@@ -140,22 +141,26 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     //I don't know when this is called or what it does.
     @Override
     public void setAsGui(GameMainActivity activity) {
+
         // remember the activity
         myActivity = activity;
         activity.setContentView(R.layout.activity_main);
         surfaceView = activity.findViewById(R.id.fishView);
         fishPlace = activity.findViewById(R.id.fishPlaceView);
+
         scores = activity.findViewById(R.id.scoresDrawings);
 
 
         fishPlace.setOnTouchListener(this);
         surfaceView.setOnTouchListener(this);
 
-        // if we have a game state, "simulate" that we have just received
-        // the state from the game so that the GUI values are updated
         if (gameState != null) {
             receiveInfo(gameState);
         }
+
+        // if we have a game state, "simulate" that we have just received
+        // the state from the game so that the GUI values are updated
+
     }
 //    @SuppressLint("NewApi")
 //    public FishHumanPlayer(Context context, AttributeSet attrs) {
@@ -180,8 +185,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
         FishTile[][] b = surfaceView.getGameState().getBoardState();
         Rect[][] rectArr = fishPlace.getRects();
-
-
 
         //Local variables for the location of the touch.
         int x = (int) motionEvent.getX();

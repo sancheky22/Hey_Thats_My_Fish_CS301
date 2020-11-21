@@ -27,14 +27,12 @@ import java.util.ArrayList;
  **/
 public class FishView extends SurfaceView {
 
-    //instance variables necessary to draw the initial board state
+    //instance variables necessary to draw the board state
     private FishGameState gameState;
     private int cWidth;
     private int cHeight;
     private HexagonDrawable hex = new HexagonDrawable(0xFFC3F9FF);
     private HexagonDrawable bigHex = new HexagonDrawable(0xFF5685C5);
-    private Rect tile;
-    private Rect bigTile;
     private final int RESIZE = 150;
     Bitmap redPenguin = null;
     Bitmap resizedRedPenguin = null;
@@ -43,7 +41,6 @@ public class FishView extends SurfaceView {
     Bitmap bluePenguin = null;
     Bitmap resizedBluePenguin = null;
 
-
     Bitmap oneFish = null;
     Bitmap twoFish = null;
     Bitmap threeFish = null;
@@ -51,8 +48,6 @@ public class FishView extends SurfaceView {
     Bitmap rOneFish = null;
     Bitmap rTwoFish = null;
     Bitmap rThreeFish = null;
-
-    private int randTile;
 
 
     private Paint testPaint = new Paint();
@@ -67,8 +62,8 @@ public class FishView extends SurfaceView {
         super(context, attrs);
         setWillNotDraw(false);
 
-        gameState = new FishGameState(2);
 
+        gameState = new FishGameState(4);
         /**
          *External Citation
          * Date: 9/18/20
@@ -92,7 +87,7 @@ public class FishView extends SurfaceView {
         rTwoFish = Bitmap.createScaledBitmap(twoFish, 90, 90, false);
         rThreeFish = Bitmap.createScaledBitmap(threeFish, 90, 90, false);
 
-        redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.actuppenguin);
+        redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
         resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, RESIZE, RESIZE, false);
         orangePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
         resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, RESIZE, RESIZE, false);
@@ -106,14 +101,11 @@ public class FishView extends SurfaceView {
     }
 
 
-    //This method is called by something idk what yet but it draws stuff to the screen
     @Override
     public void onDraw(Canvas canvas) {
         cWidth = canvas.getWidth();
         cHeight = canvas.getHeight();
 
-        //setBackgroundColor(Color.WHITE);
-        //drawHex(canvas);
         drawBoard(canvas, gameState);
     }
 
@@ -189,7 +181,6 @@ public class FishView extends SurfaceView {
                         //If the penguin is selected, then this float > 0. Otherwise it equals 0.
                         //TODO: resize the penguins with this selection variable.
                         float selection = p.getSelected()*15.0f;
-
 
                         if (p.getPlayer() == 0){
                             c.drawBitmap(resizedOrangePenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
