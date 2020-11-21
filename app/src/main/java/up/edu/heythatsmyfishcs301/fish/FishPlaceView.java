@@ -81,10 +81,10 @@ public class FishPlaceView extends SurfaceView {
         for(int i = 0; i < bitArr.length; i++){
             for(int j = 0; j < bitArr[i].length; j++){
                 if(i == 0){
-                    bitArr[i][j] = resizedRedPenguin;
+                    bitArr[i][j] = resizedOrangePenguin;
                 }
                 else if(i == 1){
-                    bitArr[i][j] = resizedOrangePenguin;
+                    bitArr[i][j] = resizedRedPenguin;
                 }
             }
         }
