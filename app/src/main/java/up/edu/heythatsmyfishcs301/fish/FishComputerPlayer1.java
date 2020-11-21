@@ -7,6 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import up.edu.heythatsmyfishcs301.game.GameComputerPlayer;
 import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
+import up.edu.heythatsmyfishcs301.game.infoMsg.IllegalMoveInfo;
 import up.edu.heythatsmyfishcs301.game.infoMsg.NotYourTurnInfo;
 
 

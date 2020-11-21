@@ -20,6 +20,7 @@ import up.edu.heythatsmyfishcs301.game.GameHumanPlayer;
 import up.edu.heythatsmyfishcs301.game.GameMainActivity;
 import up.edu.heythatsmyfishcs301.game.LocalGame;
 import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
+import up.edu.heythatsmyfishcs301.game.infoMsg.IllegalMoveInfo;
 
 /**
  *
@@ -73,6 +74,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     int px = 0;
     int py = 0;
 
+    Rect[][] rectArr;
+
     /**
      * constructor
      *
@@ -98,10 +101,12 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
         if (fishPlace == null) return;
 
+
         // ignore the message if it's not a FishGameState message
         if (!(info instanceof FishGameState)) {
             return;
-        } else {
+        }
+        else {
             // update the state
             // initialize currently selectedPenguin
             selectedPenguin = null;
@@ -134,7 +139,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             scores.invalidate();
 
         }
-
     }
 
 
@@ -184,16 +188,14 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
         FishTile[][] b = surfaceView.getGameState().getBoardState();
-        Rect[][] rectArr = fishPlace.getRects();
+        rectArr = fishPlace.getRects();
 
         //Local variables for the location of the touch.
         int x = (int) motionEvent.getX();
         int y = (int) motionEvent.getY();
 
-
         //If the players are placing penguins
         if (gameState.getGamePhase() == 0) {
-
             if (selectedRect == null) {
                 for (int i = 0; i < rectArr.length; i++) {
                     for (int j = 0; j < rectArr[i].length; j++) {
@@ -203,6 +205,9 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                                 Log.d("Selected Rect", "Selected rect at (" + i + ", " + j + ")");
                                 px = i;
                                 py = j;
+
+
+
                             }
                         }
                     }
@@ -216,11 +221,14 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                             FishPlaceAction p = new FishPlaceAction(this, dest, gameState.getPieceArray()[px][py]);
                             game.sendAction(p);
                             selectedRect = null;
-                            rectArr[px][py] = null;
-                            fishPlace.setRects(rectArr);
-                            px = 0;
-                            py = 0;
-                            fishPlace.invalidate();
+                            /**
+                             * might need this later idk
+                             rectArr[px][py] = null;
+                             fishPlace.setRects(rectArr);
+                             px = 0;
+                             py = 0;
+                             fishPlace.invalidate();
+                             */
                         }
                     }
                 }
