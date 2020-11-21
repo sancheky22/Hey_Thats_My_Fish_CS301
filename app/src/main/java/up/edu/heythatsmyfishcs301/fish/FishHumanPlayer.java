@@ -51,11 +51,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     private FishPenguin[][] pieces;
     private Rect selectedRect;
     FishTile dest;
-    private Rect selectedRect;
-    FishTile dest;
 
     private ScaleGestureDetector mScaleDetector;
     private float mScaleFactor = 1.f;
+
 //    Bitmap redPeng = null;
 //    Bitmap resizedRedPeng = null;
 //    Bitmap orangePeng = null;

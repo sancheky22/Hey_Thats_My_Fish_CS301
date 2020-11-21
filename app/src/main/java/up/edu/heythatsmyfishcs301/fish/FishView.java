@@ -54,9 +54,6 @@ public class FishView extends SurfaceView {
 
     private int randTile;
 
-    Bitmap orangePenguin = null;
-    Bitmap resizedOrangePenguin = null;
-
 
     private Paint testPaint = new Paint();
 
@@ -70,7 +67,7 @@ public class FishView extends SurfaceView {
         super(context, attrs);
         setWillNotDraw(false);
 
-        gameState = new FishGameState(3);
+        gameState = new FishGameState(2);
 
         /**
          *External Citation

@@ -58,7 +58,7 @@ public class FishPlaceView extends SurfaceView {
         super(context, attrs);
         setWillNotDraw(false);
 
-        gameState = new FishGameState(3);
+        gameState = new FishGameState(2);
         numPlayers = gameState.getNumPlayers();
         rects = new Rect[numPlayers][6 - numPlayers];
         bitArr = new Bitmap [numPlayers][6 - numPlayers];
