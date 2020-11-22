@@ -162,22 +162,26 @@ public class FishGameState extends GameState {
     */
     public boolean movePenguin(FishPenguin p, int x, int y){
         //Make sure the penguin is not moving to the same tile
-        if(p.getX() == x && p.getY() == y){
+
+        int px = p.getX();
+        int py = p.getY();
+
+        if(px == x && py == y){
             return false;
         }
         //Make sure that the space you are moving to exists (might be redundant later im not sure)
-        if (!this.boardState[x][y].doesExist()){
+        if (!boardState[x][y].doesExist()){
             return false;
         }
         //0 means horizontal, 1 means down right diag, 2 means up right diag
         int direction;
-        if (p.getY() == y){
+        if (py == y){
             direction = 1;
         }
-        else if (p.getX() == x){
+        else if (px == x){
             direction = 0;
         }
-        else if (p.getY()+p.getX() == x+y){
+        else if (py+px == x+y){
             direction = 2;
         }
         else{
@@ -187,18 +191,18 @@ public class FishGameState extends GameState {
         if (direction == 1){
             //s is the sign of (new coordinate - old coordinate)
             //if s is positive, then you are moving to the right
-            int s = Integer.signum(x-p.getX());
-            for (int i = p.getX()+s; i != x; i+=s){
-                if (this.boardState[i][p.getY()].hasPenguin() || !this.boardState[i][p.getY()].doesExist()){
+            int s = Integer.signum(x-px);
+            for (int i = px+s; i != x + s; i+=s){
+                if (boardState[i][py].hasPenguin() || !this.boardState[i][py].doesExist()){
                     return false;
                 }
             }
         }
         //If the new move is horizontal (left or right)
         else if (direction == 0){
-            int s = Integer.signum(y-p.getY());
-            for (int i = p.getY()+s; i != y; i+=s){
-                if (this.boardState[p.getX()][i].hasPenguin() || !this.boardState[p.getX()][i].doesExist()){
+            int s = Integer.signum(y-py);
+            for (int i = py+s; i != y + s; i+=s){
+                if (boardState[px][i].hasPenguin() || !boardState[px][i].doesExist()){
                     return false;
                 }
             }
@@ -206,26 +210,24 @@ public class FishGameState extends GameState {
         //If the new move is up right diag or down left diag
         else {
             //If s is positive, you are moving upper right diag
-        int s = Integer.signum(y-p.getY());
-        for (int i = s; abs(i) != abs(y-p.getY()); i+=s){
-            if (this.boardState[p.getX()-i][p.getY()+i].hasPenguin() || !this.boardState[p.getX()-i][p.getY()+i].doesExist()){
+        int s = Integer.signum(y-py);
+        for (int i = s; i != y-py + s; i+=s){
+            if (boardState[px-i][py+i].hasPenguin() || !boardState[px-i][py+i].doesExist()){
                 return false;
             }
         }
     }
 
-    //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
-    addScore(playerTurn,this.boardState[p.getX()][p.getY()].getNumFish());
-    this.boardState[p.getX()][p.getY()].setExists(false);
-    this.boardState[p.getX()][p.getY()].setHasPenguin(false);
-    p.setXPos(x);
-    p.setYPos(y);
-    Log.d("Human Moved", "human moved to (" + p.getX() + "," + p.getY() + ")");
-    this.boardState[x][y].setPenguin(p);
-    this.boardState[x][y].setHasPenguin(true);
-    //this.playerTurn = (this.playerTurn+1)%this.numPlayers;
-    //this.playerTurn = (this.playerTurn+1)%2;
-    return true;
+        //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
+        addScore(playerTurn,boardState[px][py].getNumFish());
+        boardState[px][py].setExists(false);
+        boardState[px][py].setHasPenguin(false);
+        p.setXPos(x);
+        p.setYPos(y);
+        Log.d("Human Moved", "human moved to (" + p.getX() + "," + p.getY() + ")");
+        boardState[x][y].setPenguin(p);
+        boardState[x][y].setHasPenguin(true);
+        return true;
     }
 
     /**
