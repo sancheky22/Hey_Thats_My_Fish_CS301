@@ -96,7 +96,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
         //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
 
         //try to move horizontally to the right
-        if (p.getY() + 1 < 8 && (pieceBoard[p.getX()][p.getY() + 1] != null)) {
+        if (p.getY() + 1 < 11 && (pieceBoard[p.getX()][p.getY() + 1] != null)) {
             if(!(pieceBoard[p.getX()][p.getY() + 1].hasPenguin()) && (pieceBoard[p.getX()][p.getY() + 1].doesExist())) {
 //                addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
 //                this.boardState[p.getX()][p.getY()].setExists(false);

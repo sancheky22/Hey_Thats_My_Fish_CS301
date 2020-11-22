@@ -156,7 +156,7 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
             for (int i = 3; i > 0;i--) {
                 // checks if it can move to a tile with 3 fish then 2 fish and then 1 fish
                 //  try to move horizontally to the right
-                if (p.getY() + 1 <= 8 && (pieceBoard[p.getX()][p.getY() + 1] != null)) {
+                if (p.getY() + 1 < 11 && (pieceBoard[p.getX()][p.getY() + 1] != null)) {
 
                     if (!(pieceBoard[p.getX()][p.getY() + 1].hasPenguin()) && (pieceBoard[p.getX()][p.getY() + 1].getNumFish() == i) && (pieceBoard[p.getX()][p.getY() + 1].doesExist())) {
 //                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
@@ -269,7 +269,7 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
 
                 // && (pieceBoard[p.getX()-1][p.getY()+1].getNumFish()==3)
                 //try to move diagonally up to the right
-                if (p.getX() - 1 >= 0 && p.getY() + 1 <= 8 && pieceBoard[p.getX() - 1][p.getY() + 1] != null) {
+                if (p.getX() - 1 >= 0 && p.getY() + 1 < 11 && pieceBoard[p.getX() - 1][p.getY() + 1] != null) {
                     // moves to tiles with 3 fish first
                     if (!(pieceBoard[p.getX() - 1][p.getY() + 1].hasPenguin()) && (pieceBoard[p.getX()-1][p.getY()+1].getNumFish()==i) && (pieceBoard[p.getX() - 1][p.getY() + 1].doesExist())) {
 //                        addScore(copy.getPlayerTurn(), this.boardState[p.getX()][p.getY()].getNumFish());
