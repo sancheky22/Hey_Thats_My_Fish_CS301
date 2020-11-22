@@ -67,15 +67,8 @@ public class FishGameState extends GameState {
         //this.pieceArray = alphaInitializePieces();
 
         this.boardState = initializeBoard();
-        pieceArray = new FishPenguin[2][4];
-        pieceArray = initializePieces(2);
-//        for (int i = 0; i<pieceArray.length;i++){
-//            for (int j = 0; j<pieceArray[i].length;j++){
-//                boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setHasPenguin(true);
-//                boardState[pieceArray[i][j].getX()][pieceArray[i][j].getY()].setPenguin(pieceArray[i][j]);
-//            }
-//        }
-        //this.pieceArray = initializePieces(this.numPlayers);
+        pieceArray = new FishPenguin[numPlayers][6 - numPlayers];
+        pieceArray = initializePieces(numPlayers);
     }
 
     /**
@@ -100,8 +93,7 @@ public class FishGameState extends GameState {
         }
         //this.pieceArray = new FishPenguin[o.numPlayers][6-o.numPlayers];
 
-        //For the alpha, we know that the size of the array will be [2][1]
-        this.pieceArray = new FishPenguin[2][4];
+        this.pieceArray = new FishPenguin[numPlayers][6 - numPlayers];
         for (int i=0;i<this.pieceArray.length;i++){
             for(int j=0;j<this.pieceArray[0].length;j++){
                 this.pieceArray[i][j] = o.getPieceArray()[i][j];
@@ -121,6 +113,7 @@ public class FishGameState extends GameState {
             else{
                 Log.d("Possible", "computer can make move right horizontally");
             }
+
             return true;
         }
 
@@ -186,7 +179,6 @@ public class FishGameState extends GameState {
 
     /**
      * Place Penguin is called at the start of the game, when players choose where their penguins start
-     *
      */
     //Action: When the player moves a penguin onto the board at the beginning of the game.
     public boolean placePenguin(FishPenguin p, int x, int y) {
@@ -294,7 +286,7 @@ public class FishGameState extends GameState {
     Helper method that is called whenever a player's score needs to be incremented
     p = player's turn, s = score to be added
     */
-     private void addScore(int pT, int s){
+     public void addScore(int pT, int s){
         switch(pT){
             case 0:
                 setPlayer1Score(getPlayer1Score()+s);
@@ -438,77 +430,6 @@ public class FishGameState extends GameState {
                 p[i][j] = tempguin;
             }
         }
-        return p;
-    }
-
-    /**
-     This method will initialize the penguin array for the alpha version of the game.
-     This method will be deleted later on when we implement that starting phase of the game.
-     */
-    private FishPenguin[][] alphaInitializePieces(){
-        FishPenguin[][] p = new FishPenguin[2][4];
-
-        // player 1's penguins
-        p[0][0] = new FishPenguin(0);
-        p[0][1] = new FishPenguin(0);
-        p[0][2] = new FishPenguin(0);
-        p[0][3] = new FishPenguin(0);
-
-
-
-        // player 2's penguins
-        p[1][0] = new FishPenguin(1);
-        p[1][1] = new FishPenguin(1);
-        p[1][2] = new FishPenguin(1);
-        p[1][3] = new FishPenguin(1);
-
-        // Player 1 penguin 1
-        p[0][0].setXPos(5);
-        p[0][0].setYPos(5);
-
-        // Player 1 penguin 2
-        p[0][1].setXPos(0);
-        p[0][1].setYPos(5);
-
-        // Player 1 penguin 3
-        p[0][2].setXPos(0);
-        p[0][2].setYPos(6);
-
-        // Player 1 penguin 4
-        p[0][3].setXPos(0);
-        p[0][3].setYPos(7);
-
-        // player 2 penguin 2
-        p[1][0].setXPos(6);
-        p[1][0].setYPos(6);
-
-        // Player 2 penguin 2
-        p[1][1].setXPos(1);
-        p[1][1].setYPos(5);
-
-        // Player 2 penguin 3
-        p[1][2].setXPos(1);
-        p[1][2].setYPos(6);
-
-        // Player 2 penguin 4
-        p[1][3].setXPos(1);
-        p[1][3].setYPos(7);
-
-
-
-
-        p[0][0].setOnBoard(true);
-        p[1][0].setOnBoard(true);
-
-        p[0][1].setOnBoard(true);
-        p[0][2].setOnBoard(true);
-        p[0][3].setOnBoard(true);
-
-
-        p[1][1].setOnBoard(true);
-        p[1][2].setOnBoard(true);
-        p[1][3].setOnBoard(true);
-
         return p;
     }
 
