@@ -46,20 +46,7 @@ public class FishLocalGame extends LocalGame {
     @Override
     protected boolean canMove(int playerIdx) {
         // checks if a valid move can be made
-        if (playerIdx == this.fState.getPlayerTurn()){
-            // if the current player and the states player turn match return true since a move can be made!
-            if (fState.getGamePhase() == 1){
-                return true;
-            }
-            else {
-                for (FishPenguin p : fState.getPieceArray()[playerIdx]) {
-                    if (!p.isOnBoard()) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+        return (playerIdx == this.fState.getPlayerTurn());
     }
 
 

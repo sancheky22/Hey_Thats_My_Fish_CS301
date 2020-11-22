@@ -46,19 +46,17 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
         //Let copy be the copied state.
         copy = (FishGameState) info;
 
-        if (copy.getPlayerTurn() != this.playerNum) return;
-
         FishTile[][] pieceBoard = copy.getBoardState();
         FishPenguin[][] penguins = copy.getPieceArray();
 
         //If the game phase is zero, then the computer needs to place a penguin
         if (copy.getGamePhase() == 0){
-            for (int x = 0; x<penguins[this.playerNum].length;x++){
+            for (int x = 0; x < penguins[this.playerNum].length; x++){
                 if (!penguins[this.playerNum][x].isOnBoard()){
-                    for (int i = 0; i< pieceBoard.length; i++){
-                        for (int j = 0; j<pieceBoard[i].length; j++){
-                            if (pieceBoard[i][j] != null && pieceBoard[i][j].getNumFish() == 1 && !pieceBoard[i][j].hasPenguin()){
-                                FishPlaceAction p = new FishPlaceAction(this,pieceBoard[i][j],penguins[this.playerNum][x]);
+                    for (FishTile[] fishTiles : pieceBoard) {
+                        for (FishTile fishTile : fishTiles) {
+                            if (fishTile != null && fishTile.getNumFish() == 1 && !fishTile.hasPenguin()) {
+                                FishPlaceAction p = new FishPlaceAction(this, fishTile, penguins[this.playerNum][x]);
                                 game.sendAction(p);
                             }
                         }
@@ -69,14 +67,12 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
         else {
             // loop through the board to see there is a penguin on the tile. If there is, it checks if the
             //penguin belongs to the computer. If it does, it calls the computerMovePenguin
-            for(int i = 0; i < pieceBoard.length; i++){
-                for(int j = 0; j < pieceBoard[i].length;j++){
-                    if(pieceBoard[i][j] != null){
-                        if(pieceBoard[i][j].hasPenguin() && pieceBoard[i][j].getPenguin().getPlayer() == this.playerNum){
-                            if(!computerMovePenguin(pieceBoard[i][j].getPenguin())){
-                                continue;
-                            }
-                            else {
+            for (FishTile[] fishTiles : pieceBoard) {
+                for (FishTile fishTile : fishTiles) {
+                    if (fishTile != null) {
+                        if (fishTile.hasPenguin() && fishTile.getPenguin().getPlayer() == this.playerNum) {
+                            if (!computerMovePenguin(fishTile.getPenguin())) {
+                            } else {
                                 return;
                             }
                         }
