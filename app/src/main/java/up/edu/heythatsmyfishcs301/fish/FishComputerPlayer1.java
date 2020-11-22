@@ -35,6 +35,8 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
     protected void receiveInfo(GameInfo info) {
         // if it was a "not your turn" message, just ignore it
         if (info instanceof NotYourTurnInfo){
+//            FishPassAction passAction = new FishPassAction(this);
+//            game.sendAction(passAction);
             return;
         }
 
