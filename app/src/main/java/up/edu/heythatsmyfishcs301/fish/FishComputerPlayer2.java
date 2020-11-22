@@ -59,6 +59,16 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
         //If the game phase is set up (Placing Penguins)
         // IDEA: When Comp player places penguins it puts it on tiles surrounded by the most fish
 
+
+        /**
+         *External Citation
+         * Date: 11/21/20
+         * Problem: Wanted to get random item out of arraylist
+         * Resource: https://stackoverflow.com/questions/5034370/retrieving-a-random-item-from-arraylist
+         *
+         * Solution: Used example code from this stackoverflow post
+         */
+
         if (copy.getGamePhase() == 0){
             // using our copy of gamestate
 
