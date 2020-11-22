@@ -1,6 +1,5 @@
 package up.edu.heythatsmyfishcs301.fish;
 
-import android.graphics.Rect;
 import android.util.Log;
 
 import up.edu.heythatsmyfishcs301.game.GamePlayer;
@@ -36,6 +35,7 @@ public class FishLocalGame extends LocalGame {
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
         // creates a copy of the GameState using its copy constructor
+        fState.setNumPlayers(players.length);
         FishGameState copy = new FishGameState(fState);
         // sends copy to specified player
         p.sendInfo(copy);
@@ -104,6 +104,7 @@ public class FishLocalGame extends LocalGame {
         //it checks if the computer has any valid moves left
     }
 
+
     //This method is called whenever a new action arrives from a player.
     //This is where we update the game state
     //This includes changing the turn, updating the Tiles on the board, scores etc.
@@ -115,6 +116,7 @@ public class FishLocalGame extends LocalGame {
             Log.d("makeMove @LocalGame", "Someone made a move");
             FishTile dest = ((FishMoveAction) action).getDestination();
             FishPenguin penguin = ((FishMoveAction) action).getPenguin();
+
             if(fState.movePenguin(penguin,dest.getX(),dest.getY())){
                 Log.d("makeMove","Move was legal");
                 this.fState.changeTurn();

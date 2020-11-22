@@ -25,7 +25,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
     private FishTile[][] boardState;
     FishGameState copy = null;
 
-    //Constructor for The Computer Player
+    //Constructor for Computer Player 1
     public FishComputerPlayer1(String name){
         super(name);
     }
