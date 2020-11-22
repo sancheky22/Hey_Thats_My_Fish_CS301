@@ -209,9 +209,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                                 Log.d("Selected Rect", "Selected rect at (" + i + ", " + j + ")");
                                 px = i;
                                 py = j;
-
-
-
                             }
                         }
                     }
