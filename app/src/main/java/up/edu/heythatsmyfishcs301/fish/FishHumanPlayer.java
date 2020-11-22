@@ -24,6 +24,7 @@ import up.edu.heythatsmyfishcs301.game.GameMainActivity;
 import up.edu.heythatsmyfishcs301.game.LocalGame;
 import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
 import up.edu.heythatsmyfishcs301.game.infoMsg.IllegalMoveInfo;
+import up.edu.heythatsmyfishcs301.game.infoMsg.NotYourTurnInfo;
 
 /**
  *

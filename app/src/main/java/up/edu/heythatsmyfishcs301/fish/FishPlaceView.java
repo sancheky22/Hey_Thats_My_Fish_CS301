@@ -155,7 +155,7 @@ public class FishPlaceView extends SurfaceView {
                 }
             }
             if(gamePhase == 0){
-               canvas.drawText("Player " + i + " Pieces", 15, temp - 15, black);
+               canvas.drawText("Player " + (i+1) + " Pieces", 15, temp - 15, black);
             }
         }
     }
