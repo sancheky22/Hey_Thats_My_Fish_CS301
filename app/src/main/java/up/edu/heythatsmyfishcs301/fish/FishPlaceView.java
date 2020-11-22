@@ -124,6 +124,8 @@ public class FishPlaceView extends SurfaceView {
 
 
 
+
+
         /**
          *External Citation
          * Date: 9/18/20
@@ -168,6 +170,10 @@ public class FishPlaceView extends SurfaceView {
                 this.rects[i][j] = arr[i][j];
             }
         }
+    }
+
+    public void setNumPlayers(int num){
+        this.numPlayers = num;
     }
 
     public void setGamePhase(int phase){

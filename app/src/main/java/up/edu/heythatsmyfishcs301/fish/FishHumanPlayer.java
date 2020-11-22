@@ -2,6 +2,7 @@ package up.edu.heythatsmyfishcs301.fish;
 
 import android.graphics.Rect;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,8 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.graphics.Canvas;
 import java.lang.Object;
+
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import up.edu.heythatsmyfishcs301.R;
@@ -33,7 +36,7 @@ import up.edu.heythatsmyfishcs301.game.infoMsg.IllegalMoveInfo;
  * @author Carina Pineda
  * @author Linda Nguyen
  **/
-public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchListener {
+public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener {
     //Tag for logging
     private static final String TAG = "FishHumanPlayer";
 
@@ -48,6 +51,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     private ScoresDrawings scores;
     private FishPlaceView fishPlace;
 
+    //buttons
+    private Button restartButton;
+    private Button infoButton;
+
     // create local board variable and local penguin variable
     private FishPenguin selectedPenguin;
     private FishPenguin[][] pieces;
@@ -61,6 +68,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 //    Bitmap resizedRedPeng = null;
 //    Bitmap orangePeng = null;
 //    Bitmap resizedOrangePeng = null;
+
+
+
+
 
     // current player turn
     int turn;
@@ -156,13 +167,18 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         fishPlace.setOnTouchListener(this);
         surfaceView.setOnTouchListener(this);
 
-        if (gameState != null) {
-            receiveInfo(gameState);
-        }
+        //buttons
+        restartButton = (Button) activity.findViewById(R.id.restartButton);
+        restartButton.setOnClickListener(this);
+
+        infoButton = (Button) activity.findViewById(R.id.infoButton);
+        infoButton.setOnClickListener(this);
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated
-
+        if (gameState != null) {
+            receiveInfo(gameState);
+        }
     }
 //    @SuppressLint("NewApi")
 //    public FishHumanPlayer(Context context, AttributeSet attrs) {
@@ -192,8 +208,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         int x = (int) motionEvent.getX();
         int y = (int) motionEvent.getY();
 
+
         //If the players are placing penguins
         if (gameState.getGamePhase() == 0) {
+
             if (selectedRect == null) {
                 for (int i = 0; i < rectArr.length; i++) {
                     for (int j = 0; j < rectArr[i].length; j++) {
@@ -203,9 +221,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                                 Log.d("Selected Rect", "Selected rect at (" + i + ", " + j + ")");
                                 px = i;
                                 py = j;
-
-
-
                             }
                         }
                     }
@@ -279,9 +294,39 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                     }
                 }
             }
+
         }
         return false;
     }
+
+    @Override
+    public void onClick(View button) {
+        if(button.equals(restartButton)){
+            // restarts game and goes back to main menu
+            myActivity.recreate();
+        }else if(button.equals(infoButton)){
+            openDialog();
+        }else{
+            return; // do nothing
+        }
+    }
+
+    /**
+     External Citation
+     Date: 20 December 2020
+     Problem: Creating a dialog popup (for the help menu).
+     Resource:
+     https://developer.android.com/guide/topics/ui/dialogs
+     Solution: I looked at the documentation to help figure
+     out how to add a dialog popup for the info button.
+     */
+    public void openDialog() {
+        final Dialog dialog = new Dialog(myActivity); // Context, this, etc.
+        dialog.setContentView(R.layout.activity_display_help);
+        dialog.show();
+    }
+
+
 }
 
 //        // if we are not yet connected to a game, ignore
