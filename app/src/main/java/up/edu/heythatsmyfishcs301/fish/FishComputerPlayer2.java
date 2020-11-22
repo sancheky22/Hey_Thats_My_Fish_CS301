@@ -6,6 +6,9 @@ import up.edu.heythatsmyfishcs301.game.GameComputerPlayer;
 import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
 import up.edu.heythatsmyfishcs301.game.infoMsg.NotYourTurnInfo;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 
 /**
  * @author Kyle Sanchez
@@ -24,6 +27,10 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
     public FishComputerPlayer2(String name){
         super(name);
     }
+
+    // Array list for all tiles on board with one fish
+    ArrayList<FishTile> oneTiles = new ArrayList<>(30);
+
 
     //Computer Player 2 sends a random action to the game state.
     @Override
@@ -48,14 +55,33 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
         FishPenguin[][] penguins = copy.getPieceArray();
 
         //If the game phase is zero, then the computer needs to place a penguin
+
+        //If the game phase is set up (Placing Penguins)
+        // IDEA: When Comp player places penguins it puts it on tiles surrounded by the most fish
+
         if (copy.getGamePhase() == 0){
             // using our copy of gamestate
+
+            // Random variable that will be used to select FishTiles out of of oneTiles array
+            Random rand = new Random();
+
             for (int x = 0; x<penguins[this.playerNum].length;x++){
                 if (!penguins[this.playerNum][x].isOnBoard()){
                     for (int i = 0; i< pieceBoard.length; i++){
                         for (int j = 0; j<pieceBoard[i].length; j++){
                             if (pieceBoard[i][j] != null && pieceBoard[i][j].getNumFish() == 1 && !pieceBoard[i][j].hasPenguin()){
-                                FishPlaceAction p = new FishPlaceAction(this,pieceBoard[i][j],penguins[this.playerNum][x]);
+
+                                // add tiles with one fish to array list
+                                oneTiles.add(pieceBoard[i][j]);
+
+                                // random int that goes through arraylist of FishTiles
+                                int index = rand.nextInt(oneTiles.size()); //Bound set to size of array list
+
+                                // create a new FishTile object that is a random FishTile from array list of tiles with one fish
+                                FishTile validTiles = oneTiles.get(index);
+
+                                // send action to the game with tile that has one fish
+                                FishPlaceAction p = new FishPlaceAction(this,validTiles,penguins[this.playerNum][x]);
                                 game.sendAction(p);
                             }
                         }
@@ -65,14 +91,8 @@ public class FishComputerPlayer2 extends GameComputerPlayer {
 
 
         }else {
-            //If the game phase is set up (Placing Penguins)
-            // IDEA: When Comp player places put on tile surrounded by the most fish
-            /**
-             else{
-             FishPlaceAction placeAction = new FishPlaceAction(this);
-             this.game.sendAction(placeAction);
-             }
-             */
+
+
             // loop through the board to see there is a penguin on the tile. If there is, it checks if the
             //penguin belongs to the computer. If it does, it calls the computerMovePenguin
 
