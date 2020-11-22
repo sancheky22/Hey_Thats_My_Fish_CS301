@@ -27,12 +27,16 @@ public class ScoresDrawings extends SurfaceView {
     Bitmap orangeFish = null;
     Bitmap redFish = null;
     Bitmap blueFish = null;
+    Bitmap greenFish = null;
+    Bitmap cursedFish = null;
     Bitmap resizedOrange = null;
     Bitmap resizedRed = null;
     Bitmap resizedBlue = null;
+    Bitmap resizedGreenFish = null;
+    Bitmap resizedCursedFish = null;
     private Paint black = new Paint();
 
-    int numPlayers;
+    int numPlayers = 2;
 
     int p1Score;
     int p2Score;
@@ -90,6 +94,14 @@ public class ScoresDrawings extends SurfaceView {
 
         blueFish = BitmapFactory.decodeResource(getResources(), R.drawable.bluefish);
         resizedBlue = Bitmap.createScaledBitmap(blueFish, 300, 300, false);
+
+        greenFish = BitmapFactory.decodeResource(getResources(), R.drawable.greenfish);
+        resizedGreenFish = Bitmap.createScaledBitmap(greenFish, 300, 300, false);
+
+        cursedFish = BitmapFactory.decodeResource(getResources(), R.drawable.blackfish);
+        resizedCursedFish = Bitmap.createScaledBitmap(cursedFish, 300, 300, false);
+
+
     }
 
 
@@ -99,6 +111,18 @@ public class ScoresDrawings extends SurfaceView {
         //drawing our resized fishes using bitmap
         canvas.drawBitmap(this.resizedOrange, 1.0f, 1.0f, null);
         canvas.drawBitmap(this.resizedRed, 0.0f, 300.0f, null);
+
+        if(numPlayers == 3){
+            canvas.drawBitmap(this.resizedBlue, 1.0f, 600f, null);
+            canvas.drawText(Integer.toString(p3Score), (float)140.0, (float)770.0, black);
+        }
+        else if(numPlayers == 4){
+            canvas.drawBitmap(this.resizedBlue, 1.0f, 600f, null);
+            canvas.drawText(Integer.toString(p3Score), (float)140.0, (float)770.0, black);
+
+            canvas.drawBitmap(this.resizedCursedFish, 1.0f, 900f, null);
+            canvas.drawText(Integer.toString(p3Score), (float)140.0, (float)1075, black);
+        }
 
         /**
          *External Citation
@@ -113,6 +137,7 @@ public class ScoresDrawings extends SurfaceView {
         //draws our scores for player1 and player 2 onto our fishes
         canvas.drawText(Integer.toString(p1Score), (float)140.0, (float)160.0, black);
         canvas.drawText(Integer.toString(p2Score), (float)140.0, (float)465.0, black);
+
     }
 
     //setter methods to be used in FishHumanPlayer
@@ -124,5 +149,15 @@ public class ScoresDrawings extends SurfaceView {
     public void setP2Score(int i){
         p2Score = i;
     }
+
+    public void setP3Score(int i){
+        p3Score = i;
+    }
+
+    public void setP4Score(int i){
+        p4Score = i;
+    }
+
+    public void setNumPlayers(int i){this.numPlayers = i;}
 
 }//ScoresDrawings
