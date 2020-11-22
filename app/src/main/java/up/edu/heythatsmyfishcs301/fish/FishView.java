@@ -41,6 +41,10 @@ public class FishView extends SurfaceView {
     Bitmap resizedOrangePenguin = null;
     Bitmap bluePenguin = null;
     Bitmap resizedBluePenguin = null;
+    Bitmap greenPenguin = null;
+    Bitmap resizedGreenPenguin = null;
+    Bitmap cursedPenguin = null;
+    Bitmap resizedCursedPenguin = null;
 
 
     Bitmap oneFish = null;
@@ -97,7 +101,10 @@ public class FishView extends SurfaceView {
         resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, RESIZE, RESIZE, false);
         bluePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.bluepenguin);
         resizedBluePenguin = Bitmap.createScaledBitmap(bluePenguin, RESIZE, RESIZE, false);
-        resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, 115, 115, false);
+        greenPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.greenpenguin);
+        resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin, RESIZE, RESIZE, false);
+        cursedPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.cursed);
+        resizedCursedPenguin = Bitmap.createScaledBitmap(cursedPenguin, RESIZE, RESIZE, false);
 
         //added
       //  mScaleDetector = new ScaleGestureDetector(context, new FishView());
@@ -197,7 +204,7 @@ public class FishView extends SurfaceView {
                             c.drawBitmap(resizedBluePenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
                         }
                         else if(p.getPlayer() == 3){
-                            c.drawBitmap(resizedBluePenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
+                            c.drawBitmap(resizedCursedPenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
                         }
                     }
                 }

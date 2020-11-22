@@ -98,7 +98,7 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
         boardState = copy.getBoardState();
 
         //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
-        if (copy.getPlayerTurn() == 1) {
+        if (copy.getPlayerTurn() == playerNum) {
 
             //try to move horizontally to the right
             if (p.getY() + 1 < 11 && (pieceBoard[p.getX()][p.getY() + 1] != null)) {

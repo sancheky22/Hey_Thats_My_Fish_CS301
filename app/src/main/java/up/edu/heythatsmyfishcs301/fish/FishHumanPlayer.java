@@ -62,11 +62,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 //    Bitmap orangePeng = null;
 //    Bitmap resizedOrangePeng = null;
 
-
-    // intial player scores
-    int p1Score = 0;
-    int p2Score = 0;
-
     // current player turn
     int turn;
 
@@ -119,13 +114,12 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             // sets player turn
             turn = gameState.getPlayerTurn();
 
-            // get current player score
-            p1Score = gameState.getPlayer1Score();
-            p2Score = gameState.getPlayer2Score();
-
             // set current player score
-            scores.setP1Scores(p1Score);
-            scores.setP2Score(p2Score);
+            scores.setNumPlayers(gameState.getNumPlayers());
+            scores.setP1Scores(gameState.getPlayer1Score());
+            scores.setP2Score(gameState.getPlayer2Score());
+            scores.setP3Score(gameState.getPlayer3Score());
+            scores.setP4Score(gameState.getPlayer4Score());
 
             //send how many players there are to the placePenguin view
             fishPlace.setGamePhase(gameState.getGamePhase());
