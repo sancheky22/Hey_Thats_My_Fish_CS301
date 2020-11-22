@@ -105,6 +105,46 @@ public class FishGameState extends GameState {
      * TestMove will see if a penguin p has valid moves.
      */
     public boolean testMove(FishPenguin p){
+        //Create local variables for these values so the method is easier to read.
+        FishTile[][] b = this.boardState;
+        int x = p.getX();
+        int y = p.getY();
+
+        Log.d("From TestMove", "Attempting to see if a penguin from player "+p.getPlayer()+" has a legal move...");
+
+        //need to test 6 things:
+        //+x, -x, +y, -y, +x & -y, -x & +y
+        for (int i = -1; i <= 1; i += 2) {
+            try {
+                //If an adjacent tile has a penguin or does not exist, then it can not be moved to.
+                if (b[x + i][y] != null && (b[x + i][y].getPenguin() == null || !b[x + i][y].hasPenguin()) && b[x + i][y].doesExist()) {
+                    Log.d("From TestMove", "Found a legal move 1");
+                    return true;
+                }
+                if (b[x + i][y - i] != null && (b[x + i][y - i].getPenguin() == null || !b[x + i][y - i].hasPenguin()) && b[x + i][y - i].doesExist()) {
+                    Log.d("From TestMove", "Found a legal move 3");
+                    return true;
+                }
+                if (b[x][y + i] != null && (b[x][y + i].getPenguin() == null || !b[x][y + i].hasPenguin()) && b[x][y + i].doesExist()) {
+                    Log.d("From TestMove", "Found a legal move 2");
+                    return true;
+                }
+            }
+            catch(ArrayIndexOutOfBoundsException e){
+                Log.d("From TestMove", "Array OOB exception.");
+            }
+        }
+        Log.d("From TestMove", "Did not find a legal move.");
+        return false;
+    }
+
+
+
+
+    /**
+     * TestMove will see if a penguin p has valid moves.
+     */
+    public boolean testMove(FishPenguin p){
         //tests tile to the right horizontally
         if(p.getY() + 1 <= 8 && this.boardState[p.getX()][p.getY() + 1] != null && this.boardState[p.getX()][p.getY() + 1].doesExist() && !this.boardState[p.getX()][p.getY() + 1].hasPenguin()){
             if(p.getPlayer() == 0){
