@@ -109,21 +109,8 @@ public class ScoresDrawings extends SurfaceView {
     public void onDraw(Canvas canvas) {
 
         //drawing our resized fishes using bitmap
-        canvas.drawBitmap(this.resizedOrange, 1.0f, 1.0f, null);
-        canvas.drawBitmap(this.resizedRed, 0.0f, 300.0f, null);
-
-        if(numPlayers == 3){
-            canvas.drawBitmap(this.resizedBlue, 1.0f, 600f, null);
-            canvas.drawText(Integer.toString(p3Score), (float)140.0, (float)770.0, black);
-        }
-        else if(numPlayers == 4){
-            canvas.drawBitmap(this.resizedBlue, 1.0f, 600f, null);
-            canvas.drawText(Integer.toString(p3Score), (float)140.0, (float)770.0, black);
-
-            canvas.drawBitmap(this.resizedCursedFish, 1.0f, 900f, null);
-            canvas.drawText(Integer.toString(p4Score), (float)140.0, (float)1075, black);
-        }
-
+           int sWidth =  canvas.getWidth();
+           int sHeight = canvas.getHeight();
         /**
          *External Citation
          * Date: 9/18/20
@@ -134,9 +121,26 @@ public class ScoresDrawings extends SurfaceView {
          *
          * Solution: Used the Integer.toString method shown on the website
          */
-        //draws our scores for player1 and player 2 onto our fishes
-        canvas.drawText(Integer.toString(p1Score), (float)140.0, (float)160.0, black);
-        canvas.drawText(Integer.toString(p2Score), (float)140.0, (float)465.0, black);
+        canvas.drawBitmap(this.resizedOrange, 0, 0, null);
+        canvas.drawText(Integer.toString(p1Score), sWidth/2, (float)sHeight*.17f, black);
+
+        canvas.drawBitmap(this.resizedRed, 0, sHeight/4, null);
+        canvas.drawText(Integer.toString(p2Score), sWidth/2, (float)sHeight*.42f, black);
+
+        if(numPlayers == 3){
+            canvas.drawBitmap(this.resizedBlue, 0, sHeight/2, null);
+            canvas.drawText(Integer.toString(p3Score), sWidth/2, (float)sHeight*.67f, black);
+        }
+        else if(numPlayers == 4){
+            canvas.drawBitmap(this.resizedBlue, 0, sHeight/2, null);
+            canvas.drawText(Integer.toString(p3Score), sWidth/2, (float)sHeight*.67f, black);
+
+            canvas.drawBitmap(this.resizedCursedFish, 0, 3*sHeight/4, null);
+            canvas.drawText(Integer.toString(p4Score), sWidth/2, (float)sHeight*.92f, black);
+        }
+
+
+
 
     }
 

@@ -146,6 +146,9 @@ public class FishPlaceView extends SurfaceView {
 
     @Override
     public void onDraw(Canvas canvas){
+        int fpWidth =  canvas.getWidth();
+        int fpHeight = canvas.getHeight();
+
         int numPlayers = gameState.getNumPlayers();
         for(int i = 0; i < numPlayers; i++){
             for(int j = 0; j < 6-numPlayers; j++) {
@@ -155,6 +158,7 @@ public class FishPlaceView extends SurfaceView {
                 }
             }
             if(gamePhase == 0){
+
                canvas.drawText("Player " + (i+1) + " Pieces", 15, temp - 15, black);
             }
         }

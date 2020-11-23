@@ -46,7 +46,6 @@ public class FishView extends SurfaceView {
     Bitmap cursedPenguin = null;
     Bitmap resizedCursedPenguin = null;
 
-
     Bitmap oneFish = null;
     Bitmap twoFish = null;
     Bitmap threeFish = null;
@@ -69,6 +68,8 @@ public class FishView extends SurfaceView {
     public FishView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
+
+
 
 
         gameState = new FishGameState(4);
@@ -116,6 +117,7 @@ public class FishView extends SurfaceView {
     public void onDraw(Canvas canvas) {
         cWidth = canvas.getWidth();
         cHeight = canvas.getHeight();
+
 
         drawBoard(canvas, gameState);
     }
