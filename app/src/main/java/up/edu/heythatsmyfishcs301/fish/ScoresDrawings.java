@@ -121,7 +121,7 @@ public class ScoresDrawings extends SurfaceView {
             canvas.drawText(Integer.toString(p3Score), (float)140.0, (float)770.0, black);
 
             canvas.drawBitmap(this.resizedCursedFish, 1.0f, 900f, null);
-            canvas.drawText(Integer.toString(p3Score), (float)140.0, (float)1075, black);
+            canvas.drawText(Integer.toString(p4Score), (float)140.0, (float)1075, black);
         }
 
         /**

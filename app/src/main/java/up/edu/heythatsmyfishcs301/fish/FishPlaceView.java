@@ -149,7 +149,7 @@ public class FishPlaceView extends SurfaceView {
         int numPlayers = gameState.getNumPlayers();
         for(int i = 0; i < numPlayers; i++){
             for(int j = 0; j < 6-numPlayers; j++) {
-                if(!(gameState.getPieceArray()[i][j].isOnBoard())){
+                if(!(gameState.getPieceArray()[i][j].isOnBoard()) && rects[i][j] != null){
                     canvas.drawBitmap(bitArr[i][j], rects[i][j].left, rects[i][j].top, null);
                     temp = rects[i][j].top;
                 }

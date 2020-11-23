@@ -1,5 +1,6 @@
 package up.edu.heythatsmyfishcs301.fish;
 
+import android.graphics.Rect;
 import android.util.Log;
 
 import up.edu.heythatsmyfishcs301.game.GamePlayer;
@@ -135,6 +136,7 @@ public class FishLocalGame extends LocalGame {
 
             if(fState.placePenguin(penguin, dest.getX(), dest.getY())){
                 Log.d("Place penguin", "penguin is now on tile (" + dest.getX() + ", " + dest.getY() + ")");
+
                 this.fState.changeTurn();
                 if (fState.getGamePhase() == 0){
                     for (FishPenguin[] arr : fState.getPieceArray()){

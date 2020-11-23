@@ -231,18 +231,29 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                 for (int i = 0; i < b.length; i++) {
                     for (int j = 0; j < b[i].length; j++) {
                         if (b[i][j] != null && b[i][j].getBoundingBox().contains(x, y)) {
+
+                            if(!b[i][j].hasPenguin() && b[i][j].getNumFish() == 1){
+                                rectArr[px][py] = null;
+                                fishPlace.setRects(rectArr);
+//                                px = 0;
+//                                py = 0;
+//                                fishPlace.invalidate();
+                            }
+
                             dest = b[i][j];
                             FishPlaceAction p = new FishPlaceAction(this, dest, gameState.getPieceArray()[px][py]);
                             game.sendAction(p);
                             selectedRect = null;
+
+
+
                             /**
-                             * might need this later idk
                              rectArr[px][py] = null;
                              fishPlace.setRects(rectArr);
                              px = 0;
                              py = 0;
                              fishPlace.invalidate();
-                             */
+*/
                         }
                     }
                 }
@@ -325,6 +336,14 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         final Dialog dialog = new Dialog(myActivity); // Context, this, etc.
         dialog.setContentView(R.layout.activity_display_help);
         dialog.show();
+    }
+
+    public void setRectArr(Rect[][] arr){
+        this.rectArr = arr;
+    }
+
+    public Rect[][] getRectArr(){
+        return this.rectArr;
     }
 
 
