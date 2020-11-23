@@ -1,6 +1,5 @@
 package up.edu.heythatsmyfishcs301.fish;
 
-import android.graphics.Rect;
 import android.util.Log;
 
 import up.edu.heythatsmyfishcs301.game.GamePlayer;
@@ -32,79 +31,43 @@ public class FishLocalGame extends LocalGame {
         this.fState = new FishGameState(numPlayers);
     }
 
-    // takes a GamePlayer as a parameter
-    @Override
-    protected void sendUpdatedStateTo(GamePlayer p) {
-        // creates a copy of the GameState using its copy constructor
-        fState.setNumPlayers(players.length);
-        FishGameState copy = new FishGameState(fState);
-        // sends copy to specified player
-        p.sendInfo(copy);
-    }
 
-
-    // takes in currentPlayerId
+    /**
+     * This method is called whenever an action is received.
+     * @param playerIdx
+     * 		the player's player-number (ID)
+     * @return
+     */
     @Override
     protected boolean canMove(int playerIdx) {
-        // checks if a valid move can be made
-        return (playerIdx == this.fState.getPlayerTurn());
-    }
-
-
-    // This method tests if either player has no moves left
-    // if that's the case print to the screen who's the player and the winners score
-    @Override
-    protected String checkIfGameOver() {
-        String end = "Game Over";
-
-        // get a copy of the boardState
-        board = fState.getBoardState();
-        int playerTurn = fState.getPlayerTurn();
-
-        //The game can not end in the place penguin phase
-        if (fState.getGamePhase() == 0){
-            return null;
-        }
-
-        //Checks if the next player has any legal moves.
-        //If they do, then don't end the game.
-        for (FishPenguin p : fState.getPieceArray()[(playerTurn+1)%fState.getNumPlayers()]){
-            if (fState.testMove(p)) {
-                return null;
-            }
-        }
-
-        //If they don't then you can remove their penguins from the board and perform
-        //all of the necessary actions (removing tiles, checking scores, etc.)
-        for (FishPenguin p : fState.getPieceArray()[(playerTurn+1)%fState.getNumPlayers()]){
-            p.setOnBoard(false);
-            int px = p.getX();
-            int py = p.getY();
-            board[px][py].setHasPenguin(false);
-            board[px][py].setPenguin(null);
-            board[px][py].setExists(false);
-            fState.addScore(playerTurn,board[px][py].getNumFish());
-            fState.changeTurn();
-        }
-
-        for (FishPenguin[] arr : fState.getPieceArray()){
-            for (FishPenguin p : arr){
-                if (!p.isOnBoard()){
-                    return null;
+        //If it is not the player's turn, return false.
+        /**
+         * MAYBE DELTE THIS
+         *
+         */
+        for (int i = 0; i <= 4; i++) {
+            for (GamePlayer player : players) {
+                boolean myTurn = (fState.getPlayerTurn() == getPlayerIdx(player));
+                if (!myTurn){
+                    continue;
+                }
+                try {
+                    FishComputerPlayer1 temp = (FishComputerPlayer1) player;
+                    if (temp.isOut() && myTurn) {
+                        fState.changeTurn();
+                    }
+                } catch (ClassCastException e) {
+                    Log.d("From canMove", "Player cast exception");
+                    FishHumanPlayer temp = (FishHumanPlayer) player;
+                    if (temp.isOut() && myTurn) {
+                        fState.changeTurn();
+                    }
                 }
             }
         }
-
-        return end;
-        //get a copy of the piece array
-        //pieces = fState.getPieceArray();
-
-        //test if human player has any valid moves left. Does so by going through the whole board and checking
-        //if it has a penguin on it then checks if the penguin belongs to the human player. Then it calls the
-        //testMove function and if there's no legal moves left, it returns who won. If there is a legal move left
-        //it checks if the computer has any valid moves left
+        if (playerIdx != fState.getPlayerTurn()) return false;
+        return true;
     }
-
 
     //This method is called whenever a new action arrives from a player.
     //This is where we update the game state
@@ -166,7 +129,129 @@ public class FishLocalGame extends LocalGame {
             Log.d("comScore changed","the computer's score is: " + score);
             return true;
         }
-
         return false;
     }
+
+
+    /**
+     * This method is called when the game sends the gamestate to each player.
+     * @param p
+     */
+    @Override
+    protected void sendUpdatedStateTo(GamePlayer p) {
+        // creates a copy of the GameState using its copy constructor
+
+        boolean myTurn;
+        //If it is not the place phase
+        if (fState.getGamePhase() == 1) {
+            for (int i = 0; i <= 4; i++) {
+                for (GamePlayer player : players) {
+                    myTurn = (fState.getPlayerTurn() == getPlayerIdx(player));
+                    if (!myTurn){
+                        continue;
+                    }
+                    try {
+                        FishComputerPlayer1 temp = (FishComputerPlayer1) player;
+                        if (temp.isOut() && myTurn) {
+                            fState.changeTurn();
+                        }
+                    } catch (ClassCastException e) {
+                        Log.d("From canMove", "Player cast exception");
+                        FishHumanPlayer temp = (FishHumanPlayer) player;
+                        if (temp.isOut() && myTurn) {
+                            fState.changeTurn();
+                        }
+                    }
+                }
+            }
+        }
+
+        FishGameState copy = new FishGameState(this.fState);
+        // sends copy to specified player
+        p.sendInfo(copy);
+    }
+
+
+    // takes in currentPlayerId
+    @Override
+    protected boolean canMove(int playerIdx) {
+        // checks if a valid move can be made
+        return (playerIdx == this.fState.getPlayerTurn());
+    }
+
+
+    // This method tests if either player has no moves left
+    // if that's the case print to the screen who's the player and the winners score
+
+    /**
+     * This method is called whenever an action is received.
+     * @return
+     */
+    @Override
+    protected String checkIfGameOver() {
+        String end = "Game Over";
+
+        // get a copy of the boardState
+        board = fState.getBoardState();
+        int playerTurn = fState.getPlayerTurn();
+        int nextTurn = playerTurn;
+        //The game can not end in the place penguin phase
+        if (fState.getGamePhase() == 0){
+            return null;
+        }
+
+        //Checks if the next player has any legal moves.
+        //If they do, then don't end the game.
+        for (FishPenguin p : fState.getPieceArray()[nextTurn]) {
+            if (fState.testMove(p)) {
+                return null;
+            }
+        }
+
+        //if they don't then you can remove them from the board.
+        //perform all of the necessary actions (removing tiles, checking scores, etc.)
+
+        for (FishPenguin p : fState.getPieceArray()[nextTurn]) {
+            p.setOnBoard(false);
+            int px = p.getX();
+            int py = p.getY();
+            board[px][py].setHasPenguin(false);
+            board[px][py].setPenguin(null);
+            board[px][py].setExists(false);
+            fState.addScore(nextTurn,board[px][py].getNumFish());
+        }
+        try {
+            FishComputerPlayer1 player = (FishComputerPlayer1) players[nextTurn];
+            player.setOutOfGame(true);
+        }
+        catch(ClassCastException e){
+            FishHumanPlayer player = (FishHumanPlayer) players[nextTurn];
+            player.setOutOfGame(true);
+        }
+
+        for (GamePlayer p : players){
+            try {
+                FishComputerPlayer1 player = (FishComputerPlayer1) p;
+                if (!player.isOut()){
+                    return null;
+                }
+            }
+            catch (ClassCastException e) {
+                FishHumanPlayer player = (FishHumanPlayer) p;
+                if (!player.isOut()){
+                    return null;
+                }
+            }
+        }
+
+        return end;
+        //get a copy of the piece array
+        //pieces = fState.getPieceArray();
+
+        //test if human player has any valid moves left. Does so by going through the whole board and checking
+        //if it has a penguin on it then checks if the penguin belongs to the human player. Then it calls the
+        //testMove function and if there's no legal moves left, it returns who won. If there is a legal move left
+        //it checks if the computer has any valid moves left
+    }
+
 }

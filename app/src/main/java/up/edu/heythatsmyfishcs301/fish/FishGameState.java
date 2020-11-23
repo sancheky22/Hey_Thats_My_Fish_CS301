@@ -2,11 +2,11 @@ package up.edu.heythatsmyfishcs301.fish;
 
 
 import android.util.Log;
-import up.edu.heythatsmyfishcs301.game.infoMsg.GameState;
-import java.lang.Integer;
-import static java.lang.Math.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
+
+import up.edu.heythatsmyfishcs301.game.infoMsg.GameState;
 
 /**
  * @author Kyle Sanchez
@@ -117,15 +117,15 @@ public class FishGameState extends GameState {
         for (int i = -1; i <= 1; i += 2) {
             try {
                 //If an adjacent tile has a penguin or does not exist, then it can not be moved to.
-                if (b[x + i][y] != null && (b[x + i][y].getPenguin() == null || !b[x + i][y].hasPenguin()) && b[x + i][y].doesExist()) {
+                if (b[x + i][y] != null && !b[x + i][y].hasPenguin() && b[x + i][y].doesExist()) {
                     Log.d("From TestMove", "Found a legal move 1");
                     return true;
                 }
-                if (b[x + i][y - i] != null && (b[x + i][y - i].getPenguin() == null || !b[x + i][y - i].hasPenguin()) && b[x + i][y - i].doesExist()) {
+                if (b[x + i][y - i] != null && !b[x + i][y - i].hasPenguin() && b[x + i][y - i].doesExist()) {
                     Log.d("From TestMove", "Found a legal move 3");
                     return true;
                 }
-                if (b[x][y + i] != null && (b[x][y + i].getPenguin() == null || !b[x][y + i].hasPenguin()) && b[x][y + i].doesExist()) {
+                if (b[x][y + i] != null && !b[x][y + i].hasPenguin() && b[x][y + i].doesExist()) {
                     Log.d("From TestMove", "Found a legal move 2");
                     return true;
                 }

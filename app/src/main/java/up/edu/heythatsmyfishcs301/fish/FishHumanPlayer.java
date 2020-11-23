@@ -1,30 +1,17 @@
 package up.edu.heythatsmyfishcs301.fish;
 
-import android.graphics.Rect;
-import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Rect;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.graphics.Canvas;
-import java.lang.Object;
-
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import up.edu.heythatsmyfishcs301.R;
 import up.edu.heythatsmyfishcs301.game.GameHumanPlayer;
 import up.edu.heythatsmyfishcs301.game.GameMainActivity;
-import up.edu.heythatsmyfishcs301.game.LocalGame;
 import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
-import up.edu.heythatsmyfishcs301.game.infoMsg.IllegalMoveInfo;
-import up.edu.heythatsmyfishcs301.game.infoMsg.NotYourTurnInfo;
 
 /**
  *
@@ -43,6 +30,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     // the most recent game state, given to us by the FishLocalGame
     private FishGameState gameState;
+    private boolean outOfGame;
 
     // the android activity that we are running
     private GameMainActivity myActivity;
@@ -347,6 +335,14 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     }
 
 
+
+    public boolean isOut(){
+        return this.outOfGame;
+    }
+
+    public void setOutOfGame(boolean b){
+        this.outOfGame = b;
+    }
 }
 
 //        // if we are not yet connected to a game, ignore
