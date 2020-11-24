@@ -28,12 +28,13 @@ public class ScoresDrawings extends SurfaceView {
     Bitmap redFish = null;
     Bitmap blueFish = null;
     Bitmap greenFish = null;
-    Bitmap cursedFish = null;
     Bitmap resizedOrange = null;
     Bitmap resizedRed = null;
     Bitmap resizedBlue = null;
     Bitmap resizedGreenFish = null;
-    Bitmap resizedCursedFish = null;
+
+    // Bitmap cursedFish = null;
+    //Bitmap resizedCursedFish = null;
     private Paint black = new Paint();
 
     int numPlayers = 2;
@@ -98,8 +99,8 @@ public class ScoresDrawings extends SurfaceView {
         greenFish = BitmapFactory.decodeResource(getResources(), R.drawable.greenfish);
         resizedGreenFish = Bitmap.createScaledBitmap(greenFish, 300, 300, false);
 
-        cursedFish = BitmapFactory.decodeResource(getResources(), R.drawable.blackfish);
-        resizedCursedFish = Bitmap.createScaledBitmap(cursedFish, 300, 300, false);
+        //cursedFish = BitmapFactory.decodeResource(getResources(), R.drawable.blackfish);
+        //resizedCursedFish = Bitmap.createScaledBitmap(cursedFish, 300, 300, false);
 
 
     }
@@ -135,7 +136,7 @@ public class ScoresDrawings extends SurfaceView {
             canvas.drawBitmap(this.resizedBlue, 0, sHeight/2, null);
             canvas.drawText(Integer.toString(p3Score), sWidth/2, (float)sHeight*.67f, black);
 
-            canvas.drawBitmap(this.resizedCursedFish, 0, 3*sHeight/4, null);
+            canvas.drawBitmap(this.resizedGreenFish, 0, 3*sHeight/4, null);
             canvas.drawText(Integer.toString(p4Score), sWidth/2, (float)sHeight*.92f, black);
         }
 

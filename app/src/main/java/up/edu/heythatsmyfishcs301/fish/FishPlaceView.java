@@ -175,7 +175,7 @@ public class FishPlaceView extends SurfaceView {
                     bitArr[i][j] = resizedBluePenguin;
                 }
                 else{
-                    bitArr[i][j] = resizedCursedPenguin;
+                    bitArr[i][j] = resizedGreenPenguin;
                 }
             }
         }
