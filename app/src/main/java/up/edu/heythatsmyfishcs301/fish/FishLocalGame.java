@@ -52,7 +52,7 @@ public class FishLocalGame extends LocalGame {
                     continue;
                 }
                 try {
-                    FishComputerPlayer1 temp = (FishComputerPlayer1) player;
+                    FishComputerPlayer temp = (FishComputerPlayer) player;
                     if (temp.isOut() && myTurn) {
                         fState.changeTurn();
                     }
@@ -151,7 +151,7 @@ public class FishLocalGame extends LocalGame {
                         continue;
                     }
                     try {
-                        FishComputerPlayer1 temp = (FishComputerPlayer1) player;
+                        FishComputerPlayer temp = (FishComputerPlayer) player;
                         if (temp.isOut() && myTurn) {
                             fState.changeTurn();
                         }
@@ -172,12 +172,6 @@ public class FishLocalGame extends LocalGame {
     }
 
 
-    // takes in currentPlayerId
-    @Override
-    protected boolean canMove(int playerIdx) {
-        // checks if a valid move can be made
-        return (playerIdx == this.fState.getPlayerTurn());
-    }
 
 
     // This method tests if either player has no moves left
@@ -221,7 +215,7 @@ public class FishLocalGame extends LocalGame {
             fState.addScore(nextTurn,board[px][py].getNumFish());
         }
         try {
-            FishComputerPlayer1 player = (FishComputerPlayer1) players[nextTurn];
+            FishComputerPlayer player = (FishComputerPlayer) players[nextTurn];
             player.setOutOfGame(true);
         }
         catch(ClassCastException e){
@@ -231,7 +225,7 @@ public class FishLocalGame extends LocalGame {
 
         for (GamePlayer p : players){
             try {
-                FishComputerPlayer1 player = (FishComputerPlayer1) p;
+                FishComputerPlayer player = (FishComputerPlayer) p;
                 if (!player.isOut()){
                     return null;
                 }

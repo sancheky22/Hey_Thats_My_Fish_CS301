@@ -16,17 +16,15 @@ import up.edu.heythatsmyfishcs301.game.infoMsg.NotYourTurnInfo;
  * This class contains the algorithm for how the computer player moves. It implements
  * a separate method for the computer to move and sends the move action to the gameState
  **/
-public class FishComputerPlayer1 extends GameComputerPlayer {
+public class FishComputerPlayer1 extends FishComputerPlayer {
 
     private FishTile[][] boardState;
     FishGameState copy = null;
-    private boolean outOfGame;
 
 
     //Constructor for Computer Player 1
     public FishComputerPlayer1(String name){
         super(name);
-        outOfGame = false;
     }
 
     //Computer Player 1 sends a random action to the game state.
@@ -228,11 +226,5 @@ public class FishComputerPlayer1 extends GameComputerPlayer {
         }
     }
 
-     public boolean isOut(){
-        return this.outOfGame;
-     }
 
-     public void setOutOfGame(boolean b){
-        this.outOfGame = b;
-     }
 }

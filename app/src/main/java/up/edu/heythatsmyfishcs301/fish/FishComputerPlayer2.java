@@ -16,9 +16,9 @@ import java.util.Random;
  * @author Carina Pineda
  * @author Linda Nguyen
  *
- * This class should be for the smart AI. Not yet implemented
+ * This class should be for the smart AI.
  **/
-public class FishComputerPlayer2 extends GameComputerPlayer {
+public class FishComputerPlayer2 extends FishComputerPlayer {
 
     private FishTile[][] boardState;
     FishGameState copy = null;
