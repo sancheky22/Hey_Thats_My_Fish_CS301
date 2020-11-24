@@ -29,10 +29,13 @@ public class FishLocalGame extends LocalGame {
     private FishTile[][] board;
 
 
-    // Constructor for the local game that creates a new GameState
+    /**
+     * Constructor for the local game.
+     * @param numPlayers passed in from the MainActivity.
+     */
     public FishLocalGame(int numPlayers){
         super();
-        this.fState = new FishGameState(numPlayers);
+        fState = new FishGameState(numPlayers);
     }
 
 
@@ -40,7 +43,7 @@ public class FishLocalGame extends LocalGame {
      * This method is called whenever an action is received.
      * @param playerIdx
      * 		the player's player-number (ID)
-     * @return
+     * @return boolean If false, sends a NotYourTurnInfo to the player in the parameter
      */
     @Override
     protected boolean canMove(int playerIdx) {
@@ -54,7 +57,8 @@ public class FishLocalGame extends LocalGame {
                 if (!myTurn){
                     continue;
                 }
-                /**
+
+                /*
                  * We have these try catch statements all over the Local Game.
                  * The purpose of these is to access the out variable that all FishGamePlayers have.
                  * It attempts to cast the GamePlayer object from the player array to a human
@@ -76,8 +80,7 @@ public class FishLocalGame extends LocalGame {
             }
         }
         //If it is not the player's turn, return false so they do not move.
-        if (playerIdx != fState.getPlayerTurn()) return false;
-        return true;
+        return playerIdx == fState.getPlayerTurn();
     }
 
     /**
@@ -89,7 +92,7 @@ public class FishLocalGame extends LocalGame {
      *
      * @param action
      * 			The move that the player has sent to the game
-     * @return
+     * @return boolean True if action is legal.
      */
     @Override
     protected boolean makeMove(GameAction action) {
@@ -120,9 +123,10 @@ public class FishLocalGame extends LocalGame {
             FishPenguin penguin = ((FishPlaceAction) action).getPenguin();
 
             if(fState.placePenguin(penguin, dest.getX(), dest.getY())){
-                Log.d("Place penguin", "penguin is now on tile (" + dest.getX() + ", " + dest.getY() + ")");
+                Log.d("Place penguin", "penguin is now on tile (" + dest.getX() + ", "
+                        + dest.getY() + ")");
 
-                this.fState.changeTurn();
+                fState.changeTurn();
                 if (fState.getGamePhase() == 0){
                     for (FishPenguin[] arr : fState.getPieceArray()){
                         for (FishPenguin p : arr){
@@ -150,7 +154,7 @@ public class FishLocalGame extends LocalGame {
      * This method is called when the game sends the game state to each player.
      * In this method, we make sure one more time that if there are any players with no moves, we
      * remove them from the board. We have to do it again here because the state was just updated.
-     * @param p
+     * @param p player to send info to
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
@@ -162,7 +166,7 @@ public class FishLocalGame extends LocalGame {
         //If it is not the place phase
         if (fState.getGamePhase() == 1) {
 
-            /**
+            /*
              * Checks if the next player has any legal moves.
              * If they do, then give everyone the info.
              */
@@ -174,7 +178,7 @@ public class FishLocalGame extends LocalGame {
                 }
             }
 
-            /**
+            /*
              * if they don't then you can remove them from the board.
              * perform all of the necessary actions (removing tiles, checking scores, etc.)
              * Then we can send everyone the info.
@@ -186,7 +190,6 @@ public class FishLocalGame extends LocalGame {
                 board[px][py].setHasPenguin(false);
                 board[px][py].setPenguin(null);
                 board[px][py].setExists(false);
-                //fState.addScore(nextTurn,board[px][py].getNumFish());
             }
 
             //We can put that player out of the game at this point because they have no moves.
@@ -199,7 +202,7 @@ public class FishLocalGame extends LocalGame {
                 player.setOutOfGame(true);
             }
 
-            /**
+            /*
              * We do an additional check to increment the player's turn in the game state one more
              * time because we just altered it.
              */
@@ -225,13 +228,10 @@ public class FishLocalGame extends LocalGame {
             }
         }
 
-
         //We send all players the edited game state.
         FishGameState copy = new FishGameState(this.fState);
         p.sendInfo(copy);
     }
-
-
 
 
     // This method tests if either player has no moves left
@@ -239,19 +239,18 @@ public class FishLocalGame extends LocalGame {
 
     /**
      * This method is called whenever an action is received.
-     * @return
+     * @return String if null, continue game.
      */
     @Override
     protected String checkIfGameOver() {
         String end = "Game Over";
 
         // array list to hold scores of each player
-        List<Integer> scoreList = new ArrayList<Integer>();
+        List<Integer> scoreList = new ArrayList<>();
 
         // get a copy of the boardState
         board = fState.getBoardState();
-        int playerTurn = fState.getPlayerTurn();
-        int nextTurn = playerTurn;
+
         //The game can not end in the place penguin phase
         if (fState.getGamePhase() == 0) {
             return null;
@@ -283,7 +282,7 @@ public class FishLocalGame extends LocalGame {
 
 
         }
-        // this int gets the max score out of the arraylist which would be the winners score
+        // this int gets the max score out of the ArrayList which would be the winners score
         int maxScore = Collections.max(scoreList);
 
         // if the maxScore matches a certain players score then they are the winner

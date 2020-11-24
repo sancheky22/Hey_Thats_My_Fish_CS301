@@ -26,15 +26,28 @@ import up.edu.heythatsmyfishcs301.R;
  **/
 
 public class FishPlaceView extends SurfaceView {
+    // Variable for current phase of the game
     private int gamePhase;
 
+    // Labels that display on right side of GUI denoting the pieces each player has
+    private final String p1Place = "Player 1 Pieces:";
+    private final String p2Place = "Player 2 Pieces:";
+    private final String p3Place = "Player 3 Pieces:";
+    private final String p4Place = "Player 4 Pieces:";
+
+    // instance of the game state
     private FishGameState gameState;
+    // max number of players the game can have
     private int numPlayers = 4;
+    // temp int
     int temp;
 
+    // array of rectangles that are used for the hitbox of the penguins
     private Rect[][] rects = new Rect[4][4];
+    // array to store all the bitmaps corresponding to each hitbox
     private Bitmap[][] bitArr = new Bitmap[4][4];
 
+    // Bitmap variables
     Bitmap redPenguin = null;
     Bitmap resizedRedPenguin = null;
     Bitmap orangePenguin = null;
@@ -46,68 +59,43 @@ public class FishPlaceView extends SurfaceView {
     Bitmap cursedPenguin = null;
     Bitmap resizedCursedPenguin = null;
 
+    // FishPlaceView width,height
     int fpWidth;
     int fpHeight;
+    // resize variable for penguins in the
     int resize;
+    // boolean to only draw hitboxes once
     boolean drawOnce = true;
 
+    //  paint for hitbox
     private Paint black = new Paint();
 
+    /**
+     *
+     * @param context
+     * @param attrs
+     *
+     * Constructor for the Surface View that is used to handle PlaceAction events
+     *
+     */
     public FishPlaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
 
+        // depending on the number of players, creates a new instance of the gameState
         gameState = new FishGameState(numPlayers);
 
+        // setting text color and size
         black.setColor(Color.BLACK);
         black.setTextSize(50);
 
+        // bitmaps for our penguin pieces
         redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
         orangePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
         bluePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.bluepenguin);
         bluePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.bluepenguin);
         greenPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.greenpenguin);
         cursedPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.cursed);
-
-        //int offSet = 100;
-
-        /**
-        for(int i = 0; i < numPlayers; i++){
-            for(int j = 0; j < 6 - numPlayers; j++){
-                rects[i][j] = new Rect(10 + j * PENGUIN_SIZE, 10 + i * 150 + offSet, (j + 1) * PENGUIN_SIZE, (i + 1) * 150 + offSet);
-
-            }
-            offSet += 150;
-        }
-         */
-
-        //Will create a 4x4 array that contains all of the drawings and hitboxes.
-        //Will draw a portion of them in onDraw
-//        for (int i = 0; i < 4; i++){
-//            for (int j = 0; j < 4; j++){
-//                rects[i][j] = new Rect(10 + j * oogabooga, 10 + i * 150 + offSet, (j + 1) * oogabooga, (i + 1) * 150 + offSet);
-//            }
-//            offSet += 150;
-//        }
-
-        //fill the bitmap array with penguin bitmaps
-//        for(int i = 0; i < bitArr.length; i++){
-//            for(int j = 0; j < bitArr[i].length; j++){
-//                if(i == 0){
-//                    bitArr[i][j] = resizedOrangePenguin;
-//                }
-//                else if(i == 1){
-//                    bitArr[i][j] = resizedRedPenguin;
-//                }
-//                else if(i == 2){
-//                    bitArr[i][j] = resizedBluePenguin;
-//                }
-//                else{
-//                    bitArr[i][j] = resizedCursedPenguin;
-//                }
-//            }
-//        }
-
 
 
         /**
@@ -128,6 +116,14 @@ public class FishPlaceView extends SurfaceView {
         ((SurfaceHolder) sfhTrackHolder).setFormat(PixelFormat.TRANSPARENT);
     }
 
+    /**
+     *
+     * @param canvas
+     *
+     * onDraw method that takes in a canvas and is in charge of drawing bitmaps to surface view
+     *
+     *
+     */
     @Override
     public void onDraw(Canvas canvas){
         fpWidth =  canvas.getWidth();
@@ -146,7 +142,8 @@ public class FishPlaceView extends SurfaceView {
         if(drawOnce){
             for (int i = 0; i < 4; i++){
                 for (int j = 0; j < 4; j++){
-                    rects[i][j] = new Rect(10 + j * resize, 10 + i * 150 + offSet, (j + 1) * resize, (i + 1) * 150 + offSet);
+                    rects[i][j] = new Rect(10 + j * resize, 10 + i * 150 + offSet,
+                            (j + 1) * resize, (i + 1) * 150 + offSet);
                 }
                 offSet += 80;
             }
@@ -187,10 +184,13 @@ public class FishPlaceView extends SurfaceView {
         }
     }
 
+
+    // getter for hitbox array
     public Rect[][] getRects(){
         return this.rects;
     }
 
+    // setter for rectangle hitboxes
     public void setRects(Rect[][] arr) {
         for (int i = 0; i<arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
@@ -199,18 +199,22 @@ public class FishPlaceView extends SurfaceView {
         }
     }
 
+    // setters for current number of players
     public void setNumPlayers(int num){
         this.numPlayers = num;
     }
 
+    // setter for which phase of the game we're in
     public void setGamePhase(int phase){
         this.gamePhase = phase;
     }
 
+    // gets the current gameState
     public FishGameState getGameState(){
         return this.gameState;
     }
 
+    // sets the current gameState
     public void setGameState(FishGameState fgs){
         this.gameState = new FishGameState(fgs);
     }

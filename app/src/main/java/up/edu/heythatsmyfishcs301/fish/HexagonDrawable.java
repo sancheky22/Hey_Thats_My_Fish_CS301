@@ -28,8 +28,6 @@ import java.lang.Math;
  * Since then, the Math library was improved and FloatMath was left deprecated in API level 22
  * So we have slightly modified this class to make it compatible with our project.
  */
-
-
 public class HexagonDrawable extends Drawable {
 
     public static final int SIDES = 6;
@@ -37,10 +35,11 @@ public class HexagonDrawable extends Drawable {
     private Path temporal = new Path();
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
+
     public HexagonDrawable(int color) {
         paint.setColor(color);
-        //hexagon.setFillType(Path.FillType.EVEN_ODD);
     }
+
 
     @Override
     public void draw(Canvas canvas) {
@@ -57,10 +56,12 @@ public class HexagonDrawable extends Drawable {
         paint.setColorFilter(cf);
     }
 
+
     @Override
     public int getOpacity() {
         return paint.getAlpha();
     }
+
 
     @Override
     protected void onBoundsChange(Rect bounds) {
@@ -69,6 +70,11 @@ public class HexagonDrawable extends Drawable {
         invalidateSelf();
     }
 
+    /**
+     * Boundary of hexagon
+     *
+     * @param bounds
+     */
     public void computeHex(Rect bounds) {
 
         final int width = bounds.width();
@@ -82,6 +88,13 @@ public class HexagonDrawable extends Drawable {
         hexagon.addPath(createHexagon((int) (size * .8f), centerX, centerY));
     }
 
+    /**
+     *
+     * @param size
+     * @param centerX
+     * @param centerY
+     * @return hexagon
+     */
     private Path createHexagon(int size, int centerX, int centerY) {
         //Define an offset for the angle that the path is calculated on.
         float offset = (float) Math.PI/2.0f;
@@ -104,4 +117,4 @@ public class HexagonDrawable extends Drawable {
         hex.close();
         return hex;
     }
-}
+} //HexagonDrawable Class

@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.Button;
 
@@ -46,12 +45,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     // create local board variable and local penguin variable
     private FishPenguin selectedPenguin;
-    private FishPenguin[][] pieces;
     private Rect selectedRect;
     FishTile dest;
-
-    private ScaleGestureDetector mScaleDetector;
-    private float mScaleFactor = 1.f;
 
     // current player turn
     int turn;
@@ -89,18 +84,12 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
 
         // ignore the message if it's not a FishGameState message
-        if (!(info instanceof FishGameState)) {
-            return;
-        }
-        else {
+        if (info instanceof FishGameState) {
             // update the state
             // initialize currently selectedPenguin
             selectedPenguin = null;
             // gets gameState
             gameState = (FishGameState) info;
-
-            // initialize piece array
-            pieces = gameState.getPieceArray();
 
             // sets player turn
             turn = gameState.getPlayerTurn();
@@ -124,12 +113,14 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             surfaceView.invalidate();
             // invalidate the scores TextView to update
             scores.invalidate();
-
         }
     }
 
-
-    //I don't know when this is called or what it does.
+    /**
+     * Set the activity as the gui for the device.
+     *
+     * @param activity activity to be set as gui
+     */
     @Override
     public void setAsGui(GameMainActivity activity) {
 
@@ -140,7 +131,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         fishPlace = activity.findViewById(R.id.fishPlaceView);
 
         scores = activity.findViewById(R.id.scoresDrawings);
-
 
         fishPlace.setOnTouchListener(this);
         surfaceView.setOnTouchListener(this);
@@ -178,15 +168,18 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         int x = (int) motionEvent.getX();
         int y = (int) motionEvent.getY();
 
-        //If the players are placing penguins
+        //If the players are in the place penguin phase
         if (gameState.getGamePhase() == 0) {
+
+            //Select a penguin to be placed.
             if (selectedRect == null) {
                 for (int i = 0; i < rectArr.length; i++) {
                     for (int j = 0; j < rectArr[i].length; j++) {
                         if (rectArr[i][j] != null && rectArr[i][j].contains(x, y)) {
                             if (i == playerNum) {
                                 selectedRect = rectArr[i][j];
-                                Log.d("Selected Rect", "Selected rect at (" + i + ", " + j + ")");
+                                Log.d("Selected Rect",
+                                        "Selected rect at (" + i + ", " + j + ")");
                                 px = i;
                                 py = j;
                             }
@@ -194,17 +187,21 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                     }
                 }
             }
-            else if (selectedRect != null) {
-                for (int i = 0; i < b.length; i++) {
-                    for (int j = 0; j < b[i].length; j++) {
-                        if (b[i][j] != null && b[i][j].getBoundingBox().contains(x, y)) {
 
-                            if(!b[i][j].hasPenguin() && b[i][j].getNumFish() == 1){
+            //Place the selected penguin
+            else if (selectedRect != null) {
+                for (FishTile[] fishTiles : b) {
+                    for (FishTile fishTile : fishTiles) {
+                        if (fishTile != null && fishTile.getBoundingBox().contains(x, y)) {
+
+                            if (!fishTile.hasPenguin() && fishTile.getNumFish() == 1) {
                                 rectArr[px][py] = null;
                                 fishPlace.setRects(rectArr);
                             }
-                            dest = b[i][j];
-                            FishPlaceAction p = new FishPlaceAction(this, dest, gameState.getPieceArray()[px][py]);
+
+                            dest = fishTile;
+                            FishPlaceAction p = new FishPlaceAction(this, dest,
+                                    gameState.getPieceArray()[px][py]);
                             game.sendAction(p);
                             selectedRect = null;
                         }
@@ -214,7 +211,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         }
         //If the game phase == 1
         else {
-            //Iterate through the tiles in the 2d board array until you find the one that contains the place where it was touched.
+            //Iterate through the tiles in the 2d board array until you
+            //find the one that contains the place where it was touched.
             //There has to be a better way to do this :(
             for (int i = 0; i < b.length; i++) {
                 for (int j = 0; j < b[i].length; j++) {
@@ -223,23 +221,30 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
                         Log.d("From FishView", "Touched the Fish View at: " + i + ", " + j);
                         Log.d("From human player", "Current player turn is " + turn);
+
                         if (selectedPenguin == null) {
-                            if (b[i][j].getPenguin() == null) {
-                                return false;
-                            } else if (b[i][j].getPenguin().getPlayer() == this.playerNum) {
+
+                            if (b[i][j].getPenguin() == null) { return false; }
+
+                            else if (b[i][j].getPenguin().getPlayer() == this.playerNum) {
                                 //The player has selected this penguin to move
                                 selectedPenguin = b[i][j].getPenguin();
                                 selectedPenguin.setSelected(1);
 
                                 surfaceView.invalidate();
                                 Log.d("From Human Player", "Selected a valid penguin");
-                            } else {
-                                //The player did not touch their own penguin
-                                //Maybe throw toast
-                                Log.d("From Human Player", "Player expected to touch a penguin, but did not");
                             }
-                        } else {
-                            FishMoveAction m = new FishMoveAction(this, selectedPenguin, b[i][j]);
+                            else {
+                                Log.d("From Human Player", "Player expected to touch " +
+                                        "a penguin, but did not");
+                            }
+                        }
+
+                        //If the move is successful, then deselect the penguin.
+                        else {
+                            FishMoveAction m = new FishMoveAction(this,
+                                    selectedPenguin, b[i][j]);
+
                             game.sendAction(m);
                             Log.d("From Human Player", "Sent action to Local Game");
                             selectedPenguin.setSelected(0);
@@ -253,6 +258,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         return false;
     }
 
+    /**
+     * This onClick method controls the two buttons on the gui
+     * @param button - button passed in from the listener
+     */
     @Override
     public void onClick(View button) {
         if(button.equals(restartButton)){
@@ -260,19 +269,17 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             myActivity.recreate();
         }else if(button.equals(infoButton)){
             openDialog();
-        }else{
-            return; // do nothing
         }
     }
 
     /**
-     External Citation
-     Date: 20 December 2020
-     Problem: Creating a dialog popup (for the help menu).
-     Resource:
-     https://developer.android.com/guide/topics/ui/dialogs
-     Solution: I looked at the documentation to help figure
-     out how to add a dialog popup for the info button.
+     *  External Citation
+     *  Date: 20 December 2020
+     *  Problem: Creating a dialog popup (for the help menu).
+     *  Resource:
+     *  https://developer.android.com/guide/topics/ui/dialogs
+     *  Solution: I looked at the documentation to help figure
+     *  out how to add a dialog popup for the info button.
      */
     public void openDialog() {
         final Dialog dialog = new Dialog(myActivity); // Context, this, etc.

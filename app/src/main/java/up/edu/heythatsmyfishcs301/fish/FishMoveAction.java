@@ -29,10 +29,12 @@ public class FishMoveAction extends GameAction {
         this.destination = tile;
     }
 
+    // getter for penguin being moved in moveAction
     public FishPenguin getPenguin(){
         return this.penguin;
     }
 
+    // getter for instance variable of the tile the penguin is going to
     public FishTile getDestination(){
         return this.destination;
     }
