@@ -124,12 +124,14 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             surfaceView.invalidate();
             // invalidate the scores TextView to update
             scores.invalidate();
-
         }
     }
 
-
-    //I don't know when this is called or what it does.
+    /**
+     * Set the activity as the gui for the device.
+     *
+     * @param activity
+     */
     @Override
     public void setAsGui(GameMainActivity activity) {
 
@@ -140,7 +142,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         fishPlace = activity.findViewById(R.id.fishPlaceView);
 
         scores = activity.findViewById(R.id.scoresDrawings);
-
 
         fishPlace.setOnTouchListener(this);
         surfaceView.setOnTouchListener(this);
@@ -178,15 +179,18 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         int x = (int) motionEvent.getX();
         int y = (int) motionEvent.getY();
 
-        //If the players are placing penguins
+        //If the players are in the place penguin phase
         if (gameState.getGamePhase() == 0) {
+
+            //Select a penguin to be placed.
             if (selectedRect == null) {
                 for (int i = 0; i < rectArr.length; i++) {
                     for (int j = 0; j < rectArr[i].length; j++) {
                         if (rectArr[i][j] != null && rectArr[i][j].contains(x, y)) {
                             if (i == playerNum) {
                                 selectedRect = rectArr[i][j];
-                                Log.d("Selected Rect", "Selected rect at (" + i + ", " + j + ")");
+                                Log.d("Selected Rect",
+                                        "Selected rect at (" + i + ", " + j + ")");
                                 px = i;
                                 py = j;
                             }
@@ -194,17 +198,21 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                     }
                 }
             }
-            else if (selectedRect != null) {
-                for (int i = 0; i < b.length; i++) {
-                    for (int j = 0; j < b[i].length; j++) {
-                        if (b[i][j] != null && b[i][j].getBoundingBox().contains(x, y)) {
 
-                            if(!b[i][j].hasPenguin() && b[i][j].getNumFish() == 1){
+            //Place the selected penguin
+            else if (selectedRect != null) {
+                for (FishTile[] fishTiles : b) {
+                    for (FishTile fishTile : fishTiles) {
+                        if (fishTile != null && fishTile.getBoundingBox().contains(x, y)) {
+
+                            if (!fishTile.hasPenguin() && fishTile.getNumFish() == 1) {
                                 rectArr[px][py] = null;
                                 fishPlace.setRects(rectArr);
                             }
-                            dest = b[i][j];
-                            FishPlaceAction p = new FishPlaceAction(this, dest, gameState.getPieceArray()[px][py]);
+
+                            dest = fishTile;
+                            FishPlaceAction p = new FishPlaceAction(this, dest,
+                                    gameState.getPieceArray()[px][py]);
                             game.sendAction(p);
                             selectedRect = null;
                         }
@@ -214,7 +222,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         }
         //If the game phase == 1
         else {
-            //Iterate through the tiles in the 2d board array until you find the one that contains the place where it was touched.
+            //Iterate through the tiles in the 2d board array until you
+            //find the one that contains the place where it was touched.
             //There has to be a better way to do this :(
             for (int i = 0; i < b.length; i++) {
                 for (int j = 0; j < b[i].length; j++) {
@@ -223,23 +232,30 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
                         Log.d("From FishView", "Touched the Fish View at: " + i + ", " + j);
                         Log.d("From human player", "Current player turn is " + turn);
+
                         if (selectedPenguin == null) {
-                            if (b[i][j].getPenguin() == null) {
-                                return false;
-                            } else if (b[i][j].getPenguin().getPlayer() == this.playerNum) {
+
+                            if (b[i][j].getPenguin() == null) { return false; }
+
+                            else if (b[i][j].getPenguin().getPlayer() == this.playerNum) {
                                 //The player has selected this penguin to move
                                 selectedPenguin = b[i][j].getPenguin();
                                 selectedPenguin.setSelected(1);
 
                                 surfaceView.invalidate();
                                 Log.d("From Human Player", "Selected a valid penguin");
-                            } else {
-                                //The player did not touch their own penguin
-                                //Maybe throw toast
-                                Log.d("From Human Player", "Player expected to touch a penguin, but did not");
                             }
-                        } else {
-                            FishMoveAction m = new FishMoveAction(this, selectedPenguin, b[i][j]);
+                            else {
+                                Log.d("From Human Player", "Player expected to touch " +
+                                        "a penguin, but did not");
+                            }
+                        }
+
+                        //If the move is successful, then deselect the penguin.
+                        else {
+                            FishMoveAction m = new FishMoveAction(this,
+                                    selectedPenguin, b[i][j]);
+
                             game.sendAction(m);
                             Log.d("From Human Player", "Sent action to Local Game");
                             selectedPenguin.setSelected(0);
@@ -253,6 +269,10 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         return false;
     }
 
+    /**
+     * This onClick method controls the two buttons on the gui
+     * @param button - button passed in from the listener
+     */
     @Override
     public void onClick(View button) {
         if(button.equals(restartButton)){
