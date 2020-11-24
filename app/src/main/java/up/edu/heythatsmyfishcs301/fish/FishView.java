@@ -11,10 +11,9 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
 import java.util.ArrayList;
-
 import up.edu.heythatsmyfishcs301.R;
+
 
 /**
  *Descriptions: FishView Class contains all of the components that makes the 1-fish, 2-fish, 3-fish,
@@ -57,25 +56,22 @@ public class FishView extends SurfaceView {
     Bitmap rTwoFish = null;
     Bitmap rThreeFish = null;
 
-
-    private int randTile;
-
     private Paint testPaint = new Paint();
 
-    ArrayList<Integer> fishArray = new ArrayList<>(60);
 
-    //input
-   // private ScaleGestureDetector mScaleDetector;
-  //  private float mScaleFactor = 1.f;
-
+    /**
+     * FishView constructor
+     *
+     * @param context
+     * @param attrs
+     */
     public FishView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
 
-
-
-
+        //final gamestate,
         gameState = new FishGameState(4);
+
         /**
          *External Citation
          * Date: 9/18/20
@@ -104,29 +100,32 @@ public class FishView extends SurfaceView {
         bluePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.bluepenguin);
         greenPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.greenpenguin);
         //cursedPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.cursed);
-
-
-        //added
-      //  mScaleDetector = new ScaleGestureDetector(context, new FishView());
-
     }
 
 
+    /**
+     * Gets width and height of the canvas
+     * draws gameState
+     *
+     * @param canvas
+     */
     @Override
     public void onDraw(Canvas canvas) {
         cWidth = canvas.getWidth();
         cHeight = canvas.getHeight();
-
-
         drawBoard(canvas, gameState);
     }
 
 
-    /**This method uses the dimensions of the Canvas to draw a board of an appropriate size
-    *Each hexagon can fit into a Rect object as its bounds so we take a rect and draw a hexagon
-    *inside of it
-    *we also draw any other properties of the tile that need to be drawn (Fish and penguins).
-    *We repeat this process for all 8 rows and the end result is a complete board.**/
+    /**
+     * This method uses the dimensions of the Canvas to draw a board of an appropriate size
+     * Each hexagon can fit into a Rect object as its bounds so we take a rect and draw a hexagon
+     * inside of it
+     * we also draw any other properties of the tile that need to be drawn (Fish and penguins).
+     * We repeat this process for all 8 rows and the end result is a complete board.
+     * @param c
+     * @param g
+     */
     public void drawBoard(Canvas c, FishGameState g) {
         FishTile[][] board = g.getBoardState();
         FishPenguin[][] penguins = g.getPieceArray();
@@ -135,17 +134,15 @@ public class FishView extends SurfaceView {
         int hexWidth = cWidth / 8;
         int margin = 15;
 
-        resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, hexWidth - 20, hexWidth - 20, false);
-        resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, hexWidth - 20, hexWidth - 20, false);
-        resizedBluePenguin = Bitmap.createScaledBitmap(bluePenguin, hexWidth - 20, hexWidth - 20, false);
-        resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin, hexWidth - 20, hexWidth - 20, false);
+        resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, hexWidth - 20,
+                hexWidth - 20, false);
+        resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, hexWidth - 20,
+                hexWidth - 20, false);
+        resizedBluePenguin = Bitmap.createScaledBitmap(bluePenguin, hexWidth - 20,
+                hexWidth - 20, false);
+        resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin, hexWidth - 20,
+                hexWidth - 20, false);
        // resizedCursedPenguin = Bitmap.createScaledBitmap(cursedPenguin, hexWidth - 20, hexWidth - 20, false);
-
-
-        //This Rect object is where we draw the hexagon. We will move it kind of like a stencil
-        // and then draw the hexagon inside it
-        Rect bound = new Rect(0, 0, hexWidth, hexHeight);
-        int counter = 0;
 
 
        /** Here we go through the array and if the tile is null, then it is a placeholder and we
@@ -153,6 +150,9 @@ public class FishView extends SurfaceView {
         * If it is a tile that exists, we draw it.
         * Increment the Rect bound object
         * At the end of the row, reset bound to the start**/
+
+        //Rect object is where the hexagon is drawn
+        Rect bound = new Rect(0, 0, hexWidth, hexHeight);
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
 
@@ -161,6 +161,7 @@ public class FishView extends SurfaceView {
                 if (tile == null) {
                     continue;
                 }
+
                 //This will draw the hexagon, fish, and then the penguins on each tile
                 if (tile.doesExist()) {
 
@@ -182,20 +183,24 @@ public class FishView extends SurfaceView {
                     switch (tile.getNumFish()) {
                         case 1:
                             //Draw 1 fish
-                            c.drawBitmap(rOneFish, tile.getBoundingBox().left + 10, tile.getBoundingBox().top + 15, null);
+                            c.drawBitmap(rOneFish, tile.getBoundingBox().left + 10,
+                                    tile.getBoundingBox().top + 15, null);
                             break;
                         case 2:
                             //Draw 2 fish
-                            c.drawBitmap(rTwoFish, tile.getBoundingBox().left + 10, tile.getBoundingBox().top + 15, null);
+                            c.drawBitmap(rTwoFish, tile.getBoundingBox().left + 10,
+                                    tile.getBoundingBox().top + 15, null);
                             break;
                         case 3:
                             //Draw 3 fish
-                            c.drawBitmap(rThreeFish, tile.getBoundingBox().left + 10, tile.getBoundingBox().top + 15, null);
+                            c.drawBitmap(rThreeFish, tile.getBoundingBox().left + 10,
+                                    tile.getBoundingBox().top + 15, null);
                             break;
                     }
 
+
+                    //Assigns the appropriate penguin color to the player
                     FishPenguin p = tile.getPenguin();
-                    //if it is player 0 then it belongs to the orange penguin, if the player is 1, then the red penguin is assigned to that player
                     if (p != null){
                         //If the penguin is selected, then this float > 0. Otherwise it equals 0.
 
@@ -207,15 +212,23 @@ public class FishView extends SurfaceView {
                         resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin,RESIZE+selection,RESIZE+selection,false);
 
                         if (p.getPlayer() == 0){
+                            c.drawBitmap(resizedOrangePenguin, tile.getBoundingBox().left-selection,
+                                    tile.getBoundingBox().top-selection, null);
                             c.drawBitmap(resizedOrangePenguin, tile.getBoundingBox().left-selection/2, tile.getBoundingBox().top-selection/2, null);
                         }
                         else if(p.getPlayer() == 1){
+                            c.drawBitmap(resizedRedPenguin, tile.getBoundingBox().left-selection,
+                                    tile.getBoundingBox().top-selection, null);
                             c.drawBitmap(resizedRedPenguin, tile.getBoundingBox().left-selection/2, tile.getBoundingBox().top-selection/2, null);
                         }
                         else if(p.getPlayer() == 2){
+                            c.drawBitmap(resizedBluePenguin, tile.getBoundingBox().left-selection,
+                                    tile.getBoundingBox().top-selection, null);
                             c.drawBitmap(resizedBluePenguin, tile.getBoundingBox().left-selection/2, tile.getBoundingBox().top-selection/2, null);
                         }
                         else if(p.getPlayer() == 3){
+                            c.drawBitmap(resizedGreenPenguin, tile.getBoundingBox().left-selection,
+                                    tile.getBoundingBox().top-selection, null);
                             c.drawBitmap(resizedGreenPenguin, tile.getBoundingBox().left-selection/2, tile.getBoundingBox().top-selection/2, null);
                         }
                     }
@@ -240,4 +253,4 @@ public class FishView extends SurfaceView {
 
     public FishGameState getGameState() { return this.gameState; }
     public void setGameState(FishGameState f) { this.gameState = new FishGameState(f); }
-}
+} //FishView Class

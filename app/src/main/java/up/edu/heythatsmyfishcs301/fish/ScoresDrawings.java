@@ -47,6 +47,12 @@ public class ScoresDrawings extends SurfaceView {
 
     FishGameState fstate;
 
+    /**
+     *ScoresDrawings constructor resizes the bitmaps for the fish on the scoresDrawing surfaceview
+     *
+     * @param context
+     * @param attrs
+     */
     public ScoresDrawings(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
@@ -102,17 +108,21 @@ public class ScoresDrawings extends SurfaceView {
 
         //cursedFish = BitmapFactory.decodeResource(getResources(), R.drawable.blackfish);
         //resizedCursedFish = Bitmap.createScaledBitmap(cursedFish, 300, 300, false);
-
-
     }
 
 
+
+    /**
+     * Draws the fish on the board with each players score
+     * displays the proper amount of fish depending on how many players are being played
+     * @param canvas
+     */
     @Override
     public void onDraw(Canvas canvas) {
 
         //drawing our resized fishes using bitmap
-           int sWidth =  canvas.getWidth();
-           int sHeight = canvas.getHeight();
+        int sWidth =  canvas.getWidth();
+        int sHeight = canvas.getHeight();
 
            int size = sWidth - 100;
 
@@ -147,13 +157,14 @@ public class ScoresDrawings extends SurfaceView {
             canvas.drawBitmap(this.resizedGreenFish, 0, 3*sHeight/4, null);
             canvas.drawText(Integer.toString(p4Score), size/2, (float)size/2 + 3*sHeight/4, black);
         }
-
-
-
-
     }
 
-    //setter methods to be used in FishHumanPlayer
+
+
+
+    /**
+     *   Setters methods to be used in FishHumanPlayer
+     */
     public void setP1Scores(int i){
         System.out.println("Setting p1 score to: " + i);
         p1Score = i;
