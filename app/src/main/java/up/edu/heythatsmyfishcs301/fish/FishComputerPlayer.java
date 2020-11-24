@@ -12,7 +12,7 @@ import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
  * This class
  **/
 public abstract class FishComputerPlayer extends GameComputerPlayer {
-    // boolean
+    // boolean to represent if a player is no longer in the game
     private boolean outOfGame;
 
 

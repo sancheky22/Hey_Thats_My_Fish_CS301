@@ -98,7 +98,6 @@ public class ScoresDrawings extends SurfaceView {
 
 
         greenFish = BitmapFactory.decodeResource(getResources(), R.drawable.greenfish);
-        resizedGreenFish = Bitmap.createScaledBitmap(greenFish, 300, 300, false);
 
         //cursedFish = BitmapFactory.decodeResource(getResources(), R.drawable.blackfish);
         //resizedCursedFish = Bitmap.createScaledBitmap(cursedFish, 300, 300, false);
@@ -119,6 +118,7 @@ public class ScoresDrawings extends SurfaceView {
         resizedOrange = Bitmap.createScaledBitmap(orangeFish, size, size, false);
         resizedRed = Bitmap.createScaledBitmap(redFish, size, size, false);
         resizedBlue = Bitmap.createScaledBitmap(blueFish, size, size, false);
+        resizedGreenFish = Bitmap.createScaledBitmap(greenFish, size, size, false);
         //resizedCursedFish = Bitmap.createScaledBitmap(cursedFish, size, size, false);
         /**
          *External Citation
