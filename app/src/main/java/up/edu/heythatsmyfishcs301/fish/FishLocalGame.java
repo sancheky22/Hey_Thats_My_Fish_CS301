@@ -2,6 +2,10 @@ package up.edu.heythatsmyfishcs301.fish;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import up.edu.heythatsmyfishcs301.game.GamePlayer;
 import up.edu.heythatsmyfishcs301.game.LocalGame;
 import up.edu.heythatsmyfishcs301.game.actionMsg.GameAction;
@@ -241,37 +245,60 @@ public class FishLocalGame extends LocalGame {
     protected String checkIfGameOver() {
         String end = "Game Over";
 
+        // array list to hold scores of each player
+        List<Integer> scoreList = new ArrayList<Integer>();
+
         // get a copy of the boardState
         board = fState.getBoardState();
         int playerTurn = fState.getPlayerTurn();
         int nextTurn = playerTurn;
         //The game can not end in the place penguin phase
-        if (fState.getGamePhase() == 0){
+        if (fState.getGamePhase() == 0) {
             return null;
         }
-        for (GamePlayer p : players){
+        for (GamePlayer p : players) {
             try {
                 FishComputerPlayer player = (FishComputerPlayer) p;
-                if (!player.isOut()){
+                if (!player.isOut()) {
                     return null;
                 }
-            }
-            catch (ClassCastException e) {
+            } catch (ClassCastException e) {
                 FishHumanPlayer player = (FishHumanPlayer) p;
-                if (!player.isOut()){
+                if (!player.isOut()) {
                     return null;
                 }
             }
+
+            // at the end of the game gets the score for each player
+            int p1Score = fState.getPlayer1Score();
+            int p2Score = fState.getPlayer2Score();
+            int p3Score = fState.getPlayer3Score();
+            int p4Score = fState.getPlayer4Score();
+
+            // add each players score to the arrayList of scores
+            scoreList.add(p1Score);
+            scoreList.add(p2Score);
+            scoreList.add(p3Score);
+            scoreList.add(p4Score);
+
+
+        }
+        // this int gets the max score out of the arraylist which would be the winners score
+        int maxScore = Collections.max(scoreList);
+
+        // if the maxScore matches a certain players score then they are the winner
+        if (maxScore == fState.getPlayer1Score()) {
+            return playerNames[0] + " is the winner with a score of " + maxScore;
+        } else if (maxScore == fState.getPlayer2Score()) {
+            return playerNames[1] + " is the winner with a score of " + maxScore;
+        } else if (maxScore == fState.getPlayer3Score()) {
+            return playerNames[2] + " is the winner with a score of " + maxScore;
+        } else if (maxScore == fState.getPlayer4Score()) {
+            return playerNames[3] + " is the winner with a score of " + maxScore;
         }
 
-        return end;
-        //get a copy of the piece array
-        //pieces = fState.getPieceArray();
-
-        //test if human player has any valid moves left. Does so by going through the whole board and checking
-        //if it has a penguin on it then checks if the penguin belongs to the human player. Then it calls the
-        //testMove function and if there's no legal moves left, it returns who won. If there is a legal move left
-        //it checks if the computer has any valid moves left
+        // return Game Over screen if there are scores that are a tie
+        return "No one wins there is a tie! " + end;
     }
 
 }

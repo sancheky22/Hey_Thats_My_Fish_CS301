@@ -35,7 +35,7 @@ public class FishView extends SurfaceView {
     private int cHeight;
     private HexagonDrawable hex = new HexagonDrawable(0xFFC3F9FF);
     private HexagonDrawable bigHex = new HexagonDrawable(0xFF5685C5);
-    private final int RESIZE = 150;
+    private final int RESIZE = 120;
     Bitmap redPenguin = null;
     Bitmap resizedRedPenguin = null;
     Bitmap orangePenguin = null;
@@ -44,8 +44,9 @@ public class FishView extends SurfaceView {
     Bitmap resizedBluePenguin = null;
     Bitmap greenPenguin = null;
     Bitmap resizedGreenPenguin = null;
-    Bitmap cursedPenguin = null;
-    Bitmap resizedCursedPenguin = null;
+
+//    Bitmap cursedPenguin = null;
+//    Bitmap resizedCursedPenguin = null;
 
 
     Bitmap oneFish = null;
@@ -99,15 +100,11 @@ public class FishView extends SurfaceView {
         rThreeFish = Bitmap.createScaledBitmap(threeFish, 90, 90, false);
 
         redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
-        //resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, RESIZE, RESIZE, false);
         orangePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
-        //resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, RESIZE, RESIZE, false);
         bluePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.bluepenguin);
-        //resizedBluePenguin = Bitmap.createScaledBitmap(bluePenguin, RESIZE, RESIZE, false);
         greenPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.greenpenguin);
-        //resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin, RESIZE, RESIZE, false);
-        cursedPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.cursed);
-        //resizedCursedPenguin = Bitmap.createScaledBitmap(cursedPenguin, RESIZE, RESIZE, false);
+        //cursedPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.cursed);
+
 
         //added
       //  mScaleDetector = new ScaleGestureDetector(context, new FishView());
@@ -142,7 +139,7 @@ public class FishView extends SurfaceView {
         resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, hexWidth - 20, hexWidth - 20, false);
         resizedBluePenguin = Bitmap.createScaledBitmap(bluePenguin, hexWidth - 20, hexWidth - 20, false);
         resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin, hexWidth - 20, hexWidth - 20, false);
-        resizedCursedPenguin = Bitmap.createScaledBitmap(cursedPenguin, hexWidth - 20, hexWidth - 20, false);
+       // resizedCursedPenguin = Bitmap.createScaledBitmap(cursedPenguin, hexWidth - 20, hexWidth - 20, false);
 
 
         //This Rect object is where we draw the hexagon. We will move it kind of like a stencil
@@ -201,20 +198,25 @@ public class FishView extends SurfaceView {
                     //if it is player 0 then it belongs to the orange penguin, if the player is 1, then the red penguin is assigned to that player
                     if (p != null){
                         //If the penguin is selected, then this float > 0. Otherwise it equals 0.
-                        //TODO: resize the penguins with this selection variable.
-                        float selection = p.getSelected()*15.0f;
+
+
+                        int selection = p.getSelected()*30;
+                        resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin,RESIZE+selection,RESIZE+selection,false);
+                        resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin,RESIZE+selection,RESIZE+selection,false);
+                        resizedBluePenguin = Bitmap.createScaledBitmap(bluePenguin,RESIZE+selection,RESIZE+selection,false);
+                        resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin,RESIZE+selection,RESIZE+selection,false);
 
                         if (p.getPlayer() == 0){
-                            c.drawBitmap(resizedOrangePenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
+                            c.drawBitmap(resizedOrangePenguin, tile.getBoundingBox().left-selection/2, tile.getBoundingBox().top-selection/2, null);
                         }
                         else if(p.getPlayer() == 1){
-                            c.drawBitmap(resizedRedPenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
+                            c.drawBitmap(resizedRedPenguin, tile.getBoundingBox().left-selection/2, tile.getBoundingBox().top-selection/2, null);
                         }
                         else if(p.getPlayer() == 2){
-                            c.drawBitmap(resizedBluePenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
+                            c.drawBitmap(resizedBluePenguin, tile.getBoundingBox().left-selection/2, tile.getBoundingBox().top-selection/2, null);
                         }
                         else if(p.getPlayer() == 3){
-                            c.drawBitmap(resizedCursedPenguin, tile.getBoundingBox().left-selection, tile.getBoundingBox().top-selection, null);
+                            c.drawBitmap(resizedGreenPenguin, tile.getBoundingBox().left-selection/2, tile.getBoundingBox().top-selection/2, null);
                         }
                     }
                 }
