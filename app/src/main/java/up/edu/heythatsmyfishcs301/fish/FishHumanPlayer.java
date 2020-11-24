@@ -122,6 +122,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             scores.setP4Score(gameState.getPlayer4Score());
 
             //send how many players there are to the placePenguin view
+            fishPlace.setNumPlayers(gameState.getNumPlayers());
             fishPlace.setGamePhase(gameState.getGamePhase());
             fishPlace.setGameState(gameState);
 
@@ -193,6 +194,14 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         FishTile[][] b = surfaceView.getGameState().getBoardState();
         rectArr = fishPlace.getRects();
 
+        if(gameState.getNumPlayers() == 3){
+            rectArr[playerNum][3] = null;
+        }
+        else if(gameState.getNumPlayers() == 4){
+            rectArr[playerNum][2] = null;
+            rectArr[playerNum][3] = null;
+        }
+
         //Local variables for the location of the touch.
         int x = (int) motionEvent.getX();
         int y = (int) motionEvent.getY();
@@ -232,16 +241,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                             FishPlaceAction p = new FishPlaceAction(this, dest, gameState.getPieceArray()[px][py]);
                             game.sendAction(p);
                             selectedRect = null;
-
-
-
-                            /**
-                             rectArr[px][py] = null;
-                             fishPlace.setRects(rectArr);
-                             px = 0;
-                             py = 0;
-                             fishPlace.invalidate();
-*/
                         }
                     }
                 }

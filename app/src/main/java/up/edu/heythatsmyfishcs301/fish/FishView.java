@@ -46,6 +46,7 @@ public class FishView extends SurfaceView {
     Bitmap cursedPenguin = null;
     Bitmap resizedCursedPenguin = null;
 
+
     Bitmap oneFish = null;
     Bitmap twoFish = null;
     Bitmap threeFish = null;
@@ -97,15 +98,15 @@ public class FishView extends SurfaceView {
         rThreeFish = Bitmap.createScaledBitmap(threeFish, 90, 90, false);
 
         redPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
-        resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, RESIZE, RESIZE, false);
+        //resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, RESIZE, RESIZE, false);
         orangePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
-        resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, RESIZE, RESIZE, false);
+        //resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, RESIZE, RESIZE, false);
         bluePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.bluepenguin);
-        resizedBluePenguin = Bitmap.createScaledBitmap(bluePenguin, RESIZE, RESIZE, false);
+        //resizedBluePenguin = Bitmap.createScaledBitmap(bluePenguin, RESIZE, RESIZE, false);
         greenPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.greenpenguin);
-        resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin, RESIZE, RESIZE, false);
+        //resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin, RESIZE, RESIZE, false);
         cursedPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.cursed);
-        resizedCursedPenguin = Bitmap.createScaledBitmap(cursedPenguin, RESIZE, RESIZE, false);
+        //resizedCursedPenguin = Bitmap.createScaledBitmap(cursedPenguin, RESIZE, RESIZE, false);
 
         //added
       //  mScaleDetector = new ScaleGestureDetector(context, new FishView());
@@ -135,6 +136,13 @@ public class FishView extends SurfaceView {
         int hexHeight = cHeight / 8;
         int hexWidth = cWidth / 8;
         int margin = 15;
+
+        resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, hexWidth - 20, hexWidth - 20, false);
+        resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin, hexWidth - 20, hexWidth - 20, false);
+        resizedBluePenguin = Bitmap.createScaledBitmap(bluePenguin, hexWidth - 20, hexWidth - 20, false);
+        resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin, hexWidth - 20, hexWidth - 20, false);
+        resizedCursedPenguin = Bitmap.createScaledBitmap(cursedPenguin, hexWidth - 20, hexWidth - 20, false);
+
 
         //This Rect object is where we draw the hexagon. We will move it kind of like a stencil
         // and then draw the hexagon inside it
