@@ -53,15 +53,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     private ScaleGestureDetector mScaleDetector;
     private float mScaleFactor = 1.f;
 
-//    Bitmap redPeng = null;
-//    Bitmap resizedRedPeng = null;
-//    Bitmap orangePeng = null;
-//    Bitmap resizedOrangePeng = null;
-
-
-
-
-
     // current player turn
     int turn;
 
@@ -128,8 +119,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
             fishPlace.invalidate();
 
-
-
             // update the surface view
             surfaceView.setGameState(new FishGameState((FishGameState)info));
             surfaceView.invalidate();
@@ -153,7 +142,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         scores = activity.findViewById(R.id.scoresDrawings);
 
 
-
         fishPlace.setOnTouchListener(this);
         surfaceView.setOnTouchListener(this);
 
@@ -170,23 +158,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             receiveInfo(gameState);
         }
     }
-//    @SuppressLint("NewApi")
-//    public FishHumanPlayer(Context context, AttributeSet attrs) {
-//        super(context, attrs);
-//        surfaceView.setWillNotDraw();
-//
-//        gameState = new FishGameState();
-//        redPeng = BitmapFactory.decodeResource(getResources(), R.drawable.redpenguin);
-//        resizedRedPeng = Bitmap.createScaledBitmap(redPeng, 115, 115, false);
-//
-//        orangePeng = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
-//        resizedOrangePeng = Bitmap.createScaledBitmap(orangePeng, 115, 115, false);
-//    }
 
-    //    @SuppressLint("NewApi")
-//    public void drawBoard(Canvas c, FishGameState g) {
-//
-//    }
     //This method controls all the touch events for the screen.
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -230,11 +202,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                             if(!b[i][j].hasPenguin() && b[i][j].getNumFish() == 1){
                                 rectArr[px][py] = null;
                                 fishPlace.setRects(rectArr);
-//                                px = 0;
-//                                py = 0;
-//                                fishPlace.invalidate();
                             }
-
                             dest = b[i][j];
                             FishPlaceAction p = new FishPlaceAction(this, dest, gameState.getPieceArray()[px][py]);
                             game.sendAction(p);
@@ -261,14 +229,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                             } else if (b[i][j].getPenguin().getPlayer() == this.playerNum) {
                                 //The player has selected this penguin to move
                                 selectedPenguin = b[i][j].getPenguin();
-                                //TODO: Highlight the selected penguin.
-                                //selectedPenguin.setSelected(1);
-                                //selectedPenguin.setScaleX(4.0f);
-                                //Invalidate the view so it updates
-                                // selectedPenguin.(1.2f);
-                                // view.animate().scaleX(1.5f).scaleY(1.5f);
+                                selectedPenguin.setSelected(1);
 
-//                          cardButton.setScaleY(1.2f);
                                 surfaceView.invalidate();
                                 Log.d("From Human Player", "Selected a valid penguin");
                             } else {
@@ -280,13 +242,9 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                             FishMoveAction m = new FishMoveAction(this, selectedPenguin, b[i][j]);
                             game.sendAction(m);
                             Log.d("From Human Player", "Sent action to Local Game");
-                            //TODO: unhighlight penguin
-                            //selectedPenguin.setSelected(0);
-                            // selectedPenguin.setScaleX(1f);
-                            //view.animate().scaleX(1f).scaleY(1f);
+                            selectedPenguin.setSelected(0);
                             selectedPenguin = null;
                             surfaceView.invalidate();
-
                         }
                     }
                 }
@@ -330,8 +288,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         return this.rectArr;
     }
 
-
-
     public boolean isOut(){
         return this.outOfGame;
     }
@@ -340,32 +296,3 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         this.outOfGame = b;
     }
 }
-
-//        // if we are not yet connected to a game, ignore
-//        if (game == null) return;
-//
-//        GameAction action = null;
-//
-//        GameInfo.setText("Info");
-//
-//        //if the player clicks one of the card buttons and it holds a card, select it
-//        //if positive, index functions as the index of both the correct ImageButton in the
-//        //button list and the correct Card in state.P1Hand
-//        int index = isCardButton(button);
-//        if (index >= 0){
-//            //set as the selected card
-//            state.setSelectedCard(state.getP1Hand().get(index));
-//
-//            //make the gui element a little larger, set all others to normal scale.
-//            for (ImageButton cardButton : cardButtonList){
-//                if (cardButton.getId() == cardButtonList.get(index).getId()){
-//                    cardButton.setScaleX(1.2f);
-//                    cardButton.setScaleY(1.2f);
-//                }
-//                else{
-//                    cardButton.setScaleX(1f);
-//                    cardButton.setScaleY(1f);
-//                }
-//            }
-//            updateDisplay();
-//        }

@@ -28,6 +28,7 @@ public class ScoresDrawings extends SurfaceView {
     Bitmap redFish = null;
     Bitmap blueFish = null;
     Bitmap greenFish = null;
+    Bitmap cursedFish = null;
     Bitmap resizedOrange = null;
     Bitmap resizedRed = null;
     Bitmap resizedBlue = null;
@@ -88,13 +89,13 @@ public class ScoresDrawings extends SurfaceView {
 
         //Getting our fishes and resizing them for the scoresDrawing surface View
         orangeFish = BitmapFactory.decodeResource(getResources(), R.drawable.orangefish);
-        resizedOrange = Bitmap.createScaledBitmap(orangeFish, 300, 300, false);
+
 
         redFish = BitmapFactory.decodeResource(getResources(), R.drawable.redfish);
-        resizedRed = Bitmap.createScaledBitmap(redFish, 300, 300, false);
+
 
         blueFish = BitmapFactory.decodeResource(getResources(), R.drawable.bluefish);
-        resizedBlue = Bitmap.createScaledBitmap(blueFish, 300, 300, false);
+
 
         greenFish = BitmapFactory.decodeResource(getResources(), R.drawable.greenfish);
         resizedGreenFish = Bitmap.createScaledBitmap(greenFish, 300, 300, false);
@@ -112,6 +113,13 @@ public class ScoresDrawings extends SurfaceView {
         //drawing our resized fishes using bitmap
            int sWidth =  canvas.getWidth();
            int sHeight = canvas.getHeight();
+
+           int size = sWidth - 100;
+
+        resizedOrange = Bitmap.createScaledBitmap(orangeFish, size, size, false);
+        resizedRed = Bitmap.createScaledBitmap(redFish, size, size, false);
+        resizedBlue = Bitmap.createScaledBitmap(blueFish, size, size, false);
+        //resizedCursedFish = Bitmap.createScaledBitmap(cursedFish, size, size, false);
         /**
          *External Citation
          * Date: 9/18/20
@@ -123,21 +131,21 @@ public class ScoresDrawings extends SurfaceView {
          * Solution: Used the Integer.toString method shown on the website
          */
         canvas.drawBitmap(this.resizedOrange, 0, 0, null);
-        canvas.drawText(Integer.toString(p1Score), sWidth/2, (float)sHeight*.17f, black);
+        canvas.drawText(Integer.toString(p1Score), size/2, (float)size / 2, black);
 
         canvas.drawBitmap(this.resizedRed, 0, sHeight/4, null);
-        canvas.drawText(Integer.toString(p2Score), sWidth/2, (float)sHeight*.42f, black);
+        canvas.drawText(Integer.toString(p2Score), size/2, (float)size / 2 + sHeight/4, black);
 
         if(numPlayers == 3){
             canvas.drawBitmap(this.resizedBlue, 0, sHeight/2, null);
-            canvas.drawText(Integer.toString(p3Score), sWidth/2, (float)sHeight*.67f, black);
+            canvas.drawText(Integer.toString(p3Score), size/2, (float)size/2 + sHeight/2, black);
         }
         else if(numPlayers == 4){
             canvas.drawBitmap(this.resizedBlue, 0, sHeight/2, null);
-            canvas.drawText(Integer.toString(p3Score), sWidth/2, (float)sHeight*.67f, black);
+            canvas.drawText(Integer.toString(p3Score), size/2, (float)size/2 + sHeight/2, black);
 
             canvas.drawBitmap(this.resizedGreenFish, 0, 3*sHeight/4, null);
-            canvas.drawText(Integer.toString(p4Score), sWidth/2, (float)sHeight*.92f, black);
+            canvas.drawText(Integer.toString(p4Score), size/2, (float)size/2 + 3*sHeight/4, black);
         }
 
 
