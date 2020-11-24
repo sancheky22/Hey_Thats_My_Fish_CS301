@@ -28,15 +28,6 @@ import up.edu.heythatsmyfishcs301.R;
 public class FishPlaceView extends SurfaceView {
     private int gamePhase;
 
-
-    private int cWidth;
-    private int cHeight;
-
-    private final String p1Place = "Player 1 Pieces:";
-    private final String p2Place = "Player 2 Pieces:";
-    private final String p3Place = "Player 3 Pieces:";
-    private final String p4Place = "Player 4 Pieces:";
-
     private FishGameState gameState;
     private int numPlayers = 4;
     int temp;
@@ -194,12 +185,6 @@ public class FishPlaceView extends SurfaceView {
                 canvas.drawText("Player " + (i+1) + " Pieces", 15, temp - 15, black);
             }
         }
-    }
-
-    public int getCanvasSize(Canvas canvas){
-        fpWidth =  canvas.getWidth();
-
-        return this.fpWidth;
     }
 
     public Rect[][] getRects(){
