@@ -40,17 +40,23 @@ public class FishLocalGame extends LocalGame {
      */
     @Override
     protected boolean canMove(int playerIdx) {
-        //If it is not the player's turn, return false.
-        /**
-         * MAYBE DELTE THIS
-         *
-         */
+        //In order to know if the player can move, we need to know if that player is on the board.
+        //If they are not, we increment the turn.
+        //Because this method is passed to every single player in the game, we need to keep the
+        //player turn the same. This double for loop accomplishes this.
         for (int i = 0; i <= 4; i++) {
             for (GamePlayer player : players) {
                 boolean myTurn = (fState.getPlayerTurn() == getPlayerIdx(player));
                 if (!myTurn){
                     continue;
                 }
+                /**
+                 * We have these try catch statements all over the Local Game.
+                 * The purpose of these is to access the out variable that all FishGamePlayers have.
+                 * It attempts to cast the GamePlayer object from the player array to a human
+                 * or computer. We use a try catch because it allows us to handle ClassCastException
+                 * errors.
+                 */
                 try {
                     FishComputerPlayer temp = (FishComputerPlayer) player;
                     if (temp.isOut() && myTurn) {
@@ -65,13 +71,22 @@ public class FishLocalGame extends LocalGame {
                 }
             }
         }
+        //If it is not the player's turn, return false so they do not move.
         if (playerIdx != fState.getPlayerTurn()) return false;
         return true;
     }
 
-    //This method is called whenever a new action arrives from a player.
-    //This is where we update the game state
-    //This includes changing the turn, updating the Tiles on the board, scores etc.
+    /**
+     * This method is called whenever a new action arrives from a player.
+     * This is where we update the game state
+     * This includes changing the turn, updating the Tiles on the board, scores etc.
+     * If it is an illegal action, it returns false and the game framework sends the player an
+     * instance of the IllegalMoveInfo.
+     *
+     * @param action
+     * 			The move that the player has sent to the game
+     * @return
+     */
     @Override
     protected boolean makeMove(GameAction action) {
 
@@ -81,9 +96,11 @@ public class FishLocalGame extends LocalGame {
             FishTile dest = ((FishMoveAction) action).getDestination();
             FishPenguin penguin = ((FishMoveAction) action).getPenguin();
 
+            //Update the game state properly
+            //If it is an illegal move, then this met
             if(fState.movePenguin(penguin,dest.getX(),dest.getY())){
                 Log.d("makeMove","Move was legal");
-                this.fState.changeTurn();
+                fState.changeTurn();
                 return true;
             }
             else{
@@ -92,6 +109,7 @@ public class FishLocalGame extends LocalGame {
             }
         }
 
+        //This means that the action was a place action.
         if(action instanceof FishPlaceAction){
             Log.d("Placing penguins", "Trying to place a penguin");
             FishTile dest = ((FishPlaceAction) action).getDestination();
@@ -110,6 +128,7 @@ public class FishLocalGame extends LocalGame {
                             }
                         }
                     }
+                    //We set the game phase to 1 once all of the penguins are on the board.
                     this.fState.setGamePhase(1);
                 }
                 return true;
@@ -119,31 +138,67 @@ public class FishLocalGame extends LocalGame {
                 return false;
             }
         }
-
-        //if computer makes a move, we want to set the score it obtains in the
-        //actual GameState then change the player turn back to human
-        else if(action instanceof FishComputerMoveAction){
-            this.fState.changeTurn();
-            int score = ((FishComputerMoveAction) action).getComScore();
-            this.fState.changeComScore(score);
-            Log.d("comScore changed","the computer's score is: " + score);
-            return true;
-        }
         return false;
     }
 
 
     /**
-     * This method is called when the game sends the gamestate to each player.
+     * This method is called when the game sends the game state to each player.
+     * In this method, we make sure one more time that if there are any players with no moves, we
+     * remove them from the board. We have to do it again here because the state was just updated.
      * @param p
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
-        // creates a copy of the GameState using its copy constructor
 
+        //Local variables that will be useful later.
         boolean myTurn;
+        int nextTurn = fState.getPlayerTurn();
+
         //If it is not the place phase
         if (fState.getGamePhase() == 1) {
+
+            /**
+             * Checks if the next player has any legal moves.
+             * If they do, then give everyone the info.
+             */
+            for (FishPenguin penguin : fState.getPieceArray()[nextTurn]) {
+                if (fState.testMove(penguin)) {
+                    FishGameState copy = new FishGameState(this.fState);
+                    p.sendInfo(copy);
+                    return;
+                }
+            }
+
+            /**
+             * if they don't then you can remove them from the board.
+             * perform all of the necessary actions (removing tiles, checking scores, etc.)
+             * Then we can send everyone the info.
+             */
+            for (FishPenguin penguin : fState.getPieceArray()[nextTurn]) {
+                penguin.setOnBoard(false);
+                int px = penguin.getX();
+                int py = penguin.getY();
+                board[px][py].setHasPenguin(false);
+                board[px][py].setPenguin(null);
+                board[px][py].setExists(false);
+                //fState.addScore(nextTurn,board[px][py].getNumFish());
+            }
+
+            //We can put that player out of the game at this point because they have no moves.
+            try {
+                FishComputerPlayer player = (FishComputerPlayer) players[nextTurn];
+                player.setOutOfGame(true);
+            }
+            catch(ClassCastException e){
+                FishHumanPlayer player = (FishHumanPlayer) players[nextTurn];
+                player.setOutOfGame(true);
+            }
+
+            /**
+             * We do an additional check to increment the player's turn in the game state one more
+             * time because we just altered it.
+             */
             for (int i = 0; i <= 4; i++) {
                 for (GamePlayer player : players) {
                     myTurn = (fState.getPlayerTurn() == getPlayerIdx(player));
@@ -166,8 +221,9 @@ public class FishLocalGame extends LocalGame {
             }
         }
 
+
+        //We send all players the edited game state.
         FishGameState copy = new FishGameState(this.fState);
-        // sends copy to specified player
         p.sendInfo(copy);
     }
 
@@ -193,36 +249,6 @@ public class FishLocalGame extends LocalGame {
         if (fState.getGamePhase() == 0){
             return null;
         }
-
-        //Checks if the next player has any legal moves.
-        //If they do, then don't end the game.
-        for (FishPenguin p : fState.getPieceArray()[nextTurn]) {
-            if (fState.testMove(p)) {
-                return null;
-            }
-        }
-
-        //if they don't then you can remove them from the board.
-        //perform all of the necessary actions (removing tiles, checking scores, etc.)
-
-        for (FishPenguin p : fState.getPieceArray()[nextTurn]) {
-            p.setOnBoard(false);
-            int px = p.getX();
-            int py = p.getY();
-            board[px][py].setHasPenguin(false);
-            board[px][py].setPenguin(null);
-            board[px][py].setExists(false);
-            fState.addScore(nextTurn,board[px][py].getNumFish());
-        }
-        try {
-            FishComputerPlayer player = (FishComputerPlayer) players[nextTurn];
-            player.setOutOfGame(true);
-        }
-        catch(ClassCastException e){
-            FishHumanPlayer player = (FishHumanPlayer) players[nextTurn];
-            player.setOutOfGame(true);
-        }
-
         for (GamePlayer p : players){
             try {
                 FishComputerPlayer player = (FishComputerPlayer) p;
