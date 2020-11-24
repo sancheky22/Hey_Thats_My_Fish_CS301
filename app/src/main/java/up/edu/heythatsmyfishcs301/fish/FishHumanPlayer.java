@@ -286,13 +286,13 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     }
 
     /**
-     External Citation
-     Date: 20 December 2020
-     Problem: Creating a dialog popup (for the help menu).
-     Resource:
-     https://developer.android.com/guide/topics/ui/dialogs
-     Solution: I looked at the documentation to help figure
-     out how to add a dialog popup for the info button.
+     *  External Citation
+     *  Date: 20 December 2020
+     *  Problem: Creating a dialog popup (for the help menu).
+     *  Resource:
+     *  https://developer.android.com/guide/topics/ui/dialogs
+     *  Solution: I looked at the documentation to help figure
+     *  out how to add a dialog popup for the info button.
      */
     public void openDialog() {
         final Dialog dialog = new Dialog(myActivity); // Context, this, etc.
