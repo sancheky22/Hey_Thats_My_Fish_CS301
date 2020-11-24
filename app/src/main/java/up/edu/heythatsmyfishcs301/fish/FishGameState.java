@@ -14,8 +14,9 @@ import up.edu.heythatsmyfishcs301.game.infoMsg.GameState;
  * @author Carina Pineda
  * @author Linda Nguyen
  *
- * This is the GameState. This object holds all of the info of the game such as current positions, points, turns, etc.
- * We pass this object to the localGame which copies it and sends images to the players so that they can make decisions.
+ * This is the GameState. This object holds all of the info of the game such as current positions,
+ * points, turns, etc. We pass this object to the localGame which copies it and sends images to the
+ * players so that they can make decisions.
  **/
 
 public class FishGameState extends GameState {
@@ -295,11 +296,13 @@ public class FishGameState extends GameState {
      *
      *
      *
-     * Because there are three different independent directions player can move, we needed a third way to check if they
-     * were moving in a straight line. So the solution to this is to just model it cleverly as a 2d array by adding some offsets.
-     * The above resource explains it well, but basically it makes it very easy to check if you are moving in a striaght line.
+     * Because there are three different independent directions player can move, we needed a third
+     * way to check if they were moving in a straight line. So the solution to this is to just model
+     * it cleverly as a 2d array by adding some offsets. The above resource explains it well, but
+     * basically it makes it very easy to check if you are moving in a striaght line.
      *
-     * This is what a 6x4 hexagon array looks like in our 2d array. 0's represent hexes and x's represent null spaces.
+     * This is what a 6x4 hexagon array looks like in our 2d array. 0's represent hexes
+     * and x's represent null spaces.
      *      x x 0 0 0 0
      *      x x 0 0 0 0
      *      x 0 0 0 0 x
@@ -307,7 +310,8 @@ public class FishGameState extends GameState {
      *      0 0 0 0 x x
      *      0 0 0 0 x x
      *
-     * The reason we choose to index them in this way is because we can easily check if a hexagon is adjacent to another hexagon.
+     * The reason we choose to index them in this way is because we can easily
+     * check if a hexagon is adjacent to another hexagon.
      * Each hex has 6 neighbors and they lok like this:
      *
      *  x 0 0
@@ -315,23 +319,27 @@ public class FishGameState extends GameState {
      *  0 0 x
      *
      *  where h's neighbors are the 0's.
-     *  a nice consequence of this arrangement is that we can check if two hexagons lie on the same line very easily.
-     *  There are three axes that they could lie on: horizontal, upper right, and lower right
-     *  These correspond in the 2d array as: same x value, same y value, and same x+y value, respectively.
-     *  For example, if we have two hexagons at p1 = (2,4) and p2 = (5,4), then we know those two hexagons are on the same upper right line because y1=y2
+     *  a nice consequence of this arrangement is that we can check if two hexagons
+     *  lie on the same line very easily. There are three axes that they could lie on: horizontal,
+     *  upper right, and lower right. These correspond in the 2d array as: same x value,
+     *  same y value, and same x+y value, respectively. For example, if we have two hexagons at
+     *  p1 = (2,4) and p2 = (5,4), then we know those two hexagons are on the same upper right line
+     *  because y1=y2
      */
 
     /**
      *
      * Helper method to initialize the board at the beginning of the game.
      * This method constructs the board based on the 2d array above.
-     * This also means that it has to initialize the number of fish on each of the tiles based on a specific distribution (30 ones, 20 twos, 10 threes).
+     * This also means that it has to initialize the number of fish on each of the tiles
+     * based on a specific distribution (30 ones, 20 twos, 10 threes).
      * @return FishTile[][], This is the board of the game.
      */
      private FishTile[][] initializeBoard(){
         //n is the number of null cells you need at the beginning of the array
         int n;
-        //c is the number of real tiles you have in a specific row. If the row is even, c = 8, if row is odd c = 7
+        //c is the number of real tiles you have in a specific row.
+         // If the row is even, c = 8, if row is odd c = 7
         int c;
         FishTile t;
         FishTile[][] f = new FishTile[BOARD_HEIGHT][BOARD_LENGTH];
@@ -340,15 +348,17 @@ public class FishGameState extends GameState {
         //Loop through a 2d array and initialize each hexagon
         for (int i = 0; i < BOARD_HEIGHT;i++)
         {
-            //Basically this value of n is based on i and it tells you how many null cells you need at the start of the row.
+            //Basically this value of n is based on i and it tells you how many null cells
+            // you need at the start of the row.
             //(i,n): (1,3), (2,3), (3,2), (4,2), (5,1)....
             n = 4-((i+1)+(i+1)%2)/2;
             c = 0;
             for (int j = 0; j < BOARD_LENGTH;j++)
             {
                 //if n is not 0, then there are still null cells that must be placed into the array.
-                //if i is even then c will hit 8 and then will start inputting null cells to finalize the array.
-                //This all results in an array where the null cells are where they need to be, and an extra null cell for odd rows.
+                //if i is even then c will hit 8 and then will start storing null cells in the array.
+                //This all results in an array where the null cells are where they need to be,
+                //and an extra null cell for odd rows.
                 if (n!=0 || c == (8 - i%2)) {
                     t = null;
                     n--;
@@ -373,9 +383,9 @@ public class FishGameState extends GameState {
      *
      * Solution: Used the Collections.shuffle() to randomize the array
      *
-     * This method starts by adding thirty 1's into the fishArray arraylist, then it adds twenty 2's, and finally ten 3's
-     * It then shuffles the arraylist so that when we go through the 2d array of fishTiles to assign each tile a numFish,
-     * it will be random
+     * This method starts by adding thirty 1's into the fishArray arraylist, then it adds twenty
+     * 2's, and finally ten 3's. It then shuffles the ArrayList so that when we go through the 2d
+     * array of fishTiles to assign each tile a numFish, it will be random
      */
     public void initFish() {
         for (int i = 0; i < 30; i++) {
@@ -395,11 +405,12 @@ public class FishGameState extends GameState {
 
     /**
      *
-     * Helper method to initialize the array of penguin pieces that belong to each player. The first coordinate represents
-     * the player number and the second coordinate represents the index of the penguin.
-     * The parameter n in this context is the number of players (2-4)
-     * The rules of the game state that for 2 player games, each player has 4 penguins. 3 players have 3 penguins each, and 4 players have 2 each.
-     * These numbers are pretty arbitrary but it works out nicely because the follow a simple pattern: PenguinsPerPlayer = 6-numPlayers
+     * Helper method to initialize the array of penguin pieces that belong to each player.
+     * The first coordinate represents the player number and the second coordinate represents the
+     * index of the penguin. The parameter n in this context is the number of players (2-4)
+     * The rules of the game state that for 2 player games, each player has 4 penguins. 3 players
+     * have 3 penguins each, and 4 players have 2 each. These numbers are pretty arbitrary but it
+     * works out nicely because the follow a simple pattern: PenguinsPerPlayer = 6-numPlayers
      *
      * @param n number of players
      * @return FishPenguin[][], the array that is initialilzed.
