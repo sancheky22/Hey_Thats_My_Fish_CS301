@@ -15,6 +15,7 @@
         android:layout_marginBottom="8dp"
         android:text="\u25CF Place your penguins by tapping on a desired penguin then on a tile with 1 fish on it.
         \n\u25CF Once all penguins are placed, players will take turns moving their penguins.
+        \n\u25CF When you want to move a penguin the one you select enlarges!
         \n\u25CF You can only move your penguins in a straight line.
         \n\u25CF You can't move your penguin over another one even if its your own!
         \n\u25CF You also can't move a penguin over a empty space on the board.
