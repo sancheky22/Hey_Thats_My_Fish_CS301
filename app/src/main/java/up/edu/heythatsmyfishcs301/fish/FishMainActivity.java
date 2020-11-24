@@ -8,6 +8,46 @@ import up.edu.heythatsmyfishcs301.game.LocalGame;
 import up.edu.heythatsmyfishcs301.game.config.GameConfig;
 import up.edu.heythatsmyfishcs301.game.config.GamePlayerType;
 
+
+/**
+ * STATUS OF OUR GAME (BETA RELEASE) :
+ * The game is fully functional, and supporst all the rules of play we committed to implement in our
+ * requirements. It is possible to play with any combination of players allowed by the requirements
+ * and the rules of play.
+ *
+ * All functionality of the GUI we specified in our requirements.
+ *
+ * Our "smart" and our "dumb" AI are also fully implemented. Our dumb AI when placing its penguins
+ * places them on the first tile it sees has one fish. When it moves its penguin it just moves to
+ * the next spot it sees that is valid, meaning there is a straight path to the tile and it isn't
+ * being obstructed by another penguin. Our "smart" AI has improved its placing action by randomly
+ * placing its pieces on any tile that has one fish. This spreads out the AI's pieces so that it can
+ * cover more ground and potentially get a higher score. It's move action is improved because it
+ * uses the same search algorithm to find a valid place but what differs from the "dumb" AI is that
+ * it searches each direction it can move and if that direction has a tile with 3 fish it moves there
+ * first to get the most score. If there aren't any 3 fish it can move to it checks to see if there
+ * are 2 fish, then 1 fish. We have seen in tests that on average the smart player scores more due
+ * to the improvements we've made
+ *
+ * All graphic elements are complete and in their final form. All final versions of our penguins and
+ * fishTiles are complete.
+ *
+ * THe GUI is also effective and functional :)
+ *
+ * We conducted a breadth of tests along with multiple edge case tests and have conlcuded that our
+ * game has a few bugs that we know of one of which is that, if the human player loses or wins,
+ * their penguins don't get redrawn to the side of the GUI. However this doesn't affect gameplay and
+ * is still fully functional with this in the game still. Another bug is that when run on the ASUS
+ * tablets if you restart the game multiple times it crashes. We have found this is due to the fact
+ * that we have a lot of bitmaps in our project which use a lot of memory. This is causing an out
+ * of memory error (~2GB of memory used).
+ *
+ *
+ */
+
+
+
+
 /**
  * This is the main activity, and the program is run from here.
  * This is where the local game is initialized and then the game framework handles the rest.
