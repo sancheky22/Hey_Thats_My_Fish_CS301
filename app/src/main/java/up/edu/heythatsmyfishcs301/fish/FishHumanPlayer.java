@@ -197,10 +197,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         int x = (int) motionEvent.getX();
         int y = (int) motionEvent.getY();
 
-
         //If the players are placing penguins
         if (gameState.getGamePhase() == 0) {
-
             if (selectedRect == null) {
                 for (int i = 0; i < rectArr.length; i++) {
                     for (int j = 0; j < rectArr[i].length; j++) {
@@ -294,7 +292,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                     }
                 }
             }
-
         }
         return false;
     }
