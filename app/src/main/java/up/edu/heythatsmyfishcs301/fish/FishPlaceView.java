@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -172,14 +171,15 @@ public class FishPlaceView extends SurfaceView {
 
         for(int i = 0; i < numPlayers; i++){
             for(int j = 0; j < 6-numPlayers; j++) {
-                if(!(gameState.getPieceArray()[i][j].isOnBoard()) && rects[i][j] != null){
-                    canvas.drawBitmap(bitArr[i][j], rects[i][j].left, rects[i][j].top, null);
+                if (rects[i][j] != null) {
+                    if (!(gameState.getPieceArray()[i][j].isOnBoard())) {
+                        canvas.drawBitmap(bitArr[i][j], rects[i][j].left, rects[i][j].top, null);
+                    }
                     temp = rects[i][j].top;
                 }
             }
-            if(gamePhase == 0){
-
-                canvas.drawText("Player " + (i+1) + " Pieces", 15, temp - 15, black);
+            if (gamePhase == 0) {
+                canvas.drawText("Player " + (i + 1) + " Pieces", 15, temp - 15, black);
             }
         }
     }
