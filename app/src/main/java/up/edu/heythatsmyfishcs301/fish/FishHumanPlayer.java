@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.Button;
 
@@ -46,12 +45,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     // create local board variable and local penguin variable
     private FishPenguin selectedPenguin;
-    private FishPenguin[][] pieces;
     private Rect selectedRect;
     FishTile dest;
-
-    private ScaleGestureDetector mScaleDetector;
-    private float mScaleFactor = 1.f;
 
     // current player turn
     int turn;
@@ -89,18 +84,12 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
 
         // ignore the message if it's not a FishGameState message
-        if (!(info instanceof FishGameState)) {
-            return;
-        }
-        else {
+        if (info instanceof FishGameState) {
             // update the state
             // initialize currently selectedPenguin
             selectedPenguin = null;
             // gets gameState
             gameState = (FishGameState) info;
-
-            // initialize piece array
-            pieces = gameState.getPieceArray();
 
             // sets player turn
             turn = gameState.getPlayerTurn();
@@ -130,7 +119,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     /**
      * Set the activity as the gui for the device.
      *
-     * @param activity
+     * @param activity activity to be set as gui
      */
     @Override
     public void setAsGui(GameMainActivity activity) {
@@ -280,8 +269,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             myActivity.recreate();
         }else if(button.equals(infoButton)){
             openDialog();
-        }else{
-            return; // do nothing
         }
     }
 

@@ -1,12 +1,12 @@
 package up.edu.heythatsmyfishcs301.fish;
 
+import java.util.ArrayList;
+
 import up.edu.heythatsmyfishcs301.game.GameMainActivity;
 import up.edu.heythatsmyfishcs301.game.GamePlayer;
 import up.edu.heythatsmyfishcs301.game.LocalGame;
 import up.edu.heythatsmyfishcs301.game.config.GameConfig;
 import up.edu.heythatsmyfishcs301.game.config.GamePlayerType;
-
-import java.util.ArrayList;
 
 /**
  * This is the main activity, and the program is run from here.
@@ -20,8 +20,6 @@ import java.util.ArrayList;
  **/
 public class FishMainActivity extends GameMainActivity {
 
-    // media player can go here for sounds
-
     // the port number that this game will use when playing over the network
     private static final int PORT_NUMBER = 2234;
 
@@ -29,7 +27,7 @@ public class FishMainActivity extends GameMainActivity {
     public GameConfig createDefaultConfig() {
 
         // Define the allowed player types
-        ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
+        ArrayList<GamePlayerType> playerTypes = new ArrayList<>();
 
         // GUI
         playerTypes.add(new GamePlayerType("Local Human Player (human)") {

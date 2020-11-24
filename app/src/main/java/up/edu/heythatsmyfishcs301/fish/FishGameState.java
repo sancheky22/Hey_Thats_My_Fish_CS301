@@ -178,7 +178,7 @@ public class FishGameState extends GameState {
      * @param p - penguin to be moved
      * @param x - x coordinate for destination
      * @param y - y coordinate for destination
-     * @return
+     * @return boolean True if the action is legal
      */
     public boolean movePenguin(FishPenguin p, int x, int y){
         int px = p.getX();
@@ -286,7 +286,7 @@ public class FishGameState extends GameState {
     }
 
 
-    /**
+    /*
      * External Citation
      * Date: October 12, 2020
      * Problem: wanted to index a hexagonal tiling in a clever way.
@@ -393,13 +393,6 @@ public class FishGameState extends GameState {
         Collections.shuffle(fishArray);
     }
 
-    /**
-     Helper method to initialize the array of penguin pieces that belong to each player. The first coordinate represents
-     the player number and the second coordinate represents the index of the penguin.
-     The parameter n in this context is the number of players (2-4)
-     The rules of the game state that for 2 player games, each player has 4 penguins. 3 players have 3 penguins each, and 4 players have 2 each.
-     These numbers are pretty arbitrary but it works out nicely because the follow a simple pattern: PenguinsPerPlayer = 6-numPlayers
-     */
     /**
      *
      * Helper method to initialize the array of penguin pieces that belong to each player. The first coordinate represents
