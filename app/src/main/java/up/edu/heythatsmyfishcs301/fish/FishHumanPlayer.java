@@ -165,17 +165,31 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         }
 
         //Local variables for the location of the touch.
-        int x = (int) motionEvent.getX();
-        int y = (int) motionEvent.getY();
+        //We use two variables because we have multiple surface views
+        int placeX = 0;
+        int placeY = 0;
+
+        int boardX = 0;
+        int boardY = 0;
+
+        if (view.equals(fishPlace)) {
+            placeX = (int) motionEvent.getX();
+            placeY = (int) motionEvent.getY();
+        }
+
+        if (view.equals(surfaceView)) {
+            boardX = (int) motionEvent.getX();
+            boardY = (int) motionEvent.getY();
+        }
+
 
         //If the players are in the place penguin phase
         if (gameState.getGamePhase() == 0) {
-
             //Select a penguin to be placed.
             if (selectedRect == null) {
                 for (int i = 0; i < rectArr.length; i++) {
                     for (int j = 0; j < rectArr[i].length; j++) {
-                        if (rectArr[i][j] != null && rectArr[i][j].contains(x, y)) {
+                        if (rectArr[i][j] != null && rectArr[i][j].contains(placeX, placeY)) {
                             if (i == playerNum) {
                                 selectedRect = rectArr[i][j];
                                 Log.d("Selected Rect",
@@ -192,7 +206,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             else if (selectedRect != null) {
                 for (FishTile[] fishTiles : b) {
                     for (FishTile fishTile : fishTiles) {
-                        if (fishTile != null && fishTile.getBoundingBox().contains(x, y)) {
+                        if (fishTile != null && fishTile.getBoundingBox().contains(boardX, boardY)) {
 
                             if (!fishTile.hasPenguin() && fishTile.getNumFish() == 1) {
                                 rectArr[px][py] = null;
@@ -211,12 +225,13 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         }
         //If the game phase == 1
         else {
+            rectArr = null;
             //Iterate through the tiles in the 2d board array until you
             //find the one that contains the place where it was touched.
             //There has to be a better way to do this :(
             for (int i = 0; i < b.length; i++) {
                 for (int j = 0; j < b[i].length; j++) {
-                    if (b[i][j] != null && b[i][j].getBoundingBox().contains(x, y)) {
+                    if (b[i][j] != null && b[i][j].getBoundingBox().contains(boardX, boardY)) {
                         //the player has clicked this bounding box.
 
                         Log.d("From FishView", "Touched the Fish View at: " + i + ", " + j);
