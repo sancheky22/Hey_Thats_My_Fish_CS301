@@ -119,8 +119,6 @@ public class FishPlaceView extends SurfaceView {
 
 
 
-
-
         /**
          *External Citation
          * Date: 9/18/20
