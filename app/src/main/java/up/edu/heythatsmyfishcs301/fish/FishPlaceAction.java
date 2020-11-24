@@ -16,6 +16,7 @@ import up.edu.heythatsmyfishcs301.game.actionMsg.GameAction;
  * @author Linda Nguyen
  **/
 public class FishPlaceAction extends GameAction {
+    // Instance variables for PlaceAction
     FishTile destination;
     private FishPenguin penguin;
 
@@ -30,6 +31,8 @@ public class FishPlaceAction extends GameAction {
         this.penguin = p;
     }
 
+
+    // getters for instance variables
     public FishTile getDestination(){
         return this.destination;
     }

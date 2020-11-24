@@ -24,7 +24,14 @@ public class FishPenguin {
     private int selected;
     private float scaleX;
 
-    //Constructor for a penguin piece. Needs a player who placed it and the location it was placed in.
+
+
+    /**
+     *
+     * @param playerNumber
+     *
+     * Constructor for a penguin piece. Needs a player who placed it and the location it was placed in
+     */
     public FishPenguin(int playerNumber){
         this.player = playerNumber;
         this.onBoard = false;
