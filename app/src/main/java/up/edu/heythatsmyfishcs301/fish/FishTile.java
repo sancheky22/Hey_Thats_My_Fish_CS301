@@ -48,7 +48,9 @@ public class FishTile {
         this.boundingBox = new Rect(t.boundingBox);
     }
 
-    //Getter Methods
+    /**
+     * GETTER METHODS
+     */
     public int getX(){
         return this.x;
     }
@@ -73,7 +75,10 @@ public class FishTile {
         return this.boundingBox;
     }
 
-    //Setter methods
+
+    /**
+     * SETTER METHODS
+     */
     public void setX(int x){
         this.x = x;
     }
@@ -106,4 +111,4 @@ public class FishTile {
         return this.numFish;
     }
 
-}
+} //FishTile class
