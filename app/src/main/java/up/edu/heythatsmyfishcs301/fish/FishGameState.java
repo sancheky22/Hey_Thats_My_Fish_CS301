@@ -18,9 +18,7 @@ import up.edu.heythatsmyfishcs301.game.infoMsg.GameState;
  * We pass this object to the localGame which copies it and sends images to the players so that they can make decisions.
  **/
 
-
 public class FishGameState extends GameState {
-
 
     final int BOARD_HEIGHT = 8;
     final int BOARD_LENGTH = 11;
@@ -33,11 +31,8 @@ public class FishGameState extends GameState {
 
 
     //store scores for all players
-    //Note: if the game has fewer than 4 players, then the non-existent player scores will stay at 0
-    private int player1Score;
-    private int player2Score;
-    private int player3Score;
-    private int player4Score;
+    //Note: if the game has fewer than 4 players, then the extra player scores will stay at 0
+    private int player1Score, player2Score, player3Score, player4Score;
 
     //Stores the phase of the game (0: placement phase, 1: main game, 2: End game screen)
     private int gamePhase;
@@ -50,10 +45,17 @@ public class FishGameState extends GameState {
     //FishPenguin[][] is a 2d array to store all the penguins.
     private FishPenguin[][] pieceArray;
 
-    //Arraylist of integers that will hold 1s, 2s, or 3s. Will be used to randomly assign each tile a number of fish
+    //ArrayList of integers that will hold 1s, 2s, or 3s.
+    //Will be used to randomly assign each tile a number of fish
     ArrayList<Integer> fishArray = new ArrayList<>(60);
 
     // Default constructor
+
+    /**
+     * Creates an instance of the game state class
+     *
+     * @param n - number of players in the game (Initialized from the Main Activity)
+     */
     public FishGameState(int n){
         this.playerTurn = 0;
         //numPlayers is set to 2 for the alpha
@@ -71,9 +73,12 @@ public class FishGameState extends GameState {
         pieceArray = initializePieces(numPlayers);
     }
 
+
     /**
-    Copy constructor. Creates a deep copy of the game state
-    */
+     * Copy constructor to make deep copies.
+     *
+     * @param o - object to be copied
+     */
      public FishGameState(FishGameState o){
         this.playerTurn = o.playerTurn;
         this.numPlayers = o.numPlayers;
@@ -86,46 +91,52 @@ public class FishGameState extends GameState {
 
         //Deep copies for array mean you have to loop through it and individually copy each element
         this.boardState = new FishTile[BOARD_HEIGHT][BOARD_LENGTH];
-        for (int i=0;i<this.boardState.length;i++){
-            for(int j=0;j<this.boardState[0].length;j++){
+        for (int i = 0 ; i < this.boardState.length ; i++) {
+            for (int j = 0; j < this.boardState[0].length; j++) {
                 this.boardState[i][j] = o.getBoardState()[i][j];
             }
         }
-        //this.pieceArray = new FishPenguin[o.numPlayers][6-o.numPlayers];
 
         this.pieceArray = new FishPenguin[numPlayers][6 - numPlayers];
-        for (int i=0;i<this.pieceArray.length;i++){
-            for(int j=0;j<this.pieceArray[0].length;j++){
+        for (int i = 0 ; i < this.pieceArray.length; i++){
+            for(int j = 0 ; j < this.pieceArray[0].length; j++){
                 this.pieceArray[i][j] = o.getPieceArray()[i][j];
             }
         }
     }
 
     /**
-     * TestMove will see if a penguin p has valid moves.
+     * testMove takes a penguin object and sees if that object has any valid moves.
+     *
+     * @param p - penguin to be tested
+     * @return boolean, returns true if the penguin has a valid move it can take.
      */
     public boolean testMove(FishPenguin p){
         //Create local variables for these values so the method is easier to read.
-        FishTile[][] b = this.boardState;
+        FishTile[][] b = boardState;
         int x = p.getX();
         int y = p.getY();
 
-        Log.d("From TestMove", "Attempting to see if a penguin from player "+p.getPlayer()+" has a legal move...");
+        Log.d("From TestMove", "Attempting to see " +
+                "if a penguin from player " + p.getPlayer() + " has a legal move...");
 
         //need to test 6 things:
         //+x, -x, +y, -y, +x & -y, -x & +y
         for (int i = -1; i <= 1; i += 2) {
             try {
                 //If an adjacent tile has a penguin or does not exist, then it can not be moved to.
-                if (b[x + i][y] != null && !b[x + i][y].hasPenguin() && b[x + i][y].doesExist()) {
+                if (b[x + i][y] != null && !b[x + i][y].hasPenguin()
+                        && b[x + i][y].doesExist()) {
                     Log.d("From TestMove", "Found a legal move 1");
                     return true;
                 }
-                if (b[x + i][y - i] != null && !b[x + i][y - i].hasPenguin() && b[x + i][y - i].doesExist()) {
+                if (b[x + i][y - i] != null && !b[x + i][y - i].hasPenguin()
+                        && b[x + i][y - i].doesExist()) {
                     Log.d("From TestMove", "Found a legal move 3");
                     return true;
                 }
-                if (b[x][y + i] != null && !b[x][y + i].hasPenguin() && b[x][y + i].doesExist()) {
+                if (b[x][y + i] != null && !b[x][y + i].hasPenguin()
+                        && b[x][y + i].doesExist()) {
                     Log.d("From TestMove", "Found a legal move 2");
                     return true;
                 }
@@ -139,10 +150,15 @@ public class FishGameState extends GameState {
     }
 
 
-    /**
-     * Place Penguin is called at the start of the game, when players choose where their penguins start
-     */
     //Action: When the player moves a penguin onto the board at the beginning of the game.
+
+    /**
+     * Place Penguin action is called when a player places their penguin
+     * @param p - penguin to be placed onto board.
+     * @param x - x coordinate for destination
+     * @param y - y coordinate for destination
+     * @return boolean, returns true if move is legal
+     */
     public boolean placePenguin(FishPenguin p, int x, int y) {
         if(boardState[x][y].hasPenguin() || boardState[x][y].getNumFish() != 1){
             return false;
@@ -155,24 +171,29 @@ public class FishGameState extends GameState {
         return true;
     }
 
-    /**
-    Action: When the player moves a penguin p to the coordinate (x,y) in the hex board.
-    After this action is taken, the original tile needs to be removed, the player's score needs to be updated, and the turn needs to be incremented.
-    TODO: Replace the logic in this method so that it takes a Tile object rather than two indices for the board state.
-    */
-    public boolean movePenguin(FishPenguin p, int x, int y){
-        //Make sure the penguin is not moving to the same tile
 
+    /**
+     * Called when a player needs to move their penguin
+     *
+     * @param p - penguin to be moved
+     * @param x - x coordinate for destination
+     * @param y - y coordinate for destination
+     * @return
+     */
+    public boolean movePenguin(FishPenguin p, int x, int y){
         int px = p.getX();
         int py = p.getY();
 
+        //Make sure the penguin is not moving to the same tile
         if(px == x && py == y){
             return false;
         }
+
         //Make sure that the space you are moving to exists (might be redundant later im not sure)
         if (!boardState[x][y].doesExist()){
             return false;
         }
+
         //0 means horizontal, 1 means down right diag, 2 means up right diag
         int direction;
         if (py == y){
@@ -187,6 +208,7 @@ public class FishGameState extends GameState {
         else{
             return false;
         }
+
         //If the new move is up left diag or down right diag
         if (direction == 1){
             //s is the sign of (new coordinate - old coordinate)
@@ -198,6 +220,7 @@ public class FishGameState extends GameState {
                 }
             }
         }
+
         //If the new move is horizontal (left or right)
         else if (direction == 0){
             int s = Integer.signum(y-py);
@@ -207,49 +230,44 @@ public class FishGameState extends GameState {
                 }
             }
         }
+
         //If the new move is up right diag or down left diag
         else {
             //If s is positive, you are moving upper right diag
-        int s = Integer.signum(y-py);
-        for (int i = s; i != y-py + s; i+=s){
-            if (boardState[px-i][py+i].hasPenguin() || !boardState[px-i][py+i].doesExist()){
-                return false;
+            int s = Integer.signum(y-py);
+            for (int i = s; i != y-py + s; i+=s){
+                if (boardState[px-i][py+i].hasPenguin() || !boardState[px-i][py+i].doesExist()){
+                    return false;
+                }
             }
         }
-    }
 
-        //If the move is legal, then add to the player's score the fish on the tile and remove the tile from the game. Then pass the turn.
+        //If the move is legal, then add to the player's score the fish on the tile and remove the
+        //tile from the game. Then pass the turn and return true.
         addScore(playerTurn,boardState[px][py].getNumFish());
         boardState[px][py].setExists(false);
         boardState[px][py].setHasPenguin(false);
         p.setXPos(x);
         p.setYPos(y);
-        Log.d("Human Moved", "human moved to (" + p.getX() + "," + p.getY() + ")");
         boardState[x][y].setPenguin(p);
         boardState[x][y].setHasPenguin(true);
         return true;
     }
 
+
     /**
-    * change turn method that changes current turn of the game
-    */
+     * Helper method to switch the turn of the game state
+     */
     public void changeTurn() {
         this.playerTurn = (this.playerTurn+1)%this.numPlayers;
     }
 
-    /**
-    method useed in FishLocalGame and is needed so that when the AI makes a move,
-    it can be sent to the actual gamestate
-    This is in the alpha, but will be generalized later
-     */
-    public void changeComScore(int i){
-        this.player2Score = i;
-    }
 
     /**
-    Helper method that is called whenever a player's score needs to be incremented
-    p = player's turn, s = score to be added
-    */
+     * Helper method that is called whenever a player's score needs to be incremented
+     * @param pT Player's score to be edited
+     * @param s the score to be added
+     */
      public void addScore(int pT, int s){
         switch(pT){
             case 0:
@@ -303,10 +321,12 @@ public class FishGameState extends GameState {
      *  For example, if we have two hexagons at p1 = (2,4) and p2 = (5,4), then we know those two hexagons are on the same upper right line because y1=y2
      */
 
-     /**
-      Helper method to initialize the board at the beginning of the game.
-      This method constructs the board based on the 2d array above.
-      This also means that it has to initialize the number of fish on each of the tiles based on a specific distribution (30 ones, 20 twos, 10 threes).
+    /**
+     *
+     * Helper method to initialize the board at the beginning of the game.
+     * This method constructs the board based on the 2d array above.
+     * This also means that it has to initialize the number of fish on each of the tiles based on a specific distribution (30 ones, 20 twos, 10 threes).
+     * @return FishTile[][], This is the board of the game.
      */
      private FishTile[][] initializeBoard(){
         //n is the number of null cells you need at the beginning of the array
@@ -342,8 +362,6 @@ public class FishGameState extends GameState {
                 f[i][j] = t;
             }
         }
-        //hardcoded value for alpha release
-        //f[6][6].setHasPenguin(true);
         return f;
     }
 
@@ -381,6 +399,17 @@ public class FishGameState extends GameState {
      The parameter n in this context is the number of players (2-4)
      The rules of the game state that for 2 player games, each player has 4 penguins. 3 players have 3 penguins each, and 4 players have 2 each.
      These numbers are pretty arbitrary but it works out nicely because the follow a simple pattern: PenguinsPerPlayer = 6-numPlayers
+     */
+    /**
+     *
+     * Helper method to initialize the array of penguin pieces that belong to each player. The first coordinate represents
+     * the player number and the second coordinate represents the index of the penguin.
+     * The parameter n in this context is the number of players (2-4)
+     * The rules of the game state that for 2 player games, each player has 4 penguins. 3 players have 3 penguins each, and 4 players have 2 each.
+     * These numbers are pretty arbitrary but it works out nicely because the follow a simple pattern: PenguinsPerPlayer = 6-numPlayers
+     *
+     * @param n number of players
+     * @return FishPenguin[][], the array that is initialilzed.
      */
     private FishPenguin[][] initializePieces(int n){
         int m = 6-n;
