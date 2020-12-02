@@ -22,20 +22,16 @@ import up.edu.heythatsmyfishcs301.game.infoMsg.GameState;
 
 public class FishGameState extends GameState {
 
+    // Variables for our games board
     final int BOARD_HEIGHT = 8;
     final int BOARD_LENGTH = 11;
     private int numPlayers;
 
-    private boolean p4InGame = false;
+    // array of our games players
     private GamePlayer[] players;
-
-    private String[] names;
 
     //store the current players turn (0,1,2,3)
     private int playerTurn;
-
-    // number of players playing the game
-
 
     //store scores for all players
     //Note: if the game has fewer than 4 players, then the extra player scores will stay at 0
@@ -239,11 +235,14 @@ public class FishGameState extends GameState {
      */
     public boolean reachable(FishPenguin p, FishTile t){
         if (this.getGamePhase() == 0) return false;
+        // if the penguin is null return
         if (p == null) return false;
 
+        // get x and y coordinates of penguin
         int px = p.getX();
         int py = p.getY();
 
+        // get x and y coordinates of FishTile
         int x = t.getX();
         int y = t.getY();
 

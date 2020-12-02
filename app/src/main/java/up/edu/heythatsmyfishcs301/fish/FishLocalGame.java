@@ -1,6 +1,5 @@
 package up.edu.heythatsmyfishcs301.fish;
 
-import android.media.MediaPlayer;
 import android.util.Log;
 
 import java.util.ArrayList;

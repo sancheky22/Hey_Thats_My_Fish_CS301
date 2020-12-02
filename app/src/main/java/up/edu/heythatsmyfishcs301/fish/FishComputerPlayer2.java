@@ -21,7 +21,9 @@ import up.edu.heythatsmyfishcs301.game.infoMsg.NotYourTurnInfo;
  **/
 public class FishComputerPlayer2 extends FishComputerPlayer {
 
+    // This classes' version of the state of the board
     private FishTile[][] boardState;
+    // Our copy of the gamestate which is initially set to null
     FishGameState copy = null;
 
     //Constructor for Computer Player 2
@@ -31,7 +33,6 @@ public class FishComputerPlayer2 extends FishComputerPlayer {
 
     // Array list for all tiles on board with one fish
     ArrayList<FishTile> oneTiles = new ArrayList<>(30);
-
 
     /**
      * Checks what phase of the game it is. This method receives the current
