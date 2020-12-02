@@ -110,25 +110,8 @@ public class FishComputerPlayer2 extends FishComputerPlayer {
 
 
         }else {
-            // loop through the board to see there is a penguin on the tile. If there is, it checks if the
-            //penguin belongs to the computer. If it does, it calls the computerMovePenguin
-//                for(int i =0; i < pieceBoard.length; i++){
-//                    for(int j=0; j< pieceBoard[i].length;j++){
-//                        if(pieceBoard[i][j] != null){
-//                            if(pieceBoard[i][j].hasPenguin() && pieceBoard[i][j].getPenguin().getPlayer() == this.playerNum){
-//                                if(!computerMovePenguin(pieceBoard[i][j].getPenguin())){
-//                                    //Penguin is removed from board.
-//                                    continue;
-//                                }
-//                                else {
-//                                    return;
-//                                }
-//
-//                            }
-//                        }
-//                    }
-//
-//                }
+            //The smart computer checks all of its penguins for a move that results in the highest
+            //score move.
             for (int i = 3; i > 0; i--) {
                 for (FishPenguin p : copy.getPieceArray()[this.playerNum]) {
                     if(computerMovePenguin(p,i)){
@@ -169,33 +152,29 @@ public class FishComputerPlayer2 extends FishComputerPlayer {
             // checks if it can move to a tile with 3 fish then 2 fish and then 1 fish
             //  try to move horizontally to the right
             try {
-                if (!(pieceBoard[p.getX()][p.getY() + j].hasPenguin()) &&
-                        (pieceBoard[p.getX()][p.getY() + j].getNumFish() == target) &&
-                        (pieceBoard[p.getX()][p.getY() + j].doesExist())) {
-                    FishMoveAction m = new FishMoveAction(this, p,
-                            this.boardState[p.getX()][p.getY() + j]);
-                    Log.d("Move", "Computer Player Moving horizontally to the right");
-                    Log.d("Computer Moved", "Computer moved to (" + p.getX() +
-                            "," + p.getY() + ")");
-                    if (isLegal(m)) {
+                FishTile t = pieceBoard[p.getX()][p.getY()+j];
+                if (t.getNumFish() == target){
+                    if(copy.reachable(p, t)){
+                        FishMoveAction m = new FishMoveAction(this, p, t);
+                        Log.d("Move", "Computer Player Moving horizontally to the right");
+                        Log.d("Computer Moved", "Computer moved to (" + p.getX() +
+                                "," + p.getY() + ")");
                         game.sendAction(m);
                         return true;
                     }
                 }
             }
             catch(Exception ignored) {}
+
             try {
                 // checks if the upper left tile to see if the computer can move there
-                if (!(pieceBoard[p.getX() + j][p.getY()].hasPenguin()) &&
-                        (pieceBoard[p.getX() + j][p.getY()].getNumFish() == target) &&
-                        (pieceBoard[p.getX() + j][p.getY()].doesExist())) {
-
-                    FishMoveAction m = new FishMoveAction(this, p,
-                            this.boardState[p.getX() + j][p.getY()]);
-                    Log.d("Move", "Computer Player Moving diagonally down to the right");
-                    Log.d("Computer Moved", "Computer moved to (" + p.getX() +
-                            "," + p.getY() + ")");
-                    if (isLegal(m)) {
+                FishTile t = pieceBoard[p.getX()+j][p.getY()];
+                if (t.getNumFish() == target){
+                    if(copy.reachable(p, t)){
+                        FishMoveAction m = new FishMoveAction(this, p, t);
+                        Log.d("Move", "Computer Player Moving horizontally to the right");
+                        Log.d("Computer Moved", "Computer moved to (" + p.getX() +
+                                "," + p.getY() + ")");
                         game.sendAction(m);
                         return true;
                     }
@@ -204,17 +183,13 @@ public class FishComputerPlayer2 extends FishComputerPlayer {
             catch(Exception ignored){}
 
             try{
-                //try to move diagonally down to the left
-                // tries to move to tiles with 3 fish first
-                if (!(pieceBoard[p.getX() + j][p.getY() - j].hasPenguin()) &&
-                        (pieceBoard[p.getX() + j][p.getY() - j].getNumFish() == target) &&
-                        (pieceBoard[p.getX() + j][p.getY() - j].doesExist())) {
-                    FishMoveAction m = new FishMoveAction(this, p,
-                            this.boardState[p.getX() + j][p.getY() - j]);
-                    Log.d("Move", "Computer Player Moving diagonally down to the left");
-                    Log.d("Computer Moved", "Computer moved to (" + p.getX() +
-                            "," + p.getY() + ")");
-                    if (isLegal(m)) {
+                FishTile t = pieceBoard[p.getX()+j][p.getY()-j];
+                if (t.getNumFish() == target){
+                    if(copy.reachable(p, t)){
+                        FishMoveAction m = new FishMoveAction(this, p, t);
+                        Log.d("Move", "Computer Player Moving horizontally to the right");
+                        Log.d("Computer Moved", "Computer moved to (" + p.getX() +
+                                "," + p.getY() + ")");
                         game.sendAction(m);
                         return true;
                     }
@@ -223,79 +198,5 @@ public class FishComputerPlayer2 extends FishComputerPlayer {
             catch(Exception ignored){}
         }
         return false;
-    }
-
-    /**
-     * helper method to see if a move is legal before it is sent to the game.
-     * @param m move to be checked
-     * @return
-     */
-    private boolean isLegal(FishMoveAction m){
-        FishPenguin p = m.getPenguin();
-        FishTile t = m.getDestination();
-        int px = p.getX();
-        int py = p.getY();
-
-        int x = t.getX();
-        int y = t.getY();
-
-        //Make sure the penguin is not moving to the same tile
-        if(px == x && py == y){
-            return false;
-        }
-
-        //Make sure that the space you are moving to exists (might be redundant later im not sure)
-        if (!boardState[x][y].doesExist()){
-            return false;
-        }
-
-        //0 means horizontal, 1 means down right diag, 2 means up right diag
-        int direction;
-        if (py == y){
-            direction = 1;
-        }
-        else if (px == x){
-            direction = 0;
-        }
-        else if (py+px == x+y){
-            direction = 2;
-        }
-        else{
-            return false;
-        }
-
-        //If the new move is up left diag or down right diag
-        if (direction == 1){
-            //s is the sign of (new coordinate - old coordinate)
-            //if s is positive, then you are moving to the right
-            int s = Integer.signum(x-px);
-            for (int i = px+s; i != x + s; i+=s){
-                if (boardState[i][py].hasPenguin() || !this.boardState[i][py].doesExist()){
-                    return false;
-                }
-            }
-        }
-
-        //If the new move is horizontal (left or right)
-        else if (direction == 0){
-            int s = Integer.signum(y-py);
-            for (int i = py+s; i != y + s; i+=s){
-                if (boardState[px][i].hasPenguin() || !boardState[px][i].doesExist()){
-                    return false;
-                }
-            }
-        }
-
-        //If the new move is up right diag or down left diag
-        else {
-            //If s is positive, you are moving upper right diag
-            int s = Integer.signum(y-py);
-            for (int i = s; i != y-py + s; i+=s){
-                if (boardState[px-i][py+i].hasPenguin() || !boardState[px-i][py+i].doesExist()){
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 }

@@ -180,7 +180,7 @@ public class FishView extends SurfaceView {
                     //If the selected penguin can move to the tile, then highlight it
                     //Or if it is the place phase and it is a legal place tile
                     if ((gameState.getGamePhase() == 0 && tile.getNumFish() == 1 && !tile.hasPenguin())
-                            || reachable(selected,tile)){
+                            || gameState.reachable(selected,tile)){
                         bigHexHighLight.computeHex(bound);
                         bigHexHighLight.draw(c);
                     }
@@ -284,84 +284,6 @@ public class FishView extends SurfaceView {
         resizedBluePenguin.recycle();
         resizedRedPenguin.recycle();
         resizedOrangePenguin.recycle();
-    }
-
-
-    /**
-     * Returns true if a penguin can move to a tile
-     * @param p penguin
-     * @param t tile
-     * @return true if p can move to t
-     */
-    private boolean reachable(FishPenguin p, FishTile t){
-        FishTile[][] boardState = gameState.getBoardState();
-        if (gameState.getGamePhase() == 0) return false;
-        if (p == null) return false;
-
-        int px = p.getX();
-        int py = p.getY();
-
-        int x = t.getX();
-        int y = t.getY();
-
-        //Make sure the penguin is not moving to the same tile
-        if(px == x && py == y){
-            return false;
-        }
-
-        //Make sure that the space you are moving to exists (might be redundant later im not sure)
-        if (!boardState[x][y].doesExist()){
-            return false;
-        }
-
-        //0 means horizontal, 1 means down right diag, 2 means up right diag
-        int direction;
-        if (py == y){
-            direction = 1;
-        }
-        else if (px == x){
-            direction = 0;
-        }
-        else if (py+px == x+y){
-            direction = 2;
-        }
-        else{
-            return false;
-        }
-
-        //If the new move is up left diag or down right diag
-        if (direction == 1){
-            //s is the sign of (new coordinate - old coordinate)
-            //if s is positive, then you are moving to the right
-            int s = Integer.signum(x-px);
-            for (int i = px+s; i != x + s; i+=s){
-                if (boardState[i][py].hasPenguin() || !boardState[i][py].doesExist()){
-                    return false;
-                }
-            }
-        }
-
-        //If the new move is horizontal (left or right)
-        else if (direction == 0){
-            int s = Integer.signum(y-py);
-            for (int i = py+s; i != y + s; i+=s){
-                if (boardState[px][i].hasPenguin() || !boardState[px][i].doesExist()){
-                    return false;
-                }
-            }
-        }
-
-        //If the new move is up right diag or down left diag
-        else {
-            //If s is positive, you are moving upper right diag
-            int s = Integer.signum(y-py);
-            for (int i = s; i != y-py + s; i+=s){
-                if (boardState[px-i][py+i].hasPenguin() || !boardState[px-i][py+i].doesExist()){
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     public FishGameState getGameState() { return this.gameState; }

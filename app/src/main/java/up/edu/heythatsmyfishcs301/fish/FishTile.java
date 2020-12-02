@@ -31,7 +31,6 @@ public class FishTile {
         this.exists = true;
         this.hasPenguin = false;
         this.penguin = null;
-        //needs to be [1-3] not just 3 but we can work on that later
         this.boundingBox = null;
     }
 

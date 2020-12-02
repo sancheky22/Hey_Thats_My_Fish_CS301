@@ -1,5 +1,5 @@
 package up.edu.heythatsmyfishcs301.fish;
-import java.lang.Object;
+
 /**
  * This object contains all the variables that a piece would have such as: player, position, and whether or not it is on the board.
  *
@@ -20,9 +20,7 @@ public class FishPenguin {
     private int xPos;
     private int yPos;
     private boolean onBoard;
-    private boolean legalMoves;
     private int selected;
-    private float scaleX;
 
 
 
@@ -35,7 +33,6 @@ public class FishPenguin {
     public FishPenguin(int playerNumber){
         this.player = playerNumber;
         this.onBoard = false;
-        this.legalMoves = true;
         this.selected = 0;
     }
 
@@ -47,7 +44,6 @@ public class FishPenguin {
     public FishPenguin(FishPenguin p){
         this.player = p.getPlayer();
         this.onBoard = p.isOnBoard();
-        this.legalMoves = p.hasLegalMoves();
         this.xPos = p.getX();
         this.yPos = p.getY();
         this.selected = p.getSelected();
@@ -64,10 +60,6 @@ public class FishPenguin {
 
     public int getPlayer(){
         return this.player;
-    }
-
-    public boolean hasLegalMoves(){
-        return this.legalMoves;
     }
 
     public boolean isOnBoard(){
@@ -94,12 +86,6 @@ public class FishPenguin {
         this.onBoard = b;
     }
 
-    public void setLegalMoves(boolean b){
-        this.legalMoves = b;
-    }
-
     public void setSelected(int i) { this.selected = i;}
-
-    public void setScaleX(float v) { this.scaleX = v;}
 
 }

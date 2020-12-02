@@ -132,20 +132,26 @@ public class FishGameState extends GameState {
                     Log.d("From TestMove", "Found a legal move 1");
                     return true;
                 }
+            }
+            catch(Exception ignore){}
+
+            try {
                 if (b[x + i][y - i] != null && !b[x + i][y - i].hasPenguin()
                         && b[x + i][y - i].doesExist()) {
                     Log.d("From TestMove", "Found a legal move 3");
                     return true;
                 }
+            }
+            catch(Exception ignore){}
+
+            try {
                 if (b[x][y + i] != null && !b[x][y + i].hasPenguin()
                         && b[x][y + i].doesExist()) {
                     Log.d("From TestMove", "Found a legal move 2");
                     return true;
                 }
             }
-            catch(ArrayIndexOutOfBoundsException e){
-                Log.d("From TestMove", "Array OOB exception.");
-            }
+            catch(Exception ignore){}
         }
         Log.d("From TestMove", "Did not find a legal move.");
         return false;
@@ -183,8 +189,38 @@ public class FishGameState extends GameState {
      * @return boolean True if the action is legal
      */
     public boolean movePenguin(FishPenguin p, int x, int y){
+        if (reachable(p,boardState[x][y])){
+            int px = p.getX();
+            int py = p.getY();
+            //If the move is legal, then add to the player's score the fish on the tile and remove the
+            //tile from the game. Then pass the turn and return true.
+            addScore(playerTurn, boardState[px][py].getNumFish());
+            boardState[px][py].setExists(false);
+            boardState[px][py].setHasPenguin(false);
+            p.setXPos(x);
+            p.setYPos(y);
+            boardState[x][y].setPenguin(p);
+            boardState[x][y].setHasPenguin(true);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if a penguin can move to a tile
+     * @param p penguin
+     * @param t tile
+     * @return true if p can move to t
+     */
+    public boolean reachable(FishPenguin p, FishTile t){
+        if (this.getGamePhase() == 0) return false;
+        if (p == null) return false;
+
         int px = p.getX();
         int py = p.getY();
+
+        int x = t.getX();
+        int y = t.getY();
 
         //Make sure the penguin is not moving to the same tile
         if(px == x && py == y){
@@ -217,7 +253,7 @@ public class FishGameState extends GameState {
             //if s is positive, then you are moving to the right
             int s = Integer.signum(x-px);
             for (int i = px+s; i != x + s; i+=s){
-                if (boardState[i][py].hasPenguin() || !this.boardState[i][py].doesExist()){
+                if (boardState[i][py].hasPenguin() || !boardState[i][py].doesExist()){
                     return false;
                 }
             }
@@ -243,16 +279,6 @@ public class FishGameState extends GameState {
                 }
             }
         }
-
-        //If the move is legal, then add to the player's score the fish on the tile and remove the
-        //tile from the game. Then pass the turn and return true.
-        addScore(playerTurn,boardState[px][py].getNumFish());
-        boardState[px][py].setExists(false);
-        boardState[px][py].setHasPenguin(false);
-        p.setXPos(x);
-        p.setYPos(y);
-        boardState[x][y].setPenguin(p);
-        boardState[x][y].setHasPenguin(true);
         return true;
     }
 
