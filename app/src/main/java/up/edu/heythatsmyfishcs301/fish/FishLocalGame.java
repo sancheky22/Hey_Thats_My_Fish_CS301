@@ -298,5 +298,4 @@ public class FishLocalGame extends LocalGame {
         // return Game Over screen if there are scores that are a tie
         return "No one wins there is a tie! " + end;
     }
-
 }

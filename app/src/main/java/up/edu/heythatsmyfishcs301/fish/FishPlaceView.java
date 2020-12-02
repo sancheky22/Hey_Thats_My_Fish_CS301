@@ -28,12 +28,6 @@ public class FishPlaceView extends SurfaceView {
     // Variable for current phase of the game
     private int gamePhase;
 
-    // Labels that display on right side of GUI denoting the pieces each player has
-    private final String p1Place = "Player 1 Pieces:";
-    private final String p2Place = "Player 2 Pieces:";
-    private final String p3Place = "Player 3 Pieces:";
-    private final String p4Place = "Player 4 Pieces:";
-
     // instance of the game state
     private FishGameState gameState;
     // max number of players the game can have
@@ -45,6 +39,8 @@ public class FishPlaceView extends SurfaceView {
     private Rect[][] rects = new Rect[4][4];
     // array to store all the bitmaps corresponding to each hitbox
     private Bitmap[][] bitArr = new Bitmap[4][4];
+
+    private String[] names = {"", "", "", ""};
 
     // Bitmap variables
     Bitmap redPenguin = null;
@@ -166,8 +162,6 @@ public class FishPlaceView extends SurfaceView {
             }
         }
 
-        int numPlayers = gameState.getNumPlayers();
-
         for(int i = 0; i < numPlayers; i++){
             for(int j = 0; j < 6-numPlayers; j++) {
                 if (rects[i][j] != null) {
@@ -178,7 +172,8 @@ public class FishPlaceView extends SurfaceView {
                 }
             }
             if (gamePhase == 0) {
-                canvas.drawText("Player " + (i + 1) + " Pieces", 15, temp - 15, black);
+                //canvas.drawText("Player " + (i + 1) + " Pieces", 15, temp - 15, black);
+                canvas.drawText(names[i] + "'s Pieces", 15, temp - 15, black);
             }
         }
     }
@@ -198,6 +193,10 @@ public class FishPlaceView extends SurfaceView {
         }
     }
 
+    public void setNames(String[] nameList){
+        this.names = nameList;
+    }
+
     // setters for current number of players
     public void setNumPlayers(int num){
         this.numPlayers = num;
@@ -208,13 +207,9 @@ public class FishPlaceView extends SurfaceView {
         this.gamePhase = phase;
     }
 
-    // gets the current gameState
-    public FishGameState getGameState(){
-        return this.gameState;
-    }
-
     // sets the current gameState
     public void setGameState(FishGameState fgs){
         this.gameState = new FishGameState(fgs);
     }
+
 }

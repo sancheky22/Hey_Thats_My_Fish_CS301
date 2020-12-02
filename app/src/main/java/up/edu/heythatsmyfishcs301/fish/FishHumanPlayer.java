@@ -84,7 +84,6 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
         if (fishPlace == null) return;
 
-
         // ignore the message if it's not a FishGameState message
         if (info instanceof FishGameState) {
             // update the state
@@ -106,6 +105,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             //send how many players there are to the placePenguin view
             fishPlace.setNumPlayers(gameState.getNumPlayers());
             fishPlace.setGamePhase(gameState.getGamePhase());
+            fishPlace.setNames(allPlayerNames);
             fishPlace.setGameState(gameState);
 
             fishPlace.invalidate();

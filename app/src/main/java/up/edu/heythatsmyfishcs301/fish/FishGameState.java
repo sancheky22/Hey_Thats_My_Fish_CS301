@@ -25,6 +25,8 @@ public class FishGameState extends GameState {
     final int BOARD_LENGTH = 11;
     private int numPlayers;
 
+    private String[] names;
+
     //store the current players turn (0,1,2,3)
     private int playerTurn;
 
@@ -66,6 +68,7 @@ public class FishGameState extends GameState {
         this.player4Score = 0;
         this.gamePhase = 0;
         this.validMoves = true;
+
 
         this.boardState = initializeBoard();
         pieceArray = new FishPenguin[numPlayers][6 - numPlayers];
