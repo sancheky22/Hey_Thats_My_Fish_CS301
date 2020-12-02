@@ -181,6 +181,12 @@ public class FishPlaceView extends SurfaceView {
                 canvas.drawText("Player " + (i + 1) + " Pieces", 15, temp - 15, black);
             }
         }
+        // attempt to try to prevent the game from crashing due to Bitmaps causing memory overload
+        // reclaims memory used by bitmaps
+        resizedGreenPenguin.recycle();
+        resizedBluePenguin.recycle();
+        resizedRedPenguin.recycle();
+        resizedOrangePenguin.recycle();
     }
 
 
