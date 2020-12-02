@@ -15,8 +15,8 @@ import android.view.SurfaceView;
 import up.edu.heythatsmyfishcs301.R;
 
 /**
- * Description: The scoresDrawings class draws the fishes that displays the scores. The scores
- * are displayed and updated to the current player1 and player2 scores.
+ * Description: The FishPlaceView class makes the surfaceview for the player to tap and place their
+ * penguins onto any tile with one fish on it
 
  * @author Kyle Sanchez
  * @author Ryan Enslow
@@ -40,6 +40,7 @@ public class FishPlaceView extends SurfaceView {
     // array to store all the bitmaps corresponding to each hitbox
     private Bitmap[][] bitArr = new Bitmap[4][4];
 
+    // string to contain each player's names. Initially set to empty strings
     private String[] names = {"", "", "", ""};
 
     // Bitmap variables
@@ -62,7 +63,7 @@ public class FishPlaceView extends SurfaceView {
     // boolean to only draw hitboxes once
     boolean drawOnce = true;
 
-    //  paint for hitbox
+    //  paint for the text
     private Paint black = new Paint();
 
     /**
@@ -121,11 +122,14 @@ public class FishPlaceView extends SurfaceView {
      */
     @Override
     public void onDraw(Canvas canvas){
+        // width and height of the canvas
         fpWidth =  canvas.getWidth();
         fpHeight = canvas.getHeight();
 
+        // offSet used to position hitboxes properly on the canvas
         int offSet = 100;
 
+        // used to make sure that all penguins in the place phase don't go off screen on any devices
         resize = fpWidth / 4;
 
         resizedRedPenguin = Bitmap.createScaledBitmap(redPenguin, resize, resize, false);
@@ -134,6 +138,8 @@ public class FishPlaceView extends SurfaceView {
         resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin, resize, resize, false);
         resizedCursedPenguin = Bitmap.createScaledBitmap(cursedPenguin, resize, resize, false);
 
+        // check if drawOnce is true. If so, create the rectangle hitboxes for the penguins then
+        //set drawOnce to false so that the rectangles aren't redrawn every time onDraw is called
         if(drawOnce){
             for (int i = 0; i < 4; i++){
                 for (int j = 0; j < 4; j++){
@@ -145,6 +151,7 @@ public class FishPlaceView extends SurfaceView {
         }
         drawOnce = false;
 
+        // add the resized bitmaps of penguins to an array so they can be drawn later
         for(int i = 0; i < bitArr.length; i++){
             for(int j = 0; j < bitArr[i].length; j++){
                 if(i == 0){
@@ -162,6 +169,7 @@ public class FishPlaceView extends SurfaceView {
             }
         }
 
+        // draw the penguin based on where the rectangle hitboxes are
         for(int i = 0; i < numPlayers; i++){
             for(int j = 0; j < 6-numPlayers; j++) {
                 if (rects[i][j] != null) {
@@ -199,6 +207,7 @@ public class FishPlaceView extends SurfaceView {
         }
     }
 
+    // set the names of the players so it can be drawn to the surfaceview
     public void setNames(String[] nameList){
         this.names = nameList;
     }

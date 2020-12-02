@@ -130,6 +130,7 @@ public class FishScoresDrawings extends SurfaceView {
         resizedBlue = Bitmap.createScaledBitmap(blueFish, size, size, false);
         resizedGreenFish = Bitmap.createScaledBitmap(greenFish, size, size, false);
         //resizedCursedFish = Bitmap.createScaledBitmap(cursedFish, size, size, false);
+
         /**
          *External Citation
          * Date: 9/18/20
@@ -138,7 +139,8 @@ public class FishScoresDrawings extends SurfaceView {
          * s-in-java/
          * Created by: Geeksforgeeks (12/08/2020)
          *
-         * Solution: Used the Integer.toString method shown on the website
+         * Solution: Used the Integer.toString method shown on the website. Used to draw the scores
+         * of each player to their corresponding fish on the scoreboard
          */
         canvas.drawBitmap(this.resizedOrange, 0, 0, null);
         canvas.drawText(Integer.toString(p1Score), size/2, (float)size / 2, black);

@@ -1,13 +1,9 @@
 package up.edu.heythatsmyfishcs301.fish;
 
-import android.graphics.Rect;
-
 import up.edu.heythatsmyfishcs301.game.GamePlayer;
 import up.edu.heythatsmyfishcs301.game.actionMsg.GameAction;
 
 /**
- *
- * CURRENTLY UNIMPLEMENTED
  * The FishPlaceAction will allow the GamePlayer's to place their FishPenguin pieces across the board
  *
  * @author Kyle Sanchez

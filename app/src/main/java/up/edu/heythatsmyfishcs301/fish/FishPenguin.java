@@ -77,7 +77,7 @@ public class FishPenguin {
         this.yPos = y;
     }
 
-    //This method should probably never ever ever be called but its here anyways just in case i guess
+    //This method should probably never ever be called, but it's here anyways just in case I guess
     public void setPlayer(int p){
         this.player = p;
     }

@@ -153,15 +153,15 @@ public class FishView extends SurfaceView {
                 hexWidth - 20, false);
         resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin, hexWidth - 20,
                 hexWidth - 20, false);
-       // resizedCursedPenguin = Bitmap.createScaledBitmap(cursedPenguin, hexWidth - 20, hexWidth - 20, false);
+       // resizedCursedPenguin = Bitmap.createScaledBitmap(cursedPenguin, hexWidth - 20,
+                // hexWidth - 20, false);
 
 
-       /** Here we go through the array and if the tile is null, then it is a placeholder and we
+       /** Here, we go through the array and if the tile is null, then it is a placeholder and we
         * skip it.
         * If it is a tile that exists, we draw it.
         * Increment the Rect bound object
         * At the end of the row, reset bound to the start**/
-
         //Rect object is where the hexagon is drawn
         Rect bound = new Rect(0, 0, hexWidth, hexHeight);
         for (int i = 0; i < board.length; i++) {
@@ -220,13 +220,10 @@ public class FishView extends SurfaceView {
                             break;
                     }
 
-
-                    //Assigns the appropriate penguin color to the player
+                    // if the tile has a penguin on it, resize and draw a penguin on it
                     FishPenguin p = tile.getPenguin();
                     if (p != null){
-                        //If the penguin is selected, then this float > 0. Otherwise it equals 0.
-
-
+                        // resize the penguin bitmaps so they fit on the tiles
                         int selection = p.getSelected()*30;
                         resizedOrangePenguin = Bitmap.createScaledBitmap(orangePenguin,
                                 RESIZE+selection,RESIZE+selection,false);
@@ -240,6 +237,7 @@ public class FishView extends SurfaceView {
                         resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin,
                                 RESIZE+selection,RESIZE+selection,false);
 
+                        //Assigns the appropriate penguin color to the player
                         if (p.getPlayer() == 0){
                             c.drawBitmap(resizedOrangePenguin,
                                     tile.getBoundingBox().left-selection/2,
