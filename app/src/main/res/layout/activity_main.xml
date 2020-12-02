@@ -20,7 +20,7 @@
             android:text="Scores:"
             android:textSize="35sp" />
 
-          <up.edu.heythatsmyfishcs301.fish.ScoresDrawings
+          <up.edu.heythatsmyfishcs301.fish.FishScoresDrawings
              android:id="@+id/scoresDrawings"
              android:layout_width="match_parent"
              android:layout_height="match_parent" />
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".08"
-                android:text="?"
+                android:text="\?"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 

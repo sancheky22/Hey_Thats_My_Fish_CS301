@@ -37,7 +37,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     // the surface view
     private FishView surfaceView;
-    private ScoresDrawings scores;
+    private FishScoresDrawings scores;
     private FishPlaceView fishPlace;
 
     //buttons

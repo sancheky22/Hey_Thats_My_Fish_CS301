@@ -22,7 +22,7 @@ import up.edu.heythatsmyfishcs301.R;
  * @author Linda Nguyen
  **/
 
-public class ScoresDrawings extends SurfaceView {
+public class FishScoresDrawings extends SurfaceView {
 
     Bitmap orangeFish = null;
     Bitmap redFish = null;
@@ -53,7 +53,7 @@ public class ScoresDrawings extends SurfaceView {
      * @param context
      * @param attrs
      */
-    public ScoresDrawings(Context context, AttributeSet attrs) {
+    public FishScoresDrawings(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
 
