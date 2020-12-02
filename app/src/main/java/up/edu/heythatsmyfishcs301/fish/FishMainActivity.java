@@ -114,6 +114,19 @@ public class FishMainActivity extends GameMainActivity {
 
     @Override
     public LocalGame createLocalGame(int numPlayers) {
+        /**
+         External Citation
+         Date: 1 December 2020
+         Problem: Needed to learn how to use MediaPlayer for android
+         Resources:
+         https://www.youtube.com/watch?v=9oj4f8721LM
+         https://stackoverflow.com/questions/9461270/media-player-looping-android
+         https://stackoverflow.com/questions/28525317/android-mediaplayer-only-plays-file-once
+
+         Solution: Used youtube tutorial along with stack overflow posts do get our desired
+         music behavior.
+         */
+
         // start the media player
         startMedia();
 
