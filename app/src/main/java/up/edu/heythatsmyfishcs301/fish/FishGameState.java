@@ -59,7 +59,6 @@ public class FishGameState extends GameState {
      */
     public FishGameState(int n){
         this.playerTurn = 0;
-        //numPlayers is set to 2 for the alpha
         this.numPlayers = n;
         this.player1Score = 0;
         this.player2Score = 0;
@@ -67,7 +66,6 @@ public class FishGameState extends GameState {
         this.player4Score = 0;
         this.gamePhase = 0;
         this.validMoves = true;
-        //this.pieceArray = alphaInitializePieces();
 
         this.boardState = initializeBoard();
         pieceArray = new FishPenguin[numPlayers][6 - numPlayers];
