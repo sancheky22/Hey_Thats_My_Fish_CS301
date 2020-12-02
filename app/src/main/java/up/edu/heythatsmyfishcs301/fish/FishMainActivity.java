@@ -28,6 +28,9 @@ import up.edu.heythatsmyfishcs301.game.config.GamePlayerType;
  *         button changes to either "Mute" or "Unmute".
  *  2. Tiles that a player can either place their penguin on, or move to are highlighted yellow.
  *  3. Displays each players name on the board above the pieces they own.
+ *  4. Added sound effects when a player:
+ *      a. Is taken out of the game (has no valid moves left)
+ *      b. Wins the game (wow sound effect)
  *
  *
  * Known Bugs:
