@@ -121,11 +121,6 @@ public class FishMainActivity extends GameMainActivity {
         return new FishLocalGame(numPlayers);
     }
 
-    public void stopMedia(){
-        // stops the media player from playing our games theme song
-        mediaPlayer.stop();
-    }
-
     public void startMedia(){
         // assign mediaplayer
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.penguintheme);
@@ -138,8 +133,25 @@ public class FishMainActivity extends GameMainActivity {
         mediaPlayer.start();
     }
 
+    /**
+     * External Citation
+     * Date:    12/1/20
+     * Problem: Want to mute and unmute game with button press using the next 2 methods
+     * Resource: https://developer.android.com/reference/android/media/MediaPlayer
+     * Solution: Referenced the MediaPlayer api to see what methods are available
+     * Created by android developers.
+     *
+     * We used the isPlaying() method to see if the game is currently playing music. If it is and
+     * the player presses the mute button, then the stopMedia() method will be called and the
+     * music will stop playing. If the game is not playing music and the player presses the same button,
+     * the game will start playing music again
+     */
     public boolean getIsPlaying(){
         // returns boolean that is if the mediaplayer is playing or not
         return mediaPlayer.isPlaying();
+    }
+
+    public void stopMedia(){
+        mediaPlayer.stop();
     }
 }
