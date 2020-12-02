@@ -287,19 +287,23 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     public void onClick(View button) {
         if(button.equals(restartButton)){
             // restarts game and goes back to main menu
+            // also stops playing the penguin theme
             main.stopMedia();
             myActivity.recreate();
         } else if(button.equals(infoButton)){
+            // pops up the help menu when the info button is pressedd
             openDialog();
         }
         else if(button.equals(muteButton)){
+            // When the muteButton is pressed it starts and stops the music and toggles
+            // what displays on the button (Unmute and Mute)
             if(main.getIsPlaying()){
                 main.stopMedia();
-                muteButton.setText("unmute");
+                muteButton.setText("Unmute");
             }
             else{
                 main.startMedia();
-                muteButton.setText("mute");
+                muteButton.setText("Mute");
             }
 
         }

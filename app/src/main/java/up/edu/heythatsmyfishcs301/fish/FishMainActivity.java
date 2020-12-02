@@ -65,7 +65,7 @@ public class FishMainActivity extends GameMainActivity {
 
     // the port number that this game will use when playing over the network
     private static final int PORT_NUMBER = 2234;
-
+    // MediaPlayer instance variable
     private MediaPlayer mediaPlayer = new MediaPlayer();
 
 
@@ -114,25 +114,32 @@ public class FishMainActivity extends GameMainActivity {
 
     @Override
     public LocalGame createLocalGame(int numPlayers) {
+        // start the media player
+        startMedia();
 
-
-            startMedia();
-
+        // return new local game
         return new FishLocalGame(numPlayers);
     }
 
     public void stopMedia(){
-            mediaPlayer.stop();
+        // stops the media player from playing our games theme song
+        mediaPlayer.stop();
     }
 
     public void startMedia(){
+        // assign mediaplayer
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.penguintheme);
+
+        // make song loop so it doesn't stop playing after the song ends
         mediaPlayer.setLooping(true);
+        // make volume equal for headphone users
         mediaPlayer.setVolume(1, 1);
+        // start playing the song
         mediaPlayer.start();
     }
 
     public boolean getIsPlaying(){
+        // returns boolean that is if the mediaplayer is playing or not
         return mediaPlayer.isPlaying();
     }
 }

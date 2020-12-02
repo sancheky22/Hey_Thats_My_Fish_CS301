@@ -56,25 +56,26 @@
                 android:id="@+id/muteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight=".1"
+                android:layout_weight="2"
                 android:includeFontPadding="false"
                 android:text="Mute"
-                android:textSize="10sp" />
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/restartButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"
+                android:layout_weight="20"
                 android:text="Restart"
-                android:textSize="10sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/infoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight=".08"
+                android:layout_weight="0.08"
                 android:text="\?"
                 android:textSize="15sp"
                 android:textStyle="bold" />
