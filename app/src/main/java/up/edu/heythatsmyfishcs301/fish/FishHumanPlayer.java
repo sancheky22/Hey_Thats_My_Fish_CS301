@@ -68,6 +68,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     boolean p3PlayOnce = true;
     int numOut = 0;
 
+    // array of rectangles (for tile hitboxes)
     Rect[][] rectArr;
 
     /**
@@ -90,6 +91,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     @Override
     public void receiveInfo(GameInfo info) {
 
+        // Array list of player scores
         List<Integer> scoreList = new ArrayList<>();
 
         // checks if SV is null

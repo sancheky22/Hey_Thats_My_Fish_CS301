@@ -1,7 +1,6 @@
 package up.edu.heythatsmyfishcs301.fish;
 
 import up.edu.heythatsmyfishcs301.game.GameComputerPlayer;
-import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
 
 /**
  * @author Kyle Sanchez
@@ -9,12 +8,14 @@ import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
  * @author Carina Pineda
  * @author Linda Nguyen
  *
- * This class
+ * This class inherits from GameComputerPlayer and was made so that each of our games
+ * computer players (Dumb and Smart) have a outOfGame boolean. This boolean allows us to easily
+ * remove players from the game when they have no valid moves left.
+ *
  **/
 public abstract class FishComputerPlayer extends GameComputerPlayer {
     // boolean to represent if a player is no longer in the game
     private boolean outOfGame;
-
 
     /**
      * constructor

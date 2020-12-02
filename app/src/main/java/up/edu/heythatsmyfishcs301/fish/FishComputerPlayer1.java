@@ -14,11 +14,13 @@ import up.edu.heythatsmyfishcs301.game.infoMsg.NotYourTurnInfo;
  *
  * This class contains the algorithm for how the computer player moves.s It implements
  * a separate method for the computer to move and sends the move action to the gameState. It picks
- * the first one-fish tile it sees and places it there
+ * the first one-fish tile it sees and places it there.
  **/
 public class FishComputerPlayer1 extends FishComputerPlayer {
 
+    // FishTile array that will hold the state of our game board
     private FishTile[][] boardState;
+    // copy of the game state that is initially set to null
     FishGameState copy = null;
 
 
@@ -100,7 +102,9 @@ public class FishComputerPlayer1 extends FishComputerPlayer {
      * @param p the penguin object to be moved
      */
     public boolean computerMovePenguin(FishPenguin p) {
+        // Use the copyGameState to get a copy of the piece board
         FishTile[][] pieceBoard = copy.getBoardState();
+        // setting our boardState copy equal to the copy
         boardState = copy.getBoardState();
 
 

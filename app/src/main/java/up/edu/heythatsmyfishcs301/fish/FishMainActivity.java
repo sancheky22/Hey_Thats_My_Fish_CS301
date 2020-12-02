@@ -39,8 +39,8 @@ import up.edu.heythatsmyfishcs301.game.config.GamePlayerType;
  *  restarted multiple times on the ASUS tablets. This was a bug previously stated in our Beta
  *  release. (Refer to GitHub issues page for error. "BitMap Resources causing memory overload")
  *
- *  Restart button appears elongated vertically on a mobile phone (doesn't happen on any of the tablets
- *  we've tested however).
+ *  Restart button appears elongated vertically on a mobile phone (doesn't happen on any of the
+ *  tablets we've tested however).
  *
  */
 
@@ -175,7 +175,7 @@ public class FishMainActivity extends GameMainActivity {
 
     /**
      * External Citation
-     * Date:    12/1/20
+     * Date: 12/1/20
      * Problem: Want to mute and unmute game with button press using the next 2 methods
      * Resource: https://developer.android.com/reference/android/media/MediaPlayer
      * Solution: Referenced the MediaPlayer api to see what methods are available
@@ -183,8 +183,8 @@ public class FishMainActivity extends GameMainActivity {
      *
      * We used the isPlaying() method to see if the game is currently playing music. If it is and
      * the player presses the mute button, then the stopMedia() method will be called and the
-     * music will stop playing. If the game is not playing music and the player presses the same button,
-     * the game will start playing music again
+     * music will stop playing. If the game is not playing music and the player presses the same
+     * button, the game will start playing music again
      */
     public boolean getIsPlaying(){
         // returns boolean that is if the mediaplayer is playing or not
@@ -192,18 +192,23 @@ public class FishMainActivity extends GameMainActivity {
     }
 
     public void stopDeathSound(){
+        // stops the death sound that plays when a player is removed from the board
         oof.stop();
     }
 
     public void playSound(int i){
+        // plays a sound depending on what integer is passed to the method
         if(i == 0){
+            // plays the death sound when a player's pieces are removed from the board
             oof.start();
         }
         else if(i == 1){
+            // plays the wow sound effect when you win (HumanPlayer)
             wow.start();
         }
     }
 
+    // stops the theme song from playing
     public void stopMedia(){
         mediaPlayer.stop();
     }
