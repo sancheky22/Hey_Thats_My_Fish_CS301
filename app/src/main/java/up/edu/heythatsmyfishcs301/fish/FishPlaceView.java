@@ -149,7 +149,6 @@ public class FishPlaceView extends SurfaceView {
         }
         drawOnce = false;
 
-
         for(int i = 0; i < bitArr.length; i++){
             for(int j = 0; j < bitArr[i].length; j++){
                 if(i == 0){

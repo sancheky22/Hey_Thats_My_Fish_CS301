@@ -33,6 +33,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     // the android activity that we are running
     private GameMainActivity myActivity;
+    private FishMainActivity main;
 
     // the surface view
     private FishView surfaceView;
@@ -123,6 +124,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
      */
     @Override
     public void setAsGui(GameMainActivity activity) {
+        main = (FishMainActivity) activity;
 
         // remember the activity
         myActivity = activity;
@@ -281,6 +283,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     public void onClick(View button) {
         if(button.equals(restartButton)){
             // restarts game and goes back to main menu
+            main.stopMedia();
             myActivity.recreate();
         }else if(button.equals(infoButton)){
             openDialog();

@@ -12,7 +12,7 @@ import up.edu.heythatsmyfishcs301.game.infoMsg.NotYourTurnInfo;
  * @author Carina Pineda
  * @author Linda Nguyen
  *
- * This class contains the algorithm for how the computer player moves. It implements
+ * This class contains the algorithm for how the computer player moves.s It implements
  * a separate method for the computer to move and sends the move action to the gameState. It picks
  * the first one-fish tile it sees and places it there
  **/

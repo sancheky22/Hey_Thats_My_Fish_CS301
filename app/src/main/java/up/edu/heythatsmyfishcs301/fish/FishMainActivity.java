@@ -1,6 +1,7 @@
 package up.edu.heythatsmyfishcs301.fish;
 
 import android.media.MediaPlayer;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -65,11 +66,13 @@ public class FishMainActivity extends GameMainActivity {
 
     // the port number that this game will use when playing over the network
     private static final int PORT_NUMBER = 2234;
-    private MediaPlayer mediaPlayer;
+
+    private MediaPlayer mediaPlayer = new MediaPlayer();
 
 
     @Override
     public GameConfig createDefaultConfig() {
+
 
         // Define the allowed player types
         ArrayList<GamePlayerType> playerTypes = new ArrayList<>();
@@ -100,7 +103,6 @@ public class FishMainActivity extends GameMainActivity {
         defaultConfig.addPlayer("Human", 0); // GUI
         defaultConfig.addPlayer("Computer 1", 1); // dumb computer player
 
-
         // Set the default remote-player setup:
         // - player name: "Remote Player"
         // - IP code: (empty string)
@@ -108,26 +110,22 @@ public class FishMainActivity extends GameMainActivity {
         //defaultConfig.setRemoteData("Remote Player", "", 0); // remote player GUI
         //done!
 
-
-
-
         return defaultConfig;
     }
-
-
 
     @Override
     public LocalGame createLocalGame(int numPlayers) {
 
-//        if(){
-//
-//        }else{
-//            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.penguintheme);
-//            mediaPlayer.setLooping(true);
-//            mediaPlayer.setVolume(1, 1);
-//            mediaPlayer.start();
-//        }
+
+            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.penguintheme);
+            mediaPlayer.setLooping(true);
+            mediaPlayer.setVolume(1, 1);
+            mediaPlayer.start();
 
         return new FishLocalGame(numPlayers);
+    }
+
+    public void stopMedia(){
+            mediaPlayer.stop();
     }
 }
