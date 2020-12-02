@@ -1,6 +1,7 @@
 package up.edu.heythatsmyfishcs301.fish;
 
 import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -117,15 +118,23 @@ public class FishMainActivity extends GameMainActivity {
     public LocalGame createLocalGame(int numPlayers) {
 
 
-            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.penguintheme);
-            mediaPlayer.setLooping(true);
-            mediaPlayer.setVolume(1, 1);
-            mediaPlayer.start();
+            startMedia();
 
         return new FishLocalGame(numPlayers);
     }
 
     public void stopMedia(){
             mediaPlayer.stop();
+    }
+
+    public void startMedia(){
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.penguintheme);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.setVolume(1, 1);
+        mediaPlayer.start();
+    }
+
+    public boolean getIsPlaying(){
+        return mediaPlayer.isPlaying();
     }
 }

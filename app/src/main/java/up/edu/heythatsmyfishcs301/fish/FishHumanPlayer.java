@@ -43,6 +43,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     //buttons
     private Button restartButton;
     private Button infoButton;
+    private Button muteButton;
 
     // create local board variable and local penguin variable
     private FishPenguin selectedPenguin;
@@ -143,6 +144,9 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
         infoButton = (Button) activity.findViewById(R.id.infoButton);
         infoButton.setOnClickListener(this);
+
+        muteButton = (Button) activity.findViewById(R.id.muteButton);
+        muteButton.setOnClickListener(this);
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated
@@ -285,8 +289,17 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             // restarts game and goes back to main menu
             main.stopMedia();
             myActivity.recreate();
-        }else if(button.equals(infoButton)){
+        } else if(button.equals(infoButton)){
             openDialog();
+        }
+        else if(button.equals(muteButton)){
+            if(main.getIsPlaying()){
+                main.stopMedia();
+            }
+            else{
+                main.startMedia();
+            }
+
         }
     }
 
