@@ -7,9 +7,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import up.edu.heythatsmyfishcs301.R;
 import up.edu.heythatsmyfishcs301.game.GameHumanPlayer;
 import up.edu.heythatsmyfishcs301.game.GameMainActivity;
+import up.edu.heythatsmyfishcs301.game.GamePlayer;
 import up.edu.heythatsmyfishcs301.game.infoMsg.GameInfo;
 
 /**
@@ -57,6 +62,12 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     int px = 0;
     int py = 0;
 
+    boolean p0PlayOnce = true;
+    boolean p1PlayOnce = true;
+    boolean p2PlayOnce = true;
+    boolean p3PlayOnce = true;
+    int numOut = 0;
+
     Rect[][] rectArr;
 
     /**
@@ -79,6 +90,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     @Override
     public void receiveInfo(GameInfo info) {
 
+        List<Integer> scoreList = new ArrayList<>();
+
         // checks if SV is null
         if (surfaceView == null) return;
 
@@ -95,6 +108,76 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             // sets player turn
             turn = gameState.getPlayerTurn();
 
+            GamePlayer[] temp = gameState.getPlayers();
+
+            // go through all the player to see if any of them are out of the game. If a player is
+            // out of the game, play the death sound and set the player's corresponding boolean to
+            // false so that none of the sounds will play repeatedly
+            if(gameState.getPlayers() != null && numOut != allPlayerNames.length){
+                    for(int i = 0; i < gameState.getPlayers().length; i++){
+                        if(temp[i] instanceof FishComputerPlayer){
+                            FishComputerPlayer computer = (FishComputerPlayer) temp[i];
+                            if(computer.isOut()){
+                                if(i == 0 && p0PlayOnce){
+                                    main.playSound(0);
+                                    p0PlayOnce = false;
+                                    numOut++;
+                                }
+                                else if(i == 1 && p1PlayOnce){
+                                    main.playSound(0);
+                                    p1PlayOnce = false;
+                                    numOut++;
+                                }
+                                else if(i == 2 && p2PlayOnce){
+                                    main.playSound(0);
+                                    p2PlayOnce = false;
+                                    numOut++;
+                                }
+                                else if(i == 3 && p3PlayOnce){
+                                    main.playSound(0);
+                                    p3PlayOnce = false;
+                                    numOut++;
+                                }
+
+                            }
+                        }
+                        else if(temp[i] instanceof FishHumanPlayer){
+                            if(this.isOut()){
+                                numOut++;
+                            }
+                        }
+                    }
+            }
+
+            // if all players are out of the game, check if the human is the winner to play the
+            // special sound
+            if(numOut == allPlayerNames.length){
+                scoreList.add(gameState.getPlayer1Score());
+                scoreList.add(gameState.getPlayer2Score());
+                scoreList.add(gameState.getPlayer3Score());
+                scoreList.add(gameState.getPlayer4Score());
+
+                int maxScore = Collections.max(scoreList);
+
+                // if the human player is the winner, play the winning sound effect (sound 1).
+                // In some cases, the death sound may overlap with the winning sound effect
+                // so we want to stop it first before we play the sound we want
+                if (maxScore == gameState.getPlayer1Score() && playerNum == 0) {
+                    main.stopDeathSound();
+                    main.playSound(1);
+                } else if (maxScore == gameState.getPlayer2Score() && playerNum == 1) {
+                    main.stopDeathSound();
+                    main.playSound(1);
+                } else if (maxScore == gameState.getPlayer3Score() && playerNum == 2) {
+                    main.stopDeathSound();
+                    main.playSound(1);
+                } else if (maxScore == gameState.getPlayer4Score() && playerNum == 3) {
+                    main.stopDeathSound();
+                    main.playSound(1);
+                }
+            }
+
+
             // set current player score
             scores.setNumPlayers(gameState.getNumPlayers());
             scores.setP1Scores(gameState.getPlayer1Score());
@@ -109,6 +192,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             fishPlace.setGameState(gameState);
 
             fishPlace.invalidate();
+
 
             // update the surface view
             surfaceView.setGameState(new FishGameState((FishGameState)info));
@@ -153,6 +237,8 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         if (gameState != null) {
             receiveInfo(gameState);
         }
+
+
     }
 
     //This method controls all the touch events for the screen.
@@ -291,7 +377,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             main.stopMedia();
             myActivity.recreate();
         } else if(button.equals(infoButton)){
-            // pops up the help menu when the info button is pressedd
+            // pops up the help menu when the info button is pressed
             openDialog();
         }
         else if(button.equals(muteButton)){

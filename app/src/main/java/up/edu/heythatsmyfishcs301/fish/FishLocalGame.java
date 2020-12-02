@@ -1,5 +1,6 @@
 package up.edu.heythatsmyfishcs301.fish;
 
+import android.media.MediaPlayer;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -27,7 +28,6 @@ public class FishLocalGame extends LocalGame {
     // create GameState variable for this class
     private FishGameState fState;
     private FishTile[][] board;
-
 
     /**
      * Constructor for the local game.
@@ -173,6 +173,7 @@ public class FishLocalGame extends LocalGame {
             for (FishPenguin penguin : fState.getPieceArray()[nextTurn]) {
                 if (fState.testMove(penguin)) {
                     FishGameState copy = new FishGameState(this.fState);
+                    copy.setPlayers(players);
                     p.sendInfo(copy);
                     return;
                 }
@@ -191,6 +192,7 @@ public class FishLocalGame extends LocalGame {
                 board[px][py].setPenguin(null);
                 board[px][py].setExists(false);
             }
+
 
             //We can put that player out of the game at this point because they have no moves.
             try {
@@ -230,6 +232,7 @@ public class FishLocalGame extends LocalGame {
 
         //We send all players the edited game state.
         FishGameState copy = new FishGameState(this.fState);
+        copy.setPlayers(players);
         p.sendInfo(copy);
     }
 

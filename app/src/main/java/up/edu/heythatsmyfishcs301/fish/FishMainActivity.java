@@ -92,7 +92,8 @@ public class FishMainActivity extends GameMainActivity {
     private static final int PORT_NUMBER = 2234;
     // MediaPlayer instance variable
     private MediaPlayer mediaPlayer = new MediaPlayer();
-
+    private MediaPlayer oof = new MediaPlayer();
+    private MediaPlayer wow = new MediaPlayer();
 
     @Override
     public GameConfig createDefaultConfig() {
@@ -134,20 +135,6 @@ public class FishMainActivity extends GameMainActivity {
 
     @Override
     public LocalGame createLocalGame(int numPlayers) {
-        /**
-         *
-         External Citation
-         Date: 1 December 2020
-         Problem: Needed to learn how to use MediaPlayer for android
-         Resources:
-         https://www.youtube.com/watch?v=9oj4f8721LM
-         https://stackoverflow.com/questions/9461270/media-player-looping-android
-         https://stackoverflow.com/questions/28525317/android-mediaplayer-only-plays-file-once
-
-         Solution: Used youtube tutorial along with stack overflow posts do get our desired
-         music behavior.
-         */
-
         // start the media player
         startMedia();
 
@@ -155,9 +142,24 @@ public class FishMainActivity extends GameMainActivity {
         return new FishLocalGame(numPlayers);
     }
 
+    /**
+     *
+     External Citation
+     Date: 12/1/2020
+     Problem: Needed to learn how to use MediaPlayer for android
+     Resources:
+     https://www.youtube.com/watch?v=9oj4f8721LM
+     https://stackoverflow.com/questions/9461270/media-player-looping-android
+     https://stackoverflow.com/questions/28525317/android-mediaplayer-only-plays-file-once
+
+     Solution: Used youtube tutorial along with stack overflow posts do get our desired
+     music behavior.
+     */
     public void startMedia(){
         // assign mediaplayer
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.penguintheme);
+        oof = MediaPlayer.create(getApplicationContext(), R.raw.oof);
+        wow = MediaPlayer.create(getApplicationContext(), R.raw.wow);
 
         // make song loop so it doesn't stop playing after the song ends
         mediaPlayer.setLooping(true);
@@ -183,6 +185,19 @@ public class FishMainActivity extends GameMainActivity {
     public boolean getIsPlaying(){
         // returns boolean that is if the mediaplayer is playing or not
         return mediaPlayer.isPlaying();
+    }
+
+    public void stopDeathSound(){
+        oof.stop();
+    }
+
+    public void playSound(int i){
+        if(i == 0){
+            oof.start();
+        }
+        else if(i == 1){
+            wow.start();
+        }
     }
 
     public void stopMedia(){

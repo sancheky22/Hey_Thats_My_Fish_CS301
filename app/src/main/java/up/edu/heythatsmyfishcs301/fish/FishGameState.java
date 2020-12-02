@@ -6,6 +6,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import up.edu.heythatsmyfishcs301.game.GamePlayer;
 import up.edu.heythatsmyfishcs301.game.infoMsg.GameState;
 
 /**
@@ -24,6 +25,9 @@ public class FishGameState extends GameState {
     final int BOARD_HEIGHT = 8;
     final int BOARD_LENGTH = 11;
     private int numPlayers;
+
+    private boolean p4InGame = false;
+    private GamePlayer[] players;
 
     private String[] names;
 
@@ -108,6 +112,26 @@ public class FishGameState extends GameState {
     }
 
     /**
+     * set players so that the gameState has access to the array of players in the game
+     * used to play certain sound effects in the FishHumanPlayer class
+     *
+     * @param list
+     */
+    public void setPlayers(GamePlayer[] list){
+         this.players = list;
+    }
+
+    /**
+     * returns the array of players in the game. Used in FishHumanPlayer class to see which type
+     * of player is out of the game so that a sound effect can be played
+     *
+     * @return GamePlayer[]
+     */
+    public GamePlayer[] getPlayers(){
+         return this.players;
+    }
+
+    /**
      * testMove takes a penguin object and sees if that object has any valid moves.
      *
      * @param p - penguin to be tested
@@ -171,6 +195,7 @@ public class FishGameState extends GameState {
         if(boardState[x][y].hasPenguin() || boardState[x][y].getNumFish() != 1){
             return false;
         }
+
         boardState[x][y].setPenguin(p);
         boardState[x][y].setHasPenguin(true);
         p.setOnBoard(true);
