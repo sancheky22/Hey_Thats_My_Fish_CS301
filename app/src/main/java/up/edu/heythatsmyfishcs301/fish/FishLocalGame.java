@@ -295,7 +295,6 @@ public class FishLocalGame extends LocalGame {
         } else if (maxScore == fState.getPlayer4Score()) {
             return playerNames[3] + " is the winner with a score of " + maxScore;
         }
-
         // return Game Over screen if there are scores that are a tie
         return "No one wins there is a tie! " + end;
     }
