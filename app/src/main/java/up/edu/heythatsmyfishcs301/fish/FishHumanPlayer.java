@@ -295,9 +295,11 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         else if(button.equals(muteButton)){
             if(main.getIsPlaying()){
                 main.stopMedia();
+                muteButton.setText("unmute");
             }
             else{
                 main.startMedia();
+                muteButton.setText("mute");
             }
 
         }
