@@ -1,10 +1,12 @@
 package up.edu.heythatsmyfishcs301;
 
-import up.edu.heythatsmyfishcs301.fish.FishGameState;
-
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import up.edu.heythatsmyfishcs301.fish.FishGameState;
+import up.edu.heythatsmyfishcs301.fish.FishPenguin;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FishGameStateUnitTest {
 
@@ -46,15 +48,16 @@ public class FishGameStateUnitTest {
     }
 
     @Test
-    public void movePenguin(){
-//        FishGameState f = new FishGameState();
-//        FishPenguin p = new FishPenguin(0);
-//        p.movePenguin(p, 2, 4);
-//        int x = p.getX();
-//        int y = p.getY();
-//        assertEquals(x, 2);
-//        asssertEquals(y, 4);
+    public void reachable(){
+        FishGameState f = new FishGameState(4);
+        f.setGamePhase(1);
+        FishPenguin p = new FishPenguin(0);
+        p.setOnBoard(true);
+        p.setXPos(5);
+        p.setYPos(5);
+
+        assertTrue(f.reachable(p,f.getBoardState()[6][4]));
+        assertTrue(f.reachable(p,f.getBoardState()[4][5]));
+        assertTrue(f.reachable(p,f.getBoardState()[5][4]));
     }
-
-
 }
