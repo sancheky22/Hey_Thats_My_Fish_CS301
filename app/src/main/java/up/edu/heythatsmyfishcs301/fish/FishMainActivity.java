@@ -102,13 +102,8 @@ public class FishMainActivity extends GameMainActivity {
         defaultConfig.addPlayer("Human", 0); // GUI
         defaultConfig.addPlayer("Computer 1", 1); // dumb computer player
 
-        // Set the default remote-player setup:
-        // - player name: "Remote Player"
-        // - IP code: (empty string)
-        // - default player type: human player
-        //defaultConfig.setRemoteData("Remote Player", "", 0); // remote player GUI
-        //done!
 
+        // return default game configuration
         return defaultConfig;
     }
 
