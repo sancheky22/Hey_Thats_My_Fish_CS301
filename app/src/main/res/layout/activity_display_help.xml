@@ -13,13 +13,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="\u25CF Place your penguins by tapping on a desired penguin then on a tile with 1 fish on it.
+        android:text="\u25CF Place your penguins by tapping on a desired penguin then on a highlighted tile!
         \n\u25CF Once all penguins are placed, players will take turns moving their penguins.
         \n\u25CF When you want to move a penguin the one you select enlarges!
         \n\u25CF You can only move your penguins in a straight line.
         \n\u25CF You can't move your penguin over another one even if its your own!
         \n\u25CF You also can't move a penguin over a empty space on the board.
-        \n\u25CF If a player has no move they can make on their turn, they are removed from the game!
+        \n\u25CF Tiles you can move to are highlighted yellow!
+        \n\u25CF If a player has no moves they can make on their turn, they are removed from the game!
         \n\u25CF The game ends when no players have legal moves."
         android:textColor="#000000"
         android:textSize="24sp"

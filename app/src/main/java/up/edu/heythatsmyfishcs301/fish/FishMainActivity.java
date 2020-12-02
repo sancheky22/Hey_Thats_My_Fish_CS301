@@ -11,9 +11,37 @@ import up.edu.heythatsmyfishcs301.game.LocalGame;
 import up.edu.heythatsmyfishcs301.game.config.GameConfig;
 import up.edu.heythatsmyfishcs301.game.config.GamePlayerType;
 
+/**
+ * Hey That's My Fish CS 301 (University of Portland)
+ * @author Kyle Sanchez
+ * @author Ryan Enslow
+ * @author Carina Pineda
+ * @author Linda Nguyen
+ *
+ * STATUS OF OUR GAME (FINAL RELEASE) (12/3/20):
+ *
+ * Since the Beta release we have added the following features to our game:
+ *  1. When the game first starts up music plays (ClubPenguin Pizza Parlor Theme)
+ *      a. When the restart button is pressed it stops playing and restarts playing the theme too
+ *      b. A "Mute/Unmute" button was added to the game which allows the user to turn on or off
+ *         the music whenever they want to! :) Depending on if it's muted or not the text of the
+ *         button changes to either "Mute" or "Unmute".
+ *  2. Tiles that a player can either place their penguin on, or move to are highlighted yellow.
+ *
+ *
+ * Known Bugs:
+ *
+ *  We still haven't been able to figure out how to prevent the game from crashing when it is
+ *  restarted multiple times on the ASUS tablets. This was a bug previously stated in our Beta
+ *  release. (Refer to GitHub issues page for error. "BitMap Resources causing memory overload")
+ *
+ *  Restart button appears elongated vertically on a mobile phone (doesn't happen on any of the tablets
+ *  we've tested however).
+ *
+ */
 
 /**
- * STATUS OF OUR GAME (BETA RELEASE) :
+ * STATUS OF OUR GAME (As of the BETA RELEASE) (11/24/20) :
  * The game is fully functional, and supporst all the rules of play we committed to implement in our
  * requirements. It is possible to play with any combination of players allowed by the requirements
  * and the rules of play.
@@ -47,9 +75,6 @@ import up.edu.heythatsmyfishcs301.game.config.GamePlayerType;
  *
  *
  */
-
-
-
 
 /**
  * This is the main activity, and the program is run from here.

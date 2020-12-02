@@ -278,6 +278,12 @@ public class FishView extends SurfaceView {
             bound.bottom += hexHeight * spacing;
             bound.top += hexHeight * spacing;
         }
+        // attempt to try to prevent the game from crashing due to Bitmaps causing memory overload
+        // reclaims memory used by bitmaps
+        resizedGreenPenguin.recycle();
+        resizedBluePenguin.recycle();
+        resizedRedPenguin.recycle();
+        resizedOrangePenguin.recycle();
     }
 
 
