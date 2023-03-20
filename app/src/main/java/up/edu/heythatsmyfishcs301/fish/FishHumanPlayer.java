@@ -224,13 +224,11 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         fishPlace.setOnTouchListener(this);
         surfaceView.setOnTouchListener(this);
 
-        //buttons
+        /** GUI Buttons and their appropriate listeners */
         restartButton = (Button) activity.findViewById(R.id.restartButton);
         restartButton.setOnClickListener(this);
-
         infoButton = (Button) activity.findViewById(R.id.infoButton);
         infoButton.setOnClickListener(this);
-
         muteButton = (Button) activity.findViewById(R.id.muteButton);
         muteButton.setOnClickListener(this);
 
@@ -246,7 +244,7 @@ public class FishHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     //This method controls all the touch events for the screen.
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-
+        // Get a double array of the board from the surface view
         FishTile[][] b = surfaceView.getGameState().getBoardState();
         rectArr = fishPlace.getRects();
 
