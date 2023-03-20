@@ -14,7 +14,7 @@ import up.edu.heythatsmyfishcs301.game.GameComputerPlayer;
  *
  **/
 public abstract class FishComputerPlayer extends GameComputerPlayer {
-    // boolean to represent if a player is no longer in the game
+    // Boolean to represent if a player is no longer in the game
     private boolean outOfGame;
 
     /**
@@ -24,16 +24,16 @@ public abstract class FishComputerPlayer extends GameComputerPlayer {
      */
     public FishComputerPlayer(String name) {
         super(name);
-        // setting out of game to false intially
+        // Setting out of game to false initially
         this.outOfGame = false;
     }
 
-    // getter and setters for outOfGame boolean
+    // Getter and setters for outOfGame boolean
     public boolean isOut(){
         return this.outOfGame;
     }
 
-    // setter for outOfGame boolean
+    // Setter for outOfGame boolean
     public void setOutOfGame(boolean b){
         this.outOfGame = b;
     }
