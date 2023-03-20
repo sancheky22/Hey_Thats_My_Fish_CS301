@@ -48,13 +48,13 @@ public class FishGameState extends GameState {
     //FishPenguin[][] is a 2d array to store all the penguins.
     private FishPenguin[][] pieceArray;
 
-    //ArrayList of integers that will hold 1s, 2s, or 3s.
-    //Will be used to randomly assign each tile a number of fish
+    // ArrayList of integers that will hold 1s, 2s, or 3s.
+    // Will be used to randomly assign each tile a number of fish
     ArrayList<Integer> fishArray = new ArrayList<>(60);
 
-    // Default constructor
 
     /**
+     * Default constructor
      * Creates an instance of the game state class
      *
      * @param n - number of players in the game (Initialized from the Main Activity)
@@ -293,9 +293,9 @@ public class FishGameState extends GameState {
             }
         }
 
-        //If the new move is up right diag or down left diag
+        //If the new move is up right diagonal or down left diagonal
         else {
-            //If s is positive, you are moving upper right diag
+            //If s is positive, you are moving upper right diagonal
             int s = Integer.signum(y-py);
             for (int i = s; i != y-py + s; i+=s){
                 if (boardState[px-i][py+i].hasPenguin() || !boardState[px-i][py+i].doesExist()){
@@ -344,13 +344,10 @@ public class FishGameState extends GameState {
      * Problem: wanted to index a hexagonal tiling in a clever way.
      * Resource: https://www.redblobgames.com/grids/hexagons/ ("Map storage in axial coordinates")
      *
-     *
-     *
-     *
      * Because there are three different independent directions player can move, we needed a third
      * way to check if they were moving in a straight line. So the solution to this is to just model
      * it cleverly as a 2d array by adding some offsets. The above resource explains it well, but
-     * basically it makes it very easy to check if you are moving in a striaght line.
+     * basically it makes it very easy to check if you are moving in a straight line.
      *
      * This is what a 6x4 hexagon array looks like in our 2d array. 0's represent hexes
      * and x's represent null spaces.
