@@ -37,24 +37,24 @@ public class FishComputerPlayer1 extends FishComputerPlayer {
      */
     @Override
     protected void receiveInfo(GameInfo info) {
-        // if it was a "not your turn" message, just ignore it
+        // If it was a "not your turn" message, just ignore it
         if (info instanceof NotYourTurnInfo){
             return;
         }
 
-        //if the info is not of a FishGameState, ignore because it will cause problems otherwise.
+        // If the info is not of a FishGameState, ignore because it will cause problems otherwise.
         if (!(info instanceof FishGameState)) {
             return;
         }
 
-        //Let copy be the copied state.
+        // Let copy be the copied state.
         copy = (FishGameState) info;
 
-        //get a copy of the board of tiles and the array of penguins
+        // Get a copy of the board of tiles and the array of penguins
         FishTile[][] pieceBoard = copy.getBoardState();
         FishPenguin[][] penguins = copy.getPieceArray();
 
-        //If the game phase is zero, then the computer needs to place a penguin
+        // If the game phase is zero, then the computer needs to place a penguin
         if (copy.getGamePhase() == 0){
             for (int x = 0; x < penguins[this.playerNum].length; x++){
                 if (!penguins[this.playerNum][x].isOnBoard()){
@@ -72,8 +72,8 @@ public class FishComputerPlayer1 extends FishComputerPlayer {
             }
         }
         else {
-            // loop through the board to see there is a penguin on the tile. If there is, it checks if the
-            //penguin belongs to the computer. If it does, it calls the computerMovePenguin
+            // Loop through the board to see there is a penguin on the tile. If there is, it checks if the
+            // penguin belongs to the computer. If it does, it calls the computerMovePenguin
             for (FishTile[] fishTiles : pieceBoard) {
                 for (FishTile fishTile : fishTiles) {
                     if (fishTile != null) {
@@ -104,11 +104,11 @@ public class FishComputerPlayer1 extends FishComputerPlayer {
     public boolean computerMovePenguin(FishPenguin p) {
         // Use the copyGameState to get a copy of the piece board
         FishTile[][] pieceBoard = copy.getBoardState();
-        // setting our boardState copy equal to the copy
+        // Setting our boardState copy equal to the copy
         boardState = copy.getBoardState();
 
 
-        //try to move horizontally to the right
+        // Try to move horizontally to the right
         if (p.getY() + 1 < 11 && (pieceBoard[p.getX()][p.getY() + 1] != null)) {
             if (!(pieceBoard[p.getX()][p.getY() + 1].hasPenguin()) &&
                     (pieceBoard[p.getX()][p.getY() + 1].doesExist())) {
@@ -124,7 +124,7 @@ public class FishComputerPlayer1 extends FishComputerPlayer {
         }
 
 
-        //try to move diagonally down to the right
+        // Try to move diagonally down to the right
         if (p.getX() + 1 < 8 && pieceBoard[p.getX() + 1][p.getY()] != null) {
             if (!(pieceBoard[p.getX() + 1][p.getY()].hasPenguin()) &&
                     (pieceBoard[p.getX() + 1][p.getY()].doesExist())) {
@@ -141,7 +141,7 @@ public class FishComputerPlayer1 extends FishComputerPlayer {
         }
 
 
-        //try to move diagonally down to the left
+        // Try to move diagonally down to the left
         if (p.getX() + 1 < 8 && p.getY() - 1 >= 0 && pieceBoard[p.getX() + 1][p.getY() - 1] != null) {
             if (!(pieceBoard[p.getX() + 1][p.getY() - 1].hasPenguin()) &&
                     (pieceBoard[p.getX() + 1][p.getY() - 1].doesExist())) {
@@ -157,7 +157,7 @@ public class FishComputerPlayer1 extends FishComputerPlayer {
         }
 
 
-        //try to move horizontally to the left
+        // Try to move horizontally to the left
         if (p.getY() - 1 >= 0 && pieceBoard[p.getX()][p.getY() - 1] != null) {
             if (!(pieceBoard[p.getX()][p.getY() - 1].hasPenguin()) &&
                     (pieceBoard[p.getX()][p.getY() - 1].doesExist())) {
@@ -173,7 +173,7 @@ public class FishComputerPlayer1 extends FishComputerPlayer {
         }
 
 
-        //try to move diagonally up to the left
+        // Try to move diagonally up to the left
         if (p.getX() - 1 >= 0 && pieceBoard[p.getX() - 1][p.getY()] != null) {
             if (!(pieceBoard[p.getX() - 1][p.getY()].hasPenguin()) &&
                     (pieceBoard[p.getX() - 1][p.getY()].doesExist())) {
@@ -189,7 +189,7 @@ public class FishComputerPlayer1 extends FishComputerPlayer {
         }
 
 
-        //try to move diagonally up to the right
+        // Try to move diagonally up to the right
         if (p.getX() - 1 >= 0 && p.getY() + 1 < 11 && pieceBoard[p.getX() - 1][p.getY() + 1] != null) {
             if (!(pieceBoard[p.getX() - 1][p.getY() + 1].hasPenguin()) &&
                     (pieceBoard[p.getX() - 1][p.getY() + 1].doesExist())) {
@@ -204,7 +204,7 @@ public class FishComputerPlayer1 extends FishComputerPlayer {
             }
         }
 
-        // if the computer can't make any moves, return false
+        // If the computer can't make any moves, return false
         return false;
     }
 }
