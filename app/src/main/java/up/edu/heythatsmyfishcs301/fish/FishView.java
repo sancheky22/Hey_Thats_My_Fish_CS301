@@ -44,11 +44,6 @@ public class FishView extends SurfaceView {
     Bitmap resizedBluePenguin = null;
     Bitmap greenPenguin = null;
     Bitmap resizedGreenPenguin = null;
-
-//    Bitmap cursedPenguin = null;
-//    Bitmap resizedCursedPenguin = null;
-
-
     Bitmap oneFish = null;
     Bitmap twoFish = null;
     Bitmap threeFish = null;
@@ -69,8 +64,6 @@ public class FishView extends SurfaceView {
     public FishView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
-
-        //final gamestate,
         gameState = new FishGameState(4);
 
         /**
@@ -100,7 +93,6 @@ public class FishView extends SurfaceView {
         orangePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.orangepenguin);
         bluePenguin = BitmapFactory.decodeResource(getResources(), R.drawable.bluepenguin);
         greenPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.greenpenguin);
-        //cursedPenguin = BitmapFactory.decodeResource(getResources(), R.drawable.cursed);
     }
 
 
@@ -153,8 +145,6 @@ public class FishView extends SurfaceView {
                 hexWidth - 20, false);
         resizedGreenPenguin = Bitmap.createScaledBitmap(greenPenguin, hexWidth - 20,
                 hexWidth - 20, false);
-       // resizedCursedPenguin = Bitmap.createScaledBitmap(cursedPenguin, hexWidth - 20,
-                // hexWidth - 20, false);
 
 
        /** Here, we go through the array and if the tile is null, then it is a placeholder and we
@@ -196,7 +186,7 @@ public class FishView extends SurfaceView {
                     s.right -= margin;
                     s.left += margin;
 
-                    //We set the hitbox for the Tile
+                    //We set the hit box for the Tile
                     tile.setBoundingBox(s);
                     hex.computeHex(s);
                     hex.draw(c);
