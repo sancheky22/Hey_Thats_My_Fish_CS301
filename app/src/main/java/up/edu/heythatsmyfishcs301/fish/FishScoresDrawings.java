@@ -33,6 +33,7 @@ public class FishScoresDrawings extends SurfaceView {
     Bitmap resizedRed = null;
     Bitmap resizedBlue = null;
     Bitmap resizedGreenFish = null;
+
     private Paint black = new Paint();
 
     int numPlayers = 2;
@@ -124,6 +125,7 @@ public class FishScoresDrawings extends SurfaceView {
         resizedRed = Bitmap.createScaledBitmap(redFish, size, size, false);
         resizedBlue = Bitmap.createScaledBitmap(blueFish, size, size, false);
         resizedGreenFish = Bitmap.createScaledBitmap(greenFish, size, size, false);
+
         /**
          *External Citation
          * Date: 9/18/20
