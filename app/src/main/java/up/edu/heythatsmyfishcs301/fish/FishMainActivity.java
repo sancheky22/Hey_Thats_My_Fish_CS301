@@ -113,14 +113,16 @@ public class FishMainActivity extends GameMainActivity {
             }
         });
 
-        // dumb computer player
+        // Computer Player 1: Dumb computer player
+        // This player moves randomly throughout the board
         playerTypes.add(new GamePlayerType("Computer Player (dumb)") {
             public GamePlayer createPlayer(String name) {
                 return new FishComputerPlayer1(name);
             }
         });
 
-        // smart computer player
+        // Computer Player 2: Smart computer player
+        // This player looks around the board and tries to get tiles with the most amount of fish
         playerTypes.add(new GamePlayerType("Computer Player (smart)") {
             public GamePlayer createPlayer(String name) {return new FishComputerPlayer2(name);
             }
@@ -139,7 +141,8 @@ public class FishMainActivity extends GameMainActivity {
 
     @Override
     public LocalGame createLocalGame(int numPlayers) {
-        // start the media player
+        // Start the media player
+        // This starts the playing of our games theme song
         startMedia();
 
         // return new local game

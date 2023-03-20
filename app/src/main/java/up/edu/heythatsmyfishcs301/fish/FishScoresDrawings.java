@@ -125,7 +125,6 @@ public class FishScoresDrawings extends SurfaceView {
         resizedRed = Bitmap.createScaledBitmap(redFish, size, size, false);
         resizedBlue = Bitmap.createScaledBitmap(blueFish, size, size, false);
         resizedGreenFish = Bitmap.createScaledBitmap(greenFish, size, size, false);
-       
 
         /**
          *External Citation

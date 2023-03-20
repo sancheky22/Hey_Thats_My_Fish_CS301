@@ -23,7 +23,7 @@ public class FishComputerPlayer2 extends FishComputerPlayer {
 
     // This classes' version of the state of the board
     private FishTile[][] boardState;
-    // Our copy of the gamestate which is initially set to null
+    // Our copy of the Game State which is initially set to null
     FishGameState copy = null;
 
     //Constructor for Computer Player 2
@@ -44,22 +44,21 @@ public class FishComputerPlayer2 extends FishComputerPlayer {
     //Computer Player 2 sends a random action to the game state.
     @Override
     protected void receiveInfo(GameInfo info) {
-        //this is correct one
-        // if it was a "not your turn" message, just ignore it
+        // If it was a "not your turn" message, just ignore it
         if (info instanceof NotYourTurnInfo){
             return;
         }
 
-        //if the info is not of a FishGameState, ignore because it will cause problems otherwise.
+        // If the info is not of a FishGameState, ignore because it will cause problems otherwise.
         if (!(info instanceof FishGameState)) {
             return;
         }
 
-        //get a copy of the gamestate and if it's not the player's turn, return
+        // Get a copy of the Game State and if it's not the player's turn, return
         copy = (FishGameState) info;
         if (copy.getPlayerTurn() != this.playerNum) return;
 
-        // get a copy of the tiles on the board and the penguin object array
+        // Get a copy of the tiles on the board and the penguin object array
         FishTile[][] pieceBoard = copy.getBoardState();
         FishPenguin[][] penguins = copy.getPieceArray();
 
@@ -72,9 +71,8 @@ public class FishComputerPlayer2 extends FishComputerPlayer {
          *
          * Solution: Used example code from this stackoverflow post
          */
-        //If the game phase is zero, then the computer needs to place a penguin
-        //If the game phase is set up (Placing Penguins)
-        // IDEA: When Comp player places penguins it puts it on tiles surrounded by the most fish
+        // If the game phase is zero, then the computer needs to place a penguin
+        // If the game phase is set up (Placing Penguins)
         if (copy.getGamePhase() == 0){
             // Random variable that will be used to select FishTiles out of of oneTiles array
             Random rand = new Random();
@@ -145,7 +143,7 @@ public class FishComputerPlayer2 extends FishComputerPlayer {
         FishTile[][] pieceBoard = copy.getBoardState();
         boardState = copy.getBoardState();
 
-        //If the move is legal, then add to the player's score the fish on the tile and remove the
+        // If the move is legal, then add to the player's score the fish on the tile and remove the
         // tile from the game. Then pass the turn.
         // algorithm finds optimal move and sends it to the local game
 
